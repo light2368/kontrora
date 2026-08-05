@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Worklo</title>
+  <meta name="description" content="Worklo was built by a student-run marketing agency that got tired of juggling five tools just to answer one question: do we have capacity?" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="icon" href="/images/tab-logo.gif" type="image/gif" sizes="192x192" /><link rel="apple-touch-icon" sizes="180x180" href="/images/tab-logo.gif" /><link rel="shortcut icon" href="/images/tab-logo.gif" />
+  <style>
+    /* -$ Value cards - tile mosaic -$ */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      counter-reset: value-counter;
+    }
+    .value-card {
+      background: var(--dark, #0A1020);
+      border: none;
+      border-radius: 0;
+      padding: 36px 28px 32px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: background 0.25s ease;
+      counter-increment: value-counter;
+    }
+    /* Top accent bar */
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .value-card:nth-child(1)::before { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+    .value-card:nth-child(2)::before { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
+    .value-card:nth-child(3)::before { background: linear-gradient(90deg, #06B6D4, #22D3EE); }
+    .value-card:nth-child(4)::before { background: linear-gradient(90deg, #10B981, #34D399); }
+    .value-card:nth-child(5)::before { background: linear-gradient(90deg, #F59E0B, #FCD34D); }
+    .value-card:nth-child(6)::before { background: linear-gradient(90deg, #EC4899, #F472B6); }
+    /* Ghost number watermark */
+    .value-card::after {
+      content: counter(value-counter, decimal-leading-zero);
+      position: absolute;
+      bottom: -10px; right: 14px;
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(255,255,255,0.04);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+    .value-card:hover { background: var(--elevated, #152035); }
+    .value-card:hover::before { opacity: 1; }
+
+    /* Icon wrapper - colored per position */
+    .value-card .icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+      flex-shrink: 0;
+    }
+    .value-card:nth-child(1) .icon { background: rgba(59,130,246,0.15); color: #60A5FA; border: 1px solid rgba(59,130,246,0.25); }
+    .value-card:nth-child(2) .icon { background: rgba(139,92,246,0.15); color: #A78BFA; border: 1px solid rgba(139,92,246,0.25); }
+    .value-card:nth-child(3) .icon { background: rgba(6,182,212,0.15); color: #22D3EE; border: 1px solid rgba(6,182,212,0.25); }
+    .value-card:nth-child(4) .icon { background: rgba(16,185,129,0.15); color: #34D399; border: 1px solid rgba(16,185,129,0.25); }
+    .value-card:nth-child(5) .icon { background: rgba(245,158,11,0.15); color: #FCD34D; border: 1px solid rgba(245,158,11,0.25); }
+    .value-card:nth-child(6) .icon { background: rgba(236,72,153,0.15); color: #F472B6; border: 1px solid rgba(236,72,153,0.25); }
+    .value-card:hover .icon { transform: scale(1.1) rotate(-5deg); }
+    .value-card h3 { margin-bottom: 10px; font-size: 1rem; }
+    .value-card p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
+    /* ── Tech Stack — clean list ── */
+    .stack-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .stack-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      cursor: default;
+      transition: background 0.2s ease;
+    }
+    .stack-row:nth-child(even) {
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+    .stack-row:nth-last-child(1),
+    .stack-row:nth-last-child(2) {
+      border-bottom: none;
+    }
+    .stack-row:hover { background: rgba(255,255,255,0.03); }
+
+    /* Brand icon */
+    .stack-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      opacity: 0.7;
+      transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1);
+      object-fit: contain;
+    }
+    .stack-row:hover .stack-icon {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+
+    .stack-row-body { flex: 1; min-width: 0; }
+    .stack-row-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin-bottom: 2px;
+    }
+    .stack-row-desc {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.32);
+    }
+    .stack-row-cat {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.18);
+      white-space: nowrap;
+      transition: color 0.2s ease;
+    }
+    .stack-row:hover .stack-row-cat { color: rgba(255,255,255,0.45); }
+
+    @media (max-width: 640px) {
+      .stack-list { grid-template-columns: 1fr; }
+      .stack-row:nth-child(even) { border-left: none; }
+      .stack-row:nth-last-child(2) { border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .stack-row:nth-last-child(1) { border-bottom: none; }
+    }
+    .origin-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .origin-block p { font-size: 1rem; line-height: 1.8; margin-bottom: 16px; }
+    .origin-block p:last-child { margin-bottom: 0; }
+
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      margin-top: 64px;
+    }
+    .stat-box {
+      background: var(--dark, #0A1020);
+      border: none;
+      border-radius: 0;
+      padding: 32px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s ease;
+      cursor: default;
+    }
+    /* Top accent bar per nth-child */
+    .stat-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .stat-box:nth-child(1)::before { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+    .stat-box:nth-child(2)::before { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
+    .stat-box:nth-child(3)::before { background: linear-gradient(90deg, #06B6D4, #22D3EE); }
+    .stat-box:nth-child(4)::before { background: linear-gradient(90deg, #10B981, #34D399); }
+    .stat-box:hover { background: var(--elevated, #152035); }
+    .stat-box:hover::before { opacity: 1; }
+    .stat-box .num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--blue);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-box .lbl {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--blue), var(--border));
+    }
+    .timeline-item {
+      padding-left: 36px;
+      padding-bottom: 40px;
+      position: relative;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: 2px solid var(--black);
+      box-shadow: 0 0 10px var(--blue-glow);
+    }
+    .timeline-date {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .timeline-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* Team photo */
+    .team-photo-wrap {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 48px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+      position: relative;
+    }
+    .team-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(8,11,15,0.6) 100%);
+      pointer-events: none;
+    }
+    .team-photo {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Team flip cards */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .team-card {
+      perspective: 1000px;
+      height: 340px;
+      cursor: pointer;
+      position: relative;
+    }
+    .team-card-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.16,1,0.3,1);
+      border-radius: var(--radius-xl);
+    }
+    .team-card.flipped .team-card-inner {
+      transform: rotateY(180deg);
+    }
+    .team-card-front,
+    .team-card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    /* Front */
+    .team-card-front {
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+    }
+    .team-card-front .team-photo-area {
+      flex: 1;
+      overflow: hidden;
+    }
+    .team-card-front .team-photo-area img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .team-card:hover .team-card-front .team-photo-area img {
+      transform: scale(1.04);
+    }
+    .team-card-front .team-info {
+      padding: 14px 16px 12px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .team-card-front .team-info-text { text-align: left; }
+    .team-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; color: var(--text-primary); }
+    .team-role { font-size: 0.75rem; color: var(--blue); font-weight: 600; }
+    .bio-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 10px;
+      white-space: nowrap;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      flex-shrink: 0;
+    }
+    .bio-btn:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .bio-btn svg { flex-shrink: 0; }
+    /* Back */
+    .team-card-back {
+      background: var(--surface);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 28px 24px;
+      text-align: left;
+    }
+    .team-card-back .team-name { font-size: 1rem; margin-bottom: 3px; }
+    .team-card-back .team-role { font-size: 0.78rem; margin-bottom: 16px; display: block; }
+    .team-card-back .team-bio {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .back-close-btn {
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 10px;
+      width: fit-content;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .back-close-btn:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+    /* Mission statement */
+    .mission-block {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .mission-block blockquote {
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .mission-block blockquote::before {
+      content: '"';
+      font-size: 5rem;
+      color: var(--blue);
+      opacity: 0.3;
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+    .mission-block cite {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-style: normal;
+    }
+
+    @media (max-width: 1024px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .values-grid { grid-template-columns: 1fr; }
+      .stack-list { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .team-card { height: 360px; }
+    }
+
+    /* -$ Stat boxes -$ */
+
+    /* -$ Team cards -$ */
+    .team-card {
+      position: relative;
+    }
+    .team-card-front {
+      transition: border-color 0.3s ease;
+    }
+    .team-card:hover .team-card-front {
+      border-color: rgba(59,130,246,0.35);
+    }
+
+    /* -$ Origin block -$ */
+    .origin-block {
+      transition: border-color 0.3s ease, box-shadow 0.4s ease;
+    }
+    .origin-block:hover {
+      border-color: rgba(59,130,246,0.5);
+      box-shadow: 0 0 40px rgba(59,130,246,0.07), 0 24px 48px rgba(0,0,0,0.3);
+    }
+
+    /* -$ Timeline items -$ */
+    .timeline-item {
+      transition: padding-left 0.3s ease;
+    }
+    .timeline-item:hover { padding-left: 44px; }
+    .timeline-item:hover .timeline-title { color: var(--blue); }
+    .timeline-title { transition: color 0.25s ease; }
+
+    /* -$ Scroll reveal for about page -$ */
+    .about-reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .about-reveal.visible { opacity: 1; transform: none; }
+    .about-reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .about-reveal-left.visible { opacity: 1; transform: none; }
+  </style>
+<link rel="manifest" href="/manifest.json" /><meta name="theme-color" content="#00C2A8" /><meta name="mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/images/logo.gif" alt="Worklo" /></a>
+    <ul class="nav-links">
+      <li><a href="/features">Features</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/roadmap">Roadmap</a></li>
+      <li><a href="https://demo.worklo.org/" target="_blank" rel="noopener">Live Demo</a></li>
+      <li class="nav-dropdown">
+        <a href="#">Company <i data-lucide="chevron-down" class="chevron"></i></a>
+        <div class="dropdown-menu">
+          <a href="/about" class="dropdown-item">
+            <h4>About</h4>
+            <p>Our story, mission, and the team behind Worklo</p>
+          </a>
+          <a href="/careers" class="dropdown-item">
+            <h4>Careers</h4>
+            <p>Join us and help build the future of agency operations</p>
+          </a>
+          <a href="/contact" class="dropdown-item">
+            <h4>Contact</h4>
+            <p>Get in touch for support or questions</p>
+          </a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <a class="btn btn-outline nav-download-btn" href="https://app.worklo.org/">
+        Start free trial
+      </a>
+      <div id="nav-actions-auth"></div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/features">Features</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/roadmap">Roadmap</a>
+  <a href="https://demo.worklo.org/" target="_blank" rel="noopener">Live Demo</a>
+  <a href="/about">About</a>
+  <a href="/careers">Careers</a>
+  <a href="/contact">Contact</a>
+  <a href="https://app.worklo.org/">Start free trial</a>
+  <div id="mobile-auth-slot"></div>
+</div>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="section-label">About</span>
+    <h1>Built from <span class="gradient-text">real frustration</span></h1>
+    <p>Worklo PSA wasn't designed in a boardroom. It was built by people who lived the problem every day.</p>
+  </div>
+</div>
+
+<!-- Body sections with video background -->
+<div class="video-section-wrap">
+
+<!-- Origin Story -->
+<section style="padding-top: 0;">
+  <div class="container">
+    <div class="origin-block fade-up">
+      <p>Worklo started inside a student-run marketing agency managing <strong style="color:var(--text-primary)">11 client accounts</strong> across <strong style="color:var(--text-primary)">8 departments</strong> with <strong style="color:var(--text-primary)">15+ members</strong>. Every week, the same question came up: <em>"Do we have capacity for this?"</em> - and nobody could answer it without hours of digging through spreadsheets, Slack threads, and Monday.com boards.</p>
+      <p>The team was running Basecamp, Monday.com, Notion, MS Planner, and Slack simultaneously. Each tool solved one problem and created three more. Onboarding new members meant teaching five different systems. Clients emailed constantly because they had no visibility. SOPs lived in 30-page PDFs that nobody read.</p>
+      <p>So we built Worklo - one platform that replaces all of it. Not a feature-padded enterprise suite, but a focused tool that answers the questions agencies actually ask every day.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row fade-up">
+      <div class="stat-box">
+        <div class="num">11</div>
+        <div class="lbl">Client accounts managed</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">15+</div>
+        <div class="lbl">Team members</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">5+1</div>
+        <div class="lbl">Tools replaced by Worklo</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">v1.0</div>
+        <div class="lbl">Shipped in 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mission -->
+<section style="background: var(--dark);">
+  <div class="container">
+    <div class="mission-block fade-up">
+      <blockquote>Agency operations shouldn't require a full-time systems administrator. One platform, one source of truth - that's the whole idea.</blockquote>
+      <cite>- The Worklo Team</cite>
+    </div>
+  </div>
+</section>
+
+<!-- Why We Built It -->
+<section>
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">The Problem We Solved</span>
+      <h2>Why we launched Worklo</h2>
+      <p>Three specific pain points drove every decision we made.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon">
+          <i data-lucide="alert-circle"></i>
+        </div>
+        <h3>The capacity blindspot</h3>
+        <p>Every agency we talked to had the same problem: nobody knew if the team had room for new work until it was too late. Spreadsheets, gut feelings, and "ask around" were the only tools. We built real-time capacity planning so you can answer "can we take this?" in seconds, not hours.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">
+          <i data-lucide="file-text"></i>
+        </div>
+        <h3>SOPs nobody follows</h3>
+        <p>Standard operating procedures written in Notion or Google Docs get ignored the moment a project gets busy. We replaced static documents with visual, enforced workflows - processes that guide your team through every step, with audit trails and automatic handoffs.</p>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">
+          <i data-lucide="message-square"></i>
+        </div>
+        <h3>The client update loop</h3>
+        <p>"Any updates?" - the three words every account manager dreads. Clients email because they have no visibility. We built a secure client portal that gives every client a live window into their projects, approvals, and feedback - without exposing your internal operations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section style="background: var(--dark);">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Our Journey</span>
+      <h2>How we got here</h2>
+    </div>
+    <div class="timeline fade-up">
+      <div class="timeline-item">
+        <div class="timeline-date">Early 2025</div>
+        <div class="timeline-title">The problem becomes undeniable</div>
+        <div class="timeline-desc">Running a 60-person student agency on five disconnected tools, we hit a wall. A major client project slipped because nobody knew two key team members were already at 100% capacity. That was the moment we decided to build something better.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Mid 2025</div>
+        <div class="timeline-title">First prototype</div>
+        <div class="timeline-desc">We built a rough internal tool to track capacity and projects in one place. It was ugly, but it worked. The team immediately stopped using Monday.com for capacity questions. That validation pushed us to build it properly.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Late 2025</div>
+        <div class="timeline-title">Full platform development begins</div>
+        <div class="timeline-desc">We rebuilt from scratch on Next.js 15, TypeScript, an Express API layer, and Supabase. Added workflow automation, the client portal, hybrid RBAC with RLS, and analytics. Ran it internally across all 11 client accounts for six months of real-world testing.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026</div>
+        <div class="timeline-title">v1.0.0 - Public launch</div>
+        <div class="timeline-desc">Worklo v1.0.0 ships publicly. Full feature set: project management, time tracking, capacity planning, visual workflow builder, client portal, and enterprise-grade RBAC. Self-hosted, open source, and free to use.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2026 +</div>
+        <div class="timeline-title">Growing with the community</div>
+        <div class="timeline-desc">Analytics enhancements, branded client portals, revenue tracking, and AI-assisted capacity recommendations are on the roadmap. Every feature is shaped by real agency feedback from our Discord community.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values -->
+<section style="background: var(--dark);">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Values</span>
+      <h2>What we believe</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card fade-up">
+        <div class="icon"><i data-lucide="focus"></i></div>
+        <h3>Focused, not bloated</h3>
+        <p>Every feature in Worklo solves a real problem. We don't add things to pad a feature list - we add them when they make your work meaningfully better.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="icon"><i data-lucide="lock"></i></div>
+        <h3>Open by default</h3>
+        <p>Worklo is open source. Your data belongs to you. Self-host it, fork it, modify it. No vendor lock-in, no surprise pricing changes.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="icon"><i data-lucide="shield"></i></div>
+        <h3>Security-first</h3>
+        <p>Row Level Security at the database layer, not just application logic. We treat security as a foundation, not an afterthought.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="icon"><i data-lucide="trending-up"></i></div>
+        <h3>Speed matters</h3>
+        <p>A tool that's slow to use gets abandoned. Worklo is built on Next.js 15 with React Server Components for performance that doesn't get in your way.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="icon"><i data-lucide="git-merge"></i></div>
+        <h3>Built with the community</h3>
+        <p>The best ideas come from the people using the product. Our Discord community shapes the roadmap. Your feedback matters.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="icon"><i data-lucide="layers"></i></div>
+        <h3>Structure without rigidity</h3>
+        <p>Guardrails that guide, not handcuffs that constrain. Worklo gives your team structure while leaving room for how you actually work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Stack -->
+<section>
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Tech Stack</span>
+      <h2>Modern and maintainable</h2>
+      <p>Built on proven, well-supported technologies. No exotic dependencies, no lock-in.</p>
+    </div>
+    <div class="stack-list fade-up">
+      <div class="stack-row">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="Next.js" />
+        <div class="stack-row-body">
+          <div class="stack-row-name">Next.js 15</div>
+          <div class="stack-row-desc">App Router + React Server Components</div>
+        </div>
+        <span class="stack-row-cat">Frontend</span>
+      </div>
+      <div class="stack-row">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript" />
+        <div class="stack-row-body">
+          <div class="stack-row-name">TypeScript</div>
+          <div class="stack-row-desc">End-to-end type safety</div>
+        </div>
+        <span class="stack-row-cat">Language</span>
+      </div>
+      <div class="stack-row">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase" />
+        <div class="stack-row-body">
+          <div class="stack-row-name">Supabase</div>
+          <div class="stack-row-desc">PostgreSQL + Row Level Security</div>
+        </div>
+        <span class="stack-row-cat">Database</span>
+      </div>
+      <div class="stack-row">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="Tailwind CSS" />
+        <div class="stack-row-body">
+          <div class="stack-row-name">Tailwind CSS 4</div>
+          <div class="stack-row-desc">Utility-first styling</div>
+        </div>
+        <span class="stack-row-cat">Styling</span>
+      </div>
+      <div class="stack-row">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/shadcnui/ffffff" alt="shadcn/ui" />
+        <div class="stack-row-body">
+          <div class="stack-row-name">shadcn/ui</div>
+          <div class="stack-row-desc">Accessible component primitives</div>
+        </div>
+        <span class="stack-row-cat">Components</span>
+      </div>
+      <div class="stack-row">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" />
+        <div class="stack-row-body">
+          <div class="stack-row-name">Recharts</div>
+          <div class="stack-row-desc">Data visualization</div>
+        </div>
+        <span class="stack-row-cat">Charts</span>
+      </div>
+      <div class="stack-row">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/zod/3E67B1" alt="Zod" />
+        <div class="stack-row-body">
+          <div class="stack-row-name">Zod</div>
+          <div class="stack-row-desc">Schema validation</div>
+        </div>
+        <span class="stack-row-cat">Validation</span>
+      </div>
+      <div class="stack-row">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" />
+        <div class="stack-row-body">
+          <div class="stack-row-name">Docker</div>
+          <div class="stack-row-desc">Self-hosted deployment</div>
+        </div>
+        <span class="stack-row-cat">Deploy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- end video-section-wrap -->
+
+
+<!-- Footer -->
+<style>
+footer{background:#000;border-top:1px solid rgba(255,255,255,.08);padding:80px 0 0}
+footer .container{position:relative;z-index:1}
+.fnw{display:grid;grid-template-columns:1.1fr 1fr 1.5fr;gap:60px;align-items:start}
+.fnw .c1 h4,.fnw .c2 h4{font-size:1rem;font-weight:700;color:#fff;margin:0 0 20px;letter-spacing:-.01em;text-transform:none;background:none;-webkit-text-fill-color:#fff}
+.fnw .socials{display:flex;gap:8px;margin-bottom:28px}
+.fnw .socials a{width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:background .2s,transform .2s;flex-shrink:0}
+.fnw .socials a svg{width:13px;height:13px}
+.fnw .socials a:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.fnw .ph-block{margin-bottom:22px}
+.fnw .ph-block>svg,.fnw .ad-block>svg{display:block;color:rgba(255,255,255,.65);margin-bottom:10px;width:22px;height:22px}
+.fnw .ph-block a{display:block;font-size:.83rem;color:rgba(255,255,255,.45);text-decoration:none;line-height:1.9;transition:color .2s}
+.fnw .ph-block a:hover{color:#fff}
+.fnw .ad-block{margin-bottom:28px}
+.fnw .ad-block p{font-size:.83rem!important;color:rgba(255,255,255,.55)!important;line-height:1.7!important;margin:0!important;display:block!important;visibility:visible!important;}
+.fnw .logo-banner{width:100%;padding:16px 0;background:none;border:none;display:flex;align-items:center;justify-content:flex-start;margin-top:8px}
+.fnw .logo-banner img{height:120px;width:auto;max-width:100%;object-fit:contain;filter:brightness(1.2) drop-shadow(0 0 24px rgba(59,130,246,.35))}
+.fnw .c2 ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.fnw .c2 ul li a{font-size:.84rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;display:block;padding:0}
+.fnw .c2 ul li a:hover{color:rgba(255,255,255,.85)}
+.fnw .c3 h3{font-size:1.9rem;font-weight:700;color:#fff;line-height:1.15;margin:0 0 8px;letter-spacing:-.02em;background:none;-webkit-text-fill-color:#fff}
+.fnw .c3 .sub{font-size:.78rem;color:rgba(255,255,255,.32);margin-bottom:24px;line-height:1.6}
+.fnw .c3 form{display:flex;flex-direction:column;gap:0}
+.fnw .c3 input,.fnw .c3 select,.fnw .c3 textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.12);border-radius:0;padding:14px 0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.84rem;color:rgba(255,255,255,.65);outline:none;box-shadow:none;transition:border-color .2s}
+.fnw .c3 input::placeholder,.fnw .c3 textarea::placeholder{color:rgba(255,255,255,.25)}
+.fnw .c3 input:focus,.fnw .c3 select:focus,.fnw .c3 textarea:focus{border-bottom-color:rgba(255,255,255,.45);background:transparent;box-shadow:none}
+.fnw .c3 select{color:rgba(255,255,255,.3);cursor:pointer;-webkit-appearance:none;appearance:none}
+.fnw .c3 select option{background:#111;color:#fff}
+.fnw .c3 textarea{resize:none;min-height:72px}
+.fnw .c3 button{width:100%;padding:14px;border-radius:50px;background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.88rem;font-weight:700;border:none;cursor:pointer;margin-top:20px;transition:background .2s,transform .15s}
+.fnw .c3 button:hover{background:#e8e8e8;transform:translateY(-1px)}
+.fnw .footer-location{display:flex;align-items:flex-start;gap:7px;font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.6;margin-top:4px}
+.fn-bot{border-top:1px solid rgba(255,255,255,.07);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.fn-bot p{font-size:.76rem;color:rgba(255,255,255,.22);margin:0}
+.fn-bot-links{display:flex;gap:20px}
+.fn-bot-links a{font-size:.76rem;color:rgba(255,255,255,.22);text-decoration:none;transition:color .2s}
+.fn-bot-links a:hover{color:#fff}
+@media(max-width:960px){.fnw{grid-template-columns:1fr 1fr;gap:40px}.fnw .c3{grid-column:1/-1}}
+@media(max-width:600px){.fnw{grid-template-columns:1fr;gap:32px}footer{padding:48px 0 0}.fnw .logo-banner img{height:80px}.fnw .c3 h3{font-size:1.5rem}.fn-bot{flex-direction:column;align-items:flex-start;gap:8px}.fn-bot-links{gap:14px}}
+</style>
+
+<footer>
+  <div class="container">
+    <div class="fnw">
+      <div class="c1">
+        <h4>Contact Us</h4>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/worklo-psa/" target="_blank" rel="noopener" aria-label="LinkedIn" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a href="https://github.com/worklo-psa" target="_blank" rel="noopener" aria-label="GitHub" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+        <div class="ph-block">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <a href="tel:+19296129360">+1 (929) 612 9360</a>
+        </div>
+        <div class="ph-block">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <a href="mailto:support@worklo.org">support@worklo.org</a>
+        </div>
+        <div class="ph-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <a href="https://maps.google.com/?q=888+Broadway+New+York+NY" target="_blank" rel="noopener">888 Broadway, Floor 4,<br>New York, NY 10003, US</a>
+        </div>
+        
+        <div class="logo-banner">
+          <img src="/images/logo.gif" alt="Worklo" />
+        </div>
+      </div>
+      <div class="c2">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/features">Features</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/roadmap">Roadmap</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="c3">
+        <h3>Send Us<br>A Message</h3>
+        <p class="sub">Kindly fill this form. Average response is within 24hrs.</p>
+        <form id="fn-contact-form" novalidate>
+          <input type="text" placeholder="Your name" name="name" required />
+          <input type="email" placeholder="Your email" name="email" required />
+          <select name="subject"><option value="" disabled selected>Select...</option><option value="demo">Request a demo</option><option value="support">Technical support</option><option value="pricing">Pricing inquiry</option><option value="other">Other</option></select>
+          <textarea placeholder="Your message..." name="message" required></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="fn-bot">
+      <p>&copy; 2026 Worklo. All rights reserved.</p>
+      <div class="fn-bot-links">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/js/main.js"></script>
+<script src="/js/chatbot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/auth.js"></script>
+<script>
+  document.querySelectorAll('.bio-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      // Close all other open cards first
+      document.querySelectorAll('.team-card.flipped').forEach(function(card) {
+        card.classList.remove('flipped');
+      });
+      btn.closest('.team-card').classList.add('flipped');
+    });
+  });
+  document.querySelectorAll('.back-close-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      btn.closest('.team-card').classList.remove('flipped');
+    });
+  });
+</script>
+<script>document.addEventListener("DOMContentLoaded",function(){lucide.createIcons();});</script>
+</body>
+</html>

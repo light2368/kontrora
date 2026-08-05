@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadmap - Worklo</title>
+  <meta name="description" content="Worklo product roadmap. Our development priorities and upcoming features." />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="icon" href="/images/tab-logo.gif" type="image/gif" sizes="192x192" /><link rel="apple-touch-icon" sizes="180x180" href="/images/tab-logo.gif" /><link rel="shortcut icon" href="/images/tab-logo.gif" />
+  <style>
+    /* -$ Timeline layout -$ */
+    .roadmap-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+    .roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      left: 140px;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--blue), var(--border), var(--border), transparent);
+    }
+
+    .timeline-block {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0 40px;
+      align-items: start;
+    }
+
+    /* Left: quarter label */
+    .timeline-label {
+      text-align: right;
+      padding-top: 6px;
+      padding-right: 40px;
+      position: relative;
+    }
+    .timeline-label::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: 12px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: 2px solid var(--black);
+      box-shadow: 0 0 10px var(--blue-glow);
+    }
+    .timeline-label .quarter {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .timeline-label .year {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .status-badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .status-released  { background: rgba(16,185,129,0.12); color: var(--success); border: 1px solid rgba(16,185,129,0.25); }
+    .status-released .dot  { background: var(--success); animation: pulse 2s infinite; }
+    .status-progress  { background: rgba(59,130,246,0.12); color: var(--blue); border: 1px solid rgba(59,130,246,0.25); }
+    .status-progress .dot  { background: var(--blue); animation: pulse 2s infinite; }
+    .status-planned   { background: rgba(139,155,180,0.1); color: var(--text-secondary); border: 1px solid rgba(139,155,180,0.15); }
+    .status-planned .dot   { background: var(--text-muted); }
+
+    /* Phase header */
+    .phase-header { margin-bottom: 20px; }
+    .phase-header h2 { font-size: 1.3rem; margin-bottom: 4px; }
+    .phase-header p  { font-size: 0.88rem; }
+
+    /* Feature group cards */
+    .feature-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+      gap: 16px;
+      background: transparent;
+      border-radius: 16px;
+      overflow: hidden;
+      border: none;
+    }
+
+    .group-card {
+      background: var(--dark, #0A1020);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 24px;
+      cursor: pointer;
+      transition: background 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Unique top accent bar — cycles through colors */
+    .group-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .group-card:nth-child(1)::before { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+    .group-card:nth-child(2)::before { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
+    .group-card:nth-child(3)::before { background: linear-gradient(90deg, #06B6D4, #22D3EE); }
+    .group-card:nth-child(4)::before { background: linear-gradient(90deg, #10B981, #34D399); }
+    .group-card:nth-child(5)::before { background: linear-gradient(90deg, #F59E0B, #FCD34D); }
+    .group-card:nth-child(6)::before { background: linear-gradient(90deg, #EC4899, #F472B6); }
+
+    .group-card:hover { background: var(--elevated, #152035); }
+    .group-card:hover::before { opacity: 1; }
+
+    /* Released cards — always show green bar */
+    .group-card.released::before {
+      background: linear-gradient(90deg, #10B981, #34D399);
+      opacity: 1;
+    }
+    .group-card.released { background: rgba(16,185,129,0.04); }
+    .group-card.released:hover { background: rgba(16,185,129,0.08); }
+
+    .group-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .group-card:nth-child(1) .group-icon { background: rgba(59,130,246,0.15); color: #60A5FA; border: 1px solid rgba(59,130,246,0.25); }
+    .group-card:nth-child(2) .group-icon { background: rgba(139,92,246,0.15); color: #A78BFA; border: 1px solid rgba(139,92,246,0.25); }
+    .group-card:nth-child(3) .group-icon { background: rgba(6,182,212,0.15); color: #22D3EE; border: 1px solid rgba(6,182,212,0.25); }
+    .group-card:nth-child(4) .group-icon { background: rgba(16,185,129,0.15); color: #34D399; border: 1px solid rgba(16,185,129,0.25); }
+    .group-card:nth-child(5) .group-icon { background: rgba(245,158,11,0.15); color: #FCD34D; border: 1px solid rgba(245,158,11,0.25); }
+    .group-card:nth-child(6) .group-icon { background: rgba(236,72,153,0.15); color: #F472B6; border: 1px solid rgba(236,72,153,0.25); }
+    .group-card.released .group-icon { background: rgba(16,185,129,0.15); color: #34D399; border: 1px solid rgba(16,185,129,0.25); }
+    .group-card:hover .group-icon { transform: scale(1.1) rotate(-5deg); }
+    .group-name { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .group-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .group-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .group-features li {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .group-features li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 7px;
+      height: 7px;
+      margin-top: 5px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.35);
+    }
+    .group-features li.done { color: var(--text-muted); text-decoration: line-through; }
+    .group-features li.done::before {
+      content: '\2713';
+      width: auto;
+      height: auto;
+      margin-top: 2px;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: var(--success);
+      font-size: 0.72rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    /* Detail modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      max-width: 520px;
+      width: 100%;
+      position: relative;
+      animation: modalIn 0.25s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-radius: 50%;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition), color var(--transition);
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); color: var(--text-primary); }
+    .modal-icon-box {
+      width: 52px;
+      height: 52px;
+      background: var(--blue-dim);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--blue);
+    }
+    .modal-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+    .modal-phase { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; }
+    .modal-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .modal-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.9rem; color: var(--text-secondary);
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.03);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .modal-list li .li-icon { flex-shrink: 0; font-size: 1rem; }
+
+    /* Priority section */
+    .priority-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      margin-top: 48px;
+    }
+    .priority-card {
+      background: var(--dark, #0A1020);
+      border: none;
+      border-radius: 0;
+      padding: 28px 24px;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s ease;
+      counter-increment: priority-counter;
+    }
+    .priority-grid { counter-reset: priority-counter; }
+
+    .priority-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .priority-card:nth-child(1)::before { background: linear-gradient(90deg, #F59E0B, #FCD34D); }
+    .priority-card:nth-child(2)::before { background: linear-gradient(90deg, #3B82F6, #00C2A8); }
+    .priority-card:nth-child(3)::before { background: linear-gradient(90deg, #10B981, #34D399); }
+
+    .priority-card::after {
+      content: counter(priority-counter, decimal-leading-zero);
+      position: absolute;
+      bottom: -10px; right: 14px;
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(255,255,255,0.04);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+
+    .priority-card:hover { background: var(--elevated, #152035); }
+    .priority-card:hover::before { opacity: 1; }
+
+    .priority-card .icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .priority-card:nth-child(1) .icon { background: rgba(245,158,11,0.15); color: #FCD34D; border: 1px solid rgba(245,158,11,0.25); }
+    .priority-card:nth-child(2) .icon { background: rgba(59,130,246,0.15); color: #60A5FA; border: 1px solid rgba(59,130,246,0.25); }
+    .priority-card:nth-child(3) .icon { background: rgba(16,185,129,0.15); color: #34D399; border: 1px solid rgba(16,185,129,0.25); }
+    .priority-card:hover .icon { transform: scale(1.1) rotate(-5deg); }
+
+    .priority-card h4 { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .priority-card p  { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .roadmap-timeline::before { left: 0; }
+      .timeline-block { grid-template-columns: 1fr; }
+      .timeline-label { text-align: left; padding-right: 0; padding-left: 20px; margin-bottom: 16px; }
+      .timeline-label::after { left: 0; right: auto; }
+      .priority-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+<link rel="manifest" href="/manifest.json" /><meta name="theme-color" content="#00C2A8" /><meta name="mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+</head>
+<body>
+
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/images/logo.gif" alt="Worklo" /></a>
+    <ul class="nav-links">
+      <li><a href="/features">Features</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/roadmap" class="active">Roadmap</a></li>
+      <li><a href="https://demo.worklo.org/" target="_blank" rel="noopener">Live Demo</a></li>
+      <li class="nav-dropdown">
+        <a href="#">Company <i data-lucide="chevron-down" class="chevron"></i></a>
+        <div class="dropdown-menu">
+          <a href="/about" class="dropdown-item">
+            <h4>About</h4>
+            <p>Our story, mission, and the team behind Worklo</p>
+          </a>
+          <a href="/careers" class="dropdown-item">
+            <h4>Careers</h4>
+            <p>Join us and help build the future of agency operations</p>
+          </a>
+          <a href="/contact" class="dropdown-item">
+            <h4>Contact</h4>
+            <p>Get in touch for support or questions</p>
+          </a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions" id="nav-actions">
+      <a class="btn btn-outline nav-download-btn" href="https://app.worklo.org/">Start free trial</a>
+      <div id="nav-actions-auth"></div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/features">Features</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/roadmap">Roadmap</a>
+  <a href="https://demo.worklo.org/" target="_blank" rel="noopener">Live Demo</a>
+  <a href="/about">About</a>
+  <a href="/careers">Careers</a>
+  <a href="/contact">Contact</a>
+  <a href="https://app.worklo.org/">Start free trial</a>
+  <div id="mobile-auth-slot"></div>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="container">
+    <span class="section-label">Roadmap</span>
+    <h1>Product <span class="gradient-text">Roadmap</span></h1>
+    <p>Our development priorities and upcoming features. Click any card to see details.</p>
+  </div>
+</div>
+
+<!-- -- Body sections with video background -- -->
+<div class="video-section-wrap">
+<!-- Timeline -->
+<section style="padding-top: 0;">
+  <div class="container">
+    <div class="roadmap-timeline">
+
+      <!-- v1.0 - Released -->
+      <div class="timeline-block fade-up">
+        <div class="timeline-label">
+          <div class="quarter">v1.0.0</div>
+          <div class="year">Current Release</div>
+        </div>
+        <div>
+          <div class="phase-header">
+            <div class="status-badge status-released"><span class="dot"></span>Released</div>
+            <h2>Core Platform Live</h2>
+            <p>The full foundation - projects, time tracking, capacity, workflows, client portal, and RBAC.</p>
+          </div>
+          <div class="feature-groups">
+            <div class="group-card released" data-modal="core-platform">
+              <div class="group-icon"><i data-lucide="layers"></i></div>
+              <div class="group-name">Core Platform</div>
+              <div class="group-count">6 features shipped</div>
+              <ul class="group-features">
+                <li class="done">Project management with Kanban boards</li>
+                <li class="done">Capacity planning & resource allocation</li>
+                <li class="done">Time tracking with clock in/out</li>
+                <li class="done">Workflow builder with 8 node types</li>
+                <li class="done">Complete RBAC system (40+ permissions)</li>
+                <li class="done">Multi-tenant architecture</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q1-Q2 2026 - In Progress -->
+      <div class="timeline-block fade-up">
+        <div class="timeline-label">
+          <div class="quarter">Q1-Q2</div>
+          <div class="year">Near-Term · 2026</div>
+        </div>
+        <div>
+          <div class="phase-header">
+            <div class="status-badge status-progress"><span class="dot"></span>In Progress</div>
+            <h2>Analytics & Client Enhancements</h2>
+            <p>Deeper insights and a richer client experience.</p>
+          </div>
+          <div class="feature-groups">
+            <div class="group-card" data-modal="analytics">
+              <div class="group-icon"><i data-lucide="bar-chart-2"></i></div>
+              <div class="group-name">Analytics & Insights</div>
+              <div class="group-count">4 features</div>
+              <ul class="group-features">
+                <li>Project health scoring and risk indicators</li>
+                <li>Workflow analytics (completion times, bottleneck identification)</li>
+                <li>Team wellbeing dashboard for leadership</li>
+                <li>Enhanced capacity forecasting</li>
+              </ul>
+            </div>
+            <div class="group-card" data-modal="client-enhancements">
+              <div class="group-icon"><i data-lucide="globe"></i></div>
+              <div class="group-name">Client & Account Enhancements</div>
+              <div class="group-count">4 features</div>
+              <ul class="group-features">
+                <li>Full client dashboard with project visibility</li>
+                <li>External data source integrations (social media analytics)</li>
+                <li>Strategic plans tied to accounts and projects</li>
+                <li>Client feedback improvements</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3-Q4 2026 - Planned -->
+      <div class="timeline-block fade-up">
+        <div class="timeline-label">
+          <div class="quarter">Q3-Q4</div>
+          <div class="year">Mid-Term · 2026</div>
+        </div>
+        <div>
+          <div class="phase-header">
+            <div class="status-badge status-planned"><span class="dot"></span>Planned</div>
+            <h2>Revenue & Collaboration</h2>
+            <p>Tools to track profitability and improve team communication.</p>
+          </div>
+          <div class="feature-groups">
+            <div class="group-card" data-modal="revenue">
+              <div class="group-icon"><i data-lucide="dollar-sign"></i></div>
+              <div class="group-name">Revenue & Business Operations</div>
+              <div class="group-count">4 features</div>
+              <ul class="group-features">
+                <li>Service offerings library (tied to workflow templates)</li>
+                <li>Proposals and estimates</li>
+                <li>Bill of materials / project budgeting</li>
+                <li>QuickBooks and/or Stripe integration</li>
+              </ul>
+            </div>
+            <div class="group-card" data-modal="collaboration">
+              <div class="group-icon"><i data-lucide="message-circle"></i></div>
+              <div class="group-name">Collaboration Analytics</div>
+              <div class="group-count">3 features</div>
+              <ul class="group-features">
+                <li>Network visualizations (who collaborates with whom)</li>
+                <li>Department collaboration mapping</li>
+                <li>Cross-account team insights</li>
+              </ul>
+            </div>
+            <div class="group-card" data-modal="crm">
+              <div class="group-icon"><i data-lucide="users-2"></i></div>
+              <div class="group-name">CRM Functions</div>
+              <div class="group-count">3 features</div>
+              <ul class="group-features">
+                <li>New client outreach tracking</li>
+                <li>Pipeline management for prospects</li>
+                <li>Lead-to-account conversion</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026+ - Long Term -->
+      <div class="timeline-block fade-up">
+        <div class="timeline-label">
+          <div class="quarter">2026+</div>
+          <div class="year">Long-Term</div>
+        </div>
+        <div>
+          <div class="phase-header">
+            <div class="status-badge status-planned"><span class="dot"></span>Planned</div>
+            <h2>Platform Maturity & Blockchain Foundations</h2>
+            <p>Enterprise-grade integrations, AI-assisted operations, and the first steps into blockchain infrastructure.</p>
+          </div>
+          <div class="feature-groups">
+            <div class="group-card" data-modal="maturity">
+              <div class="group-icon"><i data-lucide="rocket"></i></div>
+              <div class="group-name">Platform Maturity</div>
+              <div class="group-count">4 features</div>
+              <ul class="group-features">
+                <li>Executive analytics dashboard</li>
+                <li>Full mobile compatibility</li>
+                <li>Performance recognition system (achievements, badges)</li>
+                <li>Advanced reporting and custom dashboards</li>
+              </ul>
+            </div>
+            <div class="group-card" data-modal="blockchain-backend">
+              <div class="group-icon"><i data-lucide="database"></i></div>
+              <div class="group-name">Blockchain Integration Foundations</div>
+              <div class="group-count">3 features</div>
+              <ul class="group-features">
+                <li>Sync time entries, roles & project data with blockchain network</li>
+                <li>Blockchain event listeners and webhook integrations</li>
+                <li>Secure key management and transaction signing layer</li>
+              </ul>
+            </div>
+            <div class="group-card" data-modal="blockchain-wallet">
+              <div class="group-icon"><i data-lucide="wallet"></i></div>
+              <div class="group-name">Wallet Registry & Connectivity</div>
+              <div class="group-count">2 features</div>
+              <ul class="group-features">
+                <li>MetaMask / WalletConnect wallet registry for users</li>
+                <li>In-app wallet connection and management UI</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blockchain & Web3 -->
+      <div class="timeline-block fade-up">
+        <div class="timeline-label">
+          <div class="quarter">2027+</div>
+          <div class="year">Blockchain</div>
+        </div>
+        <div>
+          <div class="phase-header">
+            <div class="status-badge status-planned"><span class="dot"></span>Planned</div>
+            <h2>Blockchain & Web3 Integration</h2>
+            <p>The work will involve areas like blockchain integrations, wallet-connected salary distribution, smart contract development, backend API infrastructure, and user-facing systems — applied across the Worklo PSA platform used by agencies, consultancies, and professional services teams.</p>
+          </div>
+          <div class="feature-groups">
+            <div class="group-card" data-modal="blockchain-wallet">
+              <div class="group-icon"><i data-lucide="wallet"></i></div>
+              <div class="group-name">Wallet-Connected Salary Distribution</div>
+              <div class="group-count">3 features planned</div>
+              <ul class="group-features">
+                <li>MetaMask / WalletConnect wallet registry for users</li>
+                <li>Automated crypto & stablecoin payouts to connected wallets</li>
+                <li>On-chain transaction records and audit trail</li>
+              </ul>
+            </div>
+            <div class="group-card" data-modal="blockchain-contracts">
+              <div class="group-icon"><i data-lucide="file-code-2"></i></div>
+              <div class="group-name">Smart Contract Development</div>
+              <div class="group-count">3 features planned</div>
+              <ul class="group-features">
+                <li>Salary calculation engine (hours, role, milestones)</li>
+                <li>ERC-20 / stablecoin (USDC, USDT) distribution contracts</li>
+                <li>Polygon L2 deployment for low gas costs</li>
+              </ul>
+            </div>
+            <div class="group-card" data-modal="blockchain-backend">
+              <div class="group-icon"><i data-lucide="database"></i></div>
+              <div class="group-name">Backend API Infrastructure</div>
+              <div class="group-count">3 features planned</div>
+              <ul class="group-features">
+                <li>Sync time entries, roles & project data with blockchain network</li>
+                <li>Blockchain event listeners and webhook integrations</li>
+                <li>Secure key management and transaction signing layer</li>
+              </ul>
+            </div>
+            <div class="group-card" data-modal="blockchain-ui">
+              <div class="group-icon"><i data-lucide="layout-dashboard"></i></div>
+              <div class="group-name">User-Facing Systems</div>
+              <div class="group-count">3 features planned</div>
+              <ul class="group-features">
+                <li>In-app wallet connection and management UI</li>
+                <li>Payment history dashboard with on-chain verification</li>
+                <li>Contributor payout transparency portal</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- How We Prioritize -->
+<section style="background: var(--dark);">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Process</span>
+      <h2>How we prioritize</h2>
+      <p>Roadmap priorities are influenced by real-world agency needs, not internal guesses.</p>
+    </div>
+    <div class="priority-grid fade-up">
+      <div class="priority-card">
+        <div class="icon"><i data-lucide="message-square"></i></div>
+        <h4>Community Feedback</h4>
+        <p>Discord & GitHub input from teams actively using Worklo.</p>
+      </div>
+      <div class="priority-card">
+        <div class="icon"><i data-lucide="users"></i></div>
+        <h4>Design Partners</h4>
+        <p>Real agency needs from organizations running Worklo in production.</p>
+      </div>
+      <div class="priority-card">
+        <div class="icon"><i data-lucide="building-2"></i></div>
+        <h4>Technical Foundation</h4>
+        <p>We build on what exists - no rewrites, no breaking changes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+</div><!-- end video-section-wrap -->
+
+
+<!-- Footer -->
+<style>
+footer{background:#000;border-top:1px solid rgba(255,255,255,.08);padding:80px 0 0}
+footer .container{position:relative;z-index:1}
+.fnw{display:grid;grid-template-columns:1.1fr 1fr 1.5fr;gap:60px;align-items:start}
+.fnw .c1 h4,.fnw .c2 h4{font-size:1rem;font-weight:700;color:#fff;margin:0 0 20px;letter-spacing:-.01em;text-transform:none;background:none;-webkit-text-fill-color:#fff}
+.fnw .socials{display:flex;gap:8px;margin-bottom:28px}
+.fnw .socials a{width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:background .2s,transform .2s;flex-shrink:0}
+.fnw .socials a svg{width:13px;height:13px}
+.fnw .socials a:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.fnw .ph-block{margin-bottom:22px}
+.fnw .ph-block>svg,.fnw .ad-block>svg{display:block;color:rgba(255,255,255,.65);margin-bottom:10px;width:22px;height:22px}
+.fnw .ph-block a{display:block;font-size:.83rem;color:rgba(255,255,255,.45);text-decoration:none;line-height:1.9;transition:color .2s}
+.fnw .ph-block a:hover{color:#fff}
+.fnw .ad-block{margin-bottom:28px}
+.fnw .ad-block p{font-size:.83rem!important;color:rgba(255,255,255,.55)!important;line-height:1.7!important;margin:0!important;display:block!important;visibility:visible!important;}
+.fnw .logo-banner{width:100%;padding:16px 0;background:none;border:none;display:flex;align-items:center;justify-content:flex-start;margin-top:8px}
+.fnw .logo-banner img{height:120px;width:auto;max-width:100%;object-fit:contain;filter:brightness(1.2) drop-shadow(0 0 24px rgba(59,130,246,.35))}
+.fnw .c2 ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.fnw .c2 ul li a{font-size:.84rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;display:block;padding:0}
+.fnw .c2 ul li a:hover{color:rgba(255,255,255,.85)}
+.fnw .c3 h3{font-size:1.9rem;font-weight:700;color:#fff;line-height:1.15;margin:0 0 8px;letter-spacing:-.02em;background:none;-webkit-text-fill-color:#fff}
+.fnw .c3 .sub{font-size:.78rem;color:rgba(255,255,255,.32);margin-bottom:24px;line-height:1.6}
+.fnw .c3 form{display:flex;flex-direction:column;gap:0}
+.fnw .c3 input,.fnw .c3 select,.fnw .c3 textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.12);border-radius:0;padding:14px 0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.84rem;color:rgba(255,255,255,.65);outline:none;box-shadow:none;transition:border-color .2s}
+.fnw .c3 input::placeholder,.fnw .c3 textarea::placeholder{color:rgba(255,255,255,.25)}
+.fnw .c3 input:focus,.fnw .c3 select:focus,.fnw .c3 textarea:focus{border-bottom-color:rgba(255,255,255,.45);background:transparent;box-shadow:none}
+.fnw .c3 select{color:rgba(255,255,255,.3);cursor:pointer;-webkit-appearance:none;appearance:none}
+.fnw .c3 select option{background:#111;color:#fff}
+.fnw .c3 textarea{resize:none;min-height:72px}
+.fnw .c3 button{width:100%;padding:14px;border-radius:50px;background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.88rem;font-weight:700;border:none;cursor:pointer;margin-top:20px;transition:background .2s,transform .15s}
+.fnw .c3 button:hover{background:#e8e8e8;transform:translateY(-1px)}
+.fnw .footer-location{display:flex;align-items:flex-start;gap:7px;font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.6;margin-top:4px}
+.fn-bot{border-top:1px solid rgba(255,255,255,.07);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.fn-bot p{font-size:.76rem;color:rgba(255,255,255,.22);margin:0}
+.fn-bot-links{display:flex;gap:20px}
+.fn-bot-links a{font-size:.76rem;color:rgba(255,255,255,.22);text-decoration:none;transition:color .2s}
+.fn-bot-links a:hover{color:#fff}
+@media(max-width:960px){.fnw{grid-template-columns:1fr 1fr;gap:40px}.fnw .c3{grid-column:1/-1}}
+@media(max-width:600px){.fnw{grid-template-columns:1fr;gap:32px}footer{padding:48px 0 0}.fnw .logo-banner img{height:80px}.fnw .c3 h3{font-size:1.5rem}.fn-bot{flex-direction:column;align-items:flex-start;gap:8px}.fn-bot-links{gap:14px}}
+</style>
+
+<footer>
+  <div class="container">
+    <div class="fnw">
+      <div class="c1">
+        <h4>Contact Us</h4>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/worklo-psa/" target="_blank" rel="noopener" aria-label="LinkedIn" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a href="https://github.com/worklo-psa" target="_blank" rel="noopener" aria-label="GitHub" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+        <div class="ph-block">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <a href="tel:+19296129360">+1 (929) 612 9360</a>
+        </div>
+        <div class="ph-block">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <a href="mailto:support@worklo.org">support@worklo.org</a>
+        </div>
+        <div class="ph-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <a href="https://maps.google.com/?q=888+Broadway+New+York+NY" target="_blank" rel="noopener">888 Broadway, Floor 4,<br>New York, NY 10003, US</a>
+        </div>
+        
+        <div class="logo-banner">
+          <img src="/images/logo.gif" alt="Worklo" />
+        </div>
+      </div>
+      <div class="c2">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/features">Features</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/roadmap">Roadmap</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="c3">
+        <h3>Send Us<br>A Message</h3>
+        <p class="sub">Kindly fill this form. Average response is within 24hrs.</p>
+        <form id="fn-contact-form" novalidate>
+          <input type="text" placeholder="Your name" name="name" required />
+          <input type="email" placeholder="Your email" name="email" required />
+          <select name="subject"><option value="" disabled selected>Select...</option><option value="demo">Request a demo</option><option value="support">Technical support</option><option value="pricing">Pricing inquiry</option><option value="other">Other</option></select>
+          <textarea placeholder="Your message..." name="message" required></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="fn-bot">
+      <p>&copy; 2026 Worklo. All rights reserved.</p>
+      <div class="fn-bot-links">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/js/main.js"></script>
+<script src="/js/chatbot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/auth.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){lucide.createIcons();});</script>
+</body>
+</html>

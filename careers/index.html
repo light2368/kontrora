@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Careers - Worklo</title>
+  <meta name="description" content="Join the Worklo team. Help us build the future of professional services automation." />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="icon" href="/images/tab-logo.gif" type="image/gif" sizes="192x192" /><link rel="apple-touch-icon" sizes="180x180" href="/images/tab-logo.gif" /><link rel="shortcut icon" href="/images/tab-logo.gif" />
+  <style>
+    /* ── Job cards — editorial row style ── */
+    .jobs-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .job-card {
+      background: var(--dark, #0A1020);
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-radius: 0;
+      padding: 22px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      transition: background 0.2s ease;
+      position: relative;
+    }
+    .job-card:last-child { border-bottom: none; }
+    .job-card:hover { background: var(--elevated, #152035); }
+
+    /* Colored left accent per role type */
+    .job-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .job-card:nth-child(1)::before { background: linear-gradient(180deg, #3B82F6, #60A5FA); }
+    .job-card:nth-child(2)::before { background: linear-gradient(180deg, #8B5CF6, #A78BFA); }
+    .job-card:nth-child(3)::before { background: linear-gradient(180deg, #EC4899, #F472B6); }
+    .job-card:nth-child(4)::before { background: linear-gradient(180deg, #06B6D4, #22D3EE); }
+    .job-card:nth-child(5)::before { background: linear-gradient(180deg, #10B981, #34D399); }
+    .job-card:nth-child(6)::before { background: linear-gradient(180deg, #3B82F6, #60A5FA); }
+    .job-card:nth-child(7)::before { background: linear-gradient(180deg, #F59E0B, #FCD34D); }
+    .job-card:nth-child(8)::before { background: linear-gradient(180deg, #F87171, #FCA5A5); }
+    .job-card:nth-child(9)::before { background: linear-gradient(180deg, #34D399, #6EE7B7); }
+    .job-card:hover::before { opacity: 1; }
+
+    .job-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; color: #fff; }
+    .job-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .job-tag {
+      font-size: 0.65rem; font-weight: 700; padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .job-tag.remote {
+      border-color: rgba(52,211,153,0.3);
+      color: #34D399;
+      background: rgba(52,211,153,0.08);
+    }
+    .job-budget {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.35);
+      margin-top: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Apply button — minimal text link style */
+    .job-card .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.6);
+      border-radius: 6px;
+      padding: 8px 18px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+    .job-card .btn-outline:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.35);
+      color: #fff;
+    }
+
+    /* ── Perk cards — tile mosaic ── */
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+      counter-reset: perk-counter;
+    }
+    .perk-card {
+      background: var(--dark, #0A1020);
+      border: none;
+      border-radius: 0;
+      padding: 32px 28px;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s ease;
+      counter-increment: perk-counter;
+    }
+
+    /* Top accent bar */
+    .perk-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .perk-card:nth-child(1)::before { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+    .perk-card:nth-child(2)::before { background: linear-gradient(90deg, #EC4899, #F472B6); }
+    .perk-card:nth-child(3)::before { background: linear-gradient(90deg, #10B981, #34D399); }
+    .perk-card:nth-child(4)::before { background: linear-gradient(90deg, #F59E0B, #FCD34D); }
+    .perk-card:nth-child(5)::before { background: linear-gradient(90deg, #06B6D4, #22D3EE); }
+    .perk-card:nth-child(6)::before { background: linear-gradient(90deg, #8B5CF6, #A78BFA); }
+
+    /* Ghost number */
+    .perk-card::after {
+      content: counter(perk-counter, decimal-leading-zero);
+      position: absolute;
+      bottom: -10px; right: 14px;
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(255,255,255,0.04);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+
+    .perk-card:hover { background: var(--elevated, #152035); }
+    .perk-card:hover::before { opacity: 1; }
+
+    /* Perk icon — colored per card */
+    .perk-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .perk-card:nth-child(1) .perk-icon { background: rgba(59,130,246,0.15); color: #60A5FA; border: 1px solid rgba(59,130,246,0.25); }
+    .perk-card:nth-child(2) .perk-icon { background: rgba(236,72,153,0.15); color: #F472B6; border: 1px solid rgba(236,72,153,0.25); }
+    .perk-card:nth-child(3) .perk-icon { background: rgba(16,185,129,0.15); color: #34D399; border: 1px solid rgba(16,185,129,0.25); }
+    .perk-card:nth-child(4) .perk-icon { background: rgba(245,158,11,0.15); color: #FCD34D; border: 1px solid rgba(245,158,11,0.25); }
+    .perk-card:nth-child(5) .perk-icon { background: rgba(6,182,212,0.15); color: #22D3EE; border: 1px solid rgba(6,182,212,0.25); }
+    .perk-card:nth-child(6) .perk-icon { background: rgba(139,92,246,0.15); color: #A78BFA; border: 1px solid rgba(139,92,246,0.25); }
+    .perk-card:hover .perk-icon { transform: scale(1.1) rotate(-5deg); }
+
+    .perk-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .perk-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .jobs-grid { border-radius: 12px; }
+      .job-card { padding: 18px 20px; }
+      .job-card { flex-direction: column; align-items: flex-start; }
+      .perks-grid { grid-template-columns: 1fr; }
+    }
+
+    /* -- App Flow -- */
+    #app-flow {
+      min-height: 100vh;
+      background: var(--dark);
+      padding: 60px 0;
+    }
+    .app-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .app-nav-back {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .app-nav-back:hover { color: var(--blue); }
+    .app-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .step-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .step-dots {
+      display: flex;
+      gap: 8px;
+    }
+    .step-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background 0.2s;
+    }
+    .step-dot.active { background: var(--blue); }
+    .step-dot.done { background: rgba(59,130,246,0.4); }
+
+    /* Job detail */
+    .job-detail-header { margin-bottom: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .job-detail-header h2 { font-size: 1.6rem; margin-bottom: 12px; }
+    .job-detail-section { margin-bottom: 24px; }
+    .job-detail-section h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; color: var(--blue); text-transform: uppercase; margin-bottom: 10px; }
+    .job-detail-section ul { padding-left: 18px; }
+    .job-detail-section ul li { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.6; }
+
+    /* Form */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { outline: none; border-color: var(--blue); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-group select option { background: var(--dark); }
+    .form-section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--blue); text-transform: uppercase;
+      margin: 24px 0 14px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Resume upload */
+    .resume-upload {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .resume-upload:hover { border-color: var(--blue); background: var(--blue-dim); }
+    .resume-upload input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .resume-upload-icon { color: var(--blue); margin-bottom: 10px; }
+    .resume-upload p { font-size: 0.88rem; color: var(--text-secondary); margin: 0; }
+    .resume-upload p strong { color: var(--text); }
+    .resume-filename { font-size: 0.82rem; color: var(--blue); margin-top: 8px; display: none; }
+
+    /* Step nav buttons */
+    .step-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      gap: 12px;
+    }
+    .step-actions-right { display: flex; gap: 12px; margin-left: auto; }
+
+    /* Success */
+    .success-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .success-card svg { color: var(--blue); margin-bottom: 20px; }
+    .success-card h2 { font-size: 1.8rem; margin-bottom: 12px; }
+    .success-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; max-width: 480px; margin: 0 auto 28px; }
+
+    @media (max-width: 600px) {
+      .app-nav { padding: 0 20px 32px; }
+      .form-row { grid-template-columns: 1fr; }
+      .success-card { padding: 40px 24px; }
+    }
+
+    /* -- Auth Modal -- */
+    .auth-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .auth-overlay.open { opacity: 1; pointer-events: all; }
+    .auth-modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px 36px;
+      width: 100%; max-width: 420px;
+      position: relative;
+      transform: translateY(16px);
+      transition: transform 0.25s;
+    }
+    .auth-overlay.open .auth-modal { transform: translateY(0); }
+    .auth-modal-close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none; cursor: pointer;
+      color: var(--text-secondary); font-size: 1.2rem; line-height: 1;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+    .auth-modal-close:hover { color: var(--text); }
+    .auth-modal h3 { font-size: 1.3rem; margin-bottom: 6px; }
+    .auth-modal .auth-subtitle { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 28px; }
+    .auth-tabs {
+      display: flex; gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .auth-tab {
+      flex: 1; padding: 9px;
+      background: none; border: none; cursor: pointer;
+      font-size: 0.88rem; font-weight: 600;
+      color: var(--text-secondary);
+      transition: background 0.2s, color 0.2s;
+    }
+    .auth-tab.active { background: var(--blue); color: #fff; }
+    .auth-form .form-group { margin-bottom: 14px; }
+    .auth-form .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 5px; }
+    .auth-form .form-group input {
+      width: 100%; background: var(--dark);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 10px 14px; color: var(--text);
+      font-size: 0.9rem; font-family: inherit;
+      transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .auth-form .form-group input:focus { outline: none; border-color: var(--blue); }
+    .auth-error {
+      font-size: 0.82rem; color: #f87171;
+      background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25);
+      border-radius: var(--radius); padding: 8px 12px;
+      margin-bottom: 14px; display: none;
+    }
+    .auth-error.show { display: block; }
+    .auth-submit { width: 100%; margin-top: 6px; }
+
+    /* -- Nav auth indicator -- */
+    .nav-user-pill {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 14px 5px 8px;
+      cursor: default;
+    }
+    .nav-user-avatar {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--blue); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700;
+    }
+    .nav-signout {
+      font-size: 0.78rem; color: var(--text-secondary);
+      background: none; border: none; cursor: pointer;
+      padding: 0; margin-left: 4px;
+      transition: color 0.2s;
+    }
+    .nav-signout:hover { color: #f87171; }
+
+    /* -- Auth gate banner on job detail -- */
+    .auth-gate-banner {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.25);
+      border-radius: var(--radius); padding: 14px 18px;
+      margin-top: 24px;
+    }
+    .auth-gate-banner svg { color: var(--blue); flex-shrink: 0; }
+    .auth-gate-banner p { font-size: 0.88rem; color: var(--text-secondary); margin: 0; }
+    .auth-gate-banner p strong { color: var(--text); }
+
+    /* -- Social auth buttons -- */
+    .auth-social-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 0.92rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .auth-social-btn:hover {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.04);
+    }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* -- Toast notification - editorial pill style -- */
+    .zx-toast {
+      position: fixed;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-140%) scale(0.92);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 6px 0 6px;
+      border-radius: 999px;
+      background: rgba(10, 14, 24, 0.88);
+      border: 1px solid rgba(239, 68, 68, 0.22);
+      box-shadow:
+        0 2px 0 rgba(239,68,68,0.18) inset,
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 40px rgba(239,68,68,0.08);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      min-width: 300px;
+      max-width: 460px;
+      height: 52px;
+      transition:
+        transform 0.5s cubic-bezier(0.16,1,0.3,1),
+        opacity 0.35s ease,
+        box-shadow 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .zx-toast.show {
+      transform: translateX(-50%) translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .zx-toast.success {
+      border-color: rgba(59,130,246,0.25);
+      box-shadow:
+        0 2px 0 rgba(59,130,246,0.2) inset,
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 40px rgba(59,130,246,0.1);
+    }
+
+    /* Left icon pill */
+    .zx-toast-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background: rgba(239,68,68,0.15);
+      color: #f87171;
+      border: 1px solid rgba(239,68,68,0.2);
+      margin-left: 2px;
+    }
+    .zx-toast.success .zx-toast-icon {
+      background: rgba(59,130,246,0.12);
+      color: var(--blue);
+      border-color: rgba(59,130,246,0.2);
+    }
+
+    .zx-toast-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+    }
+    .zx-toast-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+      flex-shrink: 0;
+    }
+    .zx-toast-sep {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+    .zx-toast-msg {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Progress bar at bottom of pill */
+    .zx-toast::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 8%; right: 8%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f87171, transparent);
+      opacity: 0.5;
+    }
+    .zx-toast.success::after {
+      background: linear-gradient(90deg, var(--blue), transparent);
+    }
+
+    .zx-toast-close {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-secondary);
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      line-height: 1;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+      margin-right: 4px;
+    }
+    .zx-toast-close:hover {
+      background: rgba(255,255,255,0.12);
+      color: var(--text-primary);
+    }
+
+    /* Section label divider inside form */
+    .afp-section-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin: 28px 0 16px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    /* Field hint text */
+    .afp-field-hint {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      margin: 0 0 8px;
+      line-height: 1.5;
+    }
+    /* Radio group */
+    .afp-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .afp-radio {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+    }
+    .afp-radio input[type="radio"] {
+      width: 16px; height: 16px;
+      accent-color: var(--blue);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    /* Checkbox group */
+    .afp-check-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .afp-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+    }
+    .afp-checkbox input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--blue);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    /* Field error highlight */
+    .field-error {
+      border-color: rgba(239,68,68,0.55) !important;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important;
+    }
+
+    /* Modern error modal */
+    .careers-modal-overlay{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,0.72);
+      backdrop-filter: blur(6px);
+      z-index: 10050;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .careers-modal-overlay.open{ display:flex; }
+    .careers-modal{
+      width:100%;
+      max-width: 520px;
+      background: var(--elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: 18px;
+      padding: 28px;
+      position: relative;
+      box-shadow: 0 28px 60px rgba(0,0,0,0.55);
+      animation: careersModalIn 0.18s ease;
+    }
+    @keyframes careersModalIn{
+      from { opacity: 0; transform: translateY(10px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .careers-modal-close{
+      position:absolute;
+      top: 14px; right: 14px;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.06);
+      color: var(--text-secondary);
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .careers-modal-close:hover{
+      background: rgba(255,255,255,0.12);
+      color: var(--text-primary);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .careers-modal-icon{
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.22);
+      color: rgba(239,68,68,0.95);
+      margin-bottom: 12px;
+    }
+    .careers-modal-title{ font-size: 1.12rem; font-weight: 800; margin: 0 0 8px; }
+    .careers-modal-msg{ font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+    .careers-modal-actions{ display:flex; justify-content:flex-end; margin-top: 18px; }
+    .careers-modal-actions .btn{ min-width: 120px; justify-content:center; }
+  </style>
+<link rel="manifest" href="/manifest.json" /><meta name="theme-color" content="#00C2A8" /><meta name="mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+</head>
+<body>
+
+<!-- -- Toast -- -->
+<div class="zx-toast" id="zx-toast" role="alert">
+  <div class="zx-toast-icon" id="zx-toast-icon">
+    <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="10" r="8"/><path d="M10 6v4M10 13h.01"/></svg>
+  </div>
+  <div class="zx-toast-body">
+    <div class="zx-toast-title" id="zx-toast-title">Missing fields</div>
+    <div class="zx-toast-sep"></div>
+    <div class="zx-toast-msg" id="zx-toast-msg"></div>
+  </div>
+  <button class="zx-toast-close" type="button" onclick="hideToast()" aria-label="Close">&times;</button>
+</div>
+
+<!-- -- Error Modal -- -->
+<div class="careers-modal-overlay" id="careers-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="careers-modal-title" aria-describedby="careers-modal-msg">
+  <div class="careers-modal" role="document">
+    <button class="careers-modal-close" type="button" onclick="hideCareersModal()" aria-label="Close">&times;</button>
+    <div class="careers-modal-icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="10" cy="10" r="8"></circle><path d="M10 6v4M10 13h.01"></path>
+      </svg>
+    </div>
+    <h3 class="careers-modal-title" id="careers-modal-title">Something went wrong</h3>
+    <div class="careers-modal-msg" id="careers-modal-msg"></div>
+    <div class="careers-modal-actions">
+      <button class="btn btn-primary" type="button" onclick="hideCareersModal()">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- -------------------------------------------
+     AUTH MODAL
+-------------------------------------------- -->
+<div class="auth-overlay" id="auth-overlay" role="dialog" aria-modal="true" aria-label="Sign in">
+  <div class="auth-modal">
+    <button class="auth-modal-close" onclick="closeAuth()" aria-label="Close">?</button>
+    <h3 id="auth-modal-title">Sign in to apply</h3>
+    <p class="auth-subtitle" id="auth-modal-subtitle">You need an account to submit a job application.</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-signin" onclick="switchTab('signin')">Sign In</button>
+      <button class="auth-tab" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
+    </div>
+    <div class="auth-error" id="auth-error"></div>
+    <form class="auth-form" id="auth-form" onsubmit="handleAuth(event)">
+      <div class="form-group" id="field-name" style="display:none;">
+        <label for="auth-name">Full Name *</label>
+        <input type="text" id="auth-name" placeholder="Jane Smith" autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label for="auth-email">Email Address *</label>
+        <input type="email" id="auth-email" placeholder="jane@example.com" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="auth-password">Password *</label>
+        <input type="password" id="auth-password" placeholder="--------" required autocomplete="current-password" minlength="6" />
+      </div>
+      <button type="submit" class="btn btn-primary auth-submit" id="auth-submit-btn">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- -------------------------------------------
+     MAIN CONTENT (careers listing)
+-------------------------------------------- -->
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/images/logo.gif" alt="Worklo" /></a>
+    <ul class="nav-links">
+      <li><a href="/features">Features</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/roadmap">Roadmap</a></li>
+      <li class="nav-dropdown">
+        <a href="#">Company <i data-lucide="chevron-down" class="chevron"></i></a>
+        <div class="dropdown-menu">
+          <a href="/about" class="dropdown-item">
+            <h4>About</h4>
+            <p>Our story, mission, and the team behind Worklo</p>
+          </a>
+          <a href="/careers" class="dropdown-item">
+            <h4>Careers</h4>
+            <p>Join us and help build the future of agency operations</p>
+          </a>
+          <a href="/contact" class="dropdown-item">
+            <h4>Contact</h4>
+            <p>Get in touch for support or questions</p>
+          </a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions" id="nav-actions">
+      <div id="nav-actions-auth"></div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/features">Features</a>
+  <a href="/pricing">Pricing</a>
+  <a href="/roadmap">Roadmap</a>
+  <a href="/about">About</a>
+  <a href="/careers">Careers</a>
+  <a href="/contact">Contact</a>
+  <a href="https://app.worklo.org/">Start free trial</a>
+  <div id="mobile-auth-slot"></div>
+</div>
+
+<div id="main-content">
+
+<div class="page-hero">
+  <div class="container">
+    <span class="section-label">Careers</span>
+    <h1>Build the future of <span class="gradient-text">agency operations</span></h1>
+    <p>We're a small, focused team building tools that real agencies use every day. If that excites you, we'd love to hear from you.</p>
+  </div>
+</div>
+
+<div class="video-section-wrap">
+
+<!-- Open Roles -->
+<section style="padding-top: 0;">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Open Roles</span>
+      <h2>Current openings</h2>
+      <p>All roles are remote-first. We care about what you build, not where you build it.</p>
+    </div>
+    <div class="jobs-grid">
+      <div class="job-card fade-up">
+        <div>
+          <div class="job-title">Full-Stack Engineer</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag">Next.js · TypeScript · Supabase</span>
+          </div>
+          <div class="job-budget">$80,000 &ndash; $100,000</div>
+        </div>
+        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('fullstack')">Apply</button>
+      </div>
+      <div class="job-card fade-up">
+        <div>
+          <div class="job-title">Senior Next.js + Go Engineer</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag">Next.js · Golang · Supabase</span>
+          </div>
+          <div class="job-budget">$85,000 &ndash; $100,000</div>
+        </div>
+        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('nextgo')">Apply</button>
+      </div>
+      <div class="job-card fade-up">
+        <div>
+          <div class="job-title">Senior Next.js + Rust Engineer</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag">Next.js · Rust · On-chain</span>
+          </div>
+          <div class="job-budget">$85,000 &ndash; $100,000</div>
+        </div>
+        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('nextrust')">Apply</button>
+      </div>
+      <div class="job-card fade-up">
+        <div>
+          <div class="job-title">Frontend Engineer</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag">React · TypeScript · Tailwind</span>
+          </div>
+          <div class="job-budget">$75,000 &ndash; $95,000</div>
+        </div>
+        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('frontend')">Apply</button>
+      </div>
+      <div class="job-card fade-up">
+        <div>
+          <div class="job-title">Data Analytics Engineer</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag">PostgreSQL · D3 · Recharts</span>
+          </div>
+          <div class="job-budget">$75,000 &ndash; $95,000</div>
+        </div>
+        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('dataanalytics')">Apply</button>
+      </div>
+      <div class="job-card fade-up">
+        <div>
+          <div class="job-title">Web3 Engineer</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag">Ethers.js · WalletConnect · Polygon</span>
+          </div>
+          <div class="job-budget">$80,000 &ndash; $100,000</div>
+        </div>
+        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('web3')">Apply</button>
+      </div>
+      <div class="job-card fade-up">
+        <div>
+          <div class="job-title">Smart Contract Developer</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag">Solidity · Hardhat · Polygon</span>
+          </div>
+          <div class="job-budget">$80,000 &ndash; $100,000</div>
+        </div>
+        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('smartcontract')">Apply</button>
+      </div>
+      <div class="job-card fade-up">
+        <div>
+          <div class="job-title">Product Designer</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag">Figma · UI/UX</span>
+          </div>
+          <div class="job-budget">$70,000 &ndash; $90,000</div>
+        </div>
+        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('designer')">Apply</button>
+      </div>
+      <div class="job-card fade-up">
+        <div>
+          <div class="job-title">QA Engineer</div>
+          <div class="job-meta">
+            <span class="job-tag remote">Remote</span>
+            <span class="job-tag">Full-time</span>
+            <span class="job-tag">Playwright · Cypress · Automation</span>
+          </div>
+          <div class="job-budget">$55,000 &ndash; $75,000</div>
+        </div>
+        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('qa')">Apply</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Perks -->
+<section style="background: var(--dark);">
+  <div class="container">
+    <div class="section-header fade-up">
+      <span class="section-label">Perks</span>
+      <h2>Why work with us</h2>
+    </div>
+    <div class="perks-grid">
+      <div class="perk-card fade-up">
+        <div class="perk-icon"><i data-lucide="globe"></i></div>
+        <h3>Fully Remote</h3>
+        <p>Work from anywhere. We're async-first and trust you to manage your time.</p>
+      </div>
+      <div class="perk-card fade-up">
+        <div class="perk-icon"><i data-lucide="pencil"></i></div>
+        <h3>Real Impact</h3>
+        <p>Small team means your work ships fast and reaches real users immediately.</p>
+      </div>
+      <div class="perk-card fade-up">
+        <div class="perk-icon"><i data-lucide="trending-up"></i></div>
+        <h3>Equity & Growth</h3>
+        <p>Competitive compensation with equity. Grow with the company as we scale.</p>
+      </div>
+      <div class="perk-card fade-up">
+        <div class="perk-icon"><i data-lucide="book-open"></i></div>
+        <h3>Learning Budget</h3>
+        <p>Annual budget for courses, books, and conferences. We invest in your growth.</p>
+      </div>
+      <div class="perk-card fade-up">
+        <div class="perk-icon"><i data-lucide="monitor"></i></div>
+        <h3>Home Office Setup</h3>
+        <p>Stipend to set up your ideal workspace. Good tools make great work.</p>
+      </div>
+      <div class="perk-card fade-up">
+        <div class="perk-icon"><i data-lucide="users"></i></div>
+        <h3>Great Team</h3>
+        <p>Work with people who care deeply about craft, quality, and each other.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <span class="section-label fade-up">Don't see your role?</span>
+    <h2 class="fade-up">Send us an open application</h2>
+    <p class="fade-up">We're always interested in talented people. Tell us what you do and why you'd be a great fit.</p>
+    <div class="cta-actions fade-up">
+      <a href="/contact" class="btn btn-primary">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /video-section-wrap -->
+
+
+<!-- Footer -->
+<style>
+footer{background:#000;border-top:1px solid rgba(255,255,255,.08);padding:80px 0 0}
+footer .container{position:relative;z-index:1}
+.fnw{display:grid;grid-template-columns:1.1fr 1fr 1.5fr;gap:60px;align-items:start}
+.fnw .c1 h4,.fnw .c2 h4{font-size:1rem;font-weight:700;color:#fff;margin:0 0 20px;letter-spacing:-.01em;text-transform:none;background:none;-webkit-text-fill-color:#fff}
+.fnw .socials{display:flex;gap:8px;margin-bottom:28px}
+.fnw .socials a{width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:background .2s,transform .2s;flex-shrink:0}
+.fnw .socials a svg{width:13px;height:13px}
+.fnw .socials a:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.fnw .ph-block{margin-bottom:22px}
+.fnw .ph-block>svg,.fnw .ad-block>svg{display:block;color:rgba(255,255,255,.65);margin-bottom:10px;width:22px;height:22px}
+.fnw .ph-block a{display:block;font-size:.83rem;color:rgba(255,255,255,.45);text-decoration:none;line-height:1.9;transition:color .2s}
+.fnw .ph-block a:hover{color:#fff}
+.fnw .ad-block{margin-bottom:28px}
+.fnw .ad-block p{font-size:.83rem!important;color:rgba(255,255,255,.55)!important;line-height:1.7!important;margin:0!important;display:block!important;visibility:visible!important;}
+.fnw .logo-banner{width:100%;padding:16px 0;background:none;border:none;display:flex;align-items:center;justify-content:flex-start;margin-top:8px}
+.fnw .logo-banner img{height:120px;width:auto;max-width:100%;object-fit:contain;filter:brightness(1.2) drop-shadow(0 0 24px rgba(59,130,246,.35))}
+.fnw .c2 ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.fnw .c2 ul li a{font-size:.84rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;display:block;padding:0}
+.fnw .c2 ul li a:hover{color:rgba(255,255,255,.85)}
+.fnw .c3 h3{font-size:1.9rem;font-weight:700;color:#fff;line-height:1.15;margin:0 0 8px;letter-spacing:-.02em;background:none;-webkit-text-fill-color:#fff}
+.fnw .c3 .sub{font-size:.78rem;color:rgba(255,255,255,.32);margin-bottom:24px;line-height:1.6}
+.fnw .c3 form{display:flex;flex-direction:column;gap:0}
+.fnw .c3 input,.fnw .c3 select,.fnw .c3 textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.12);border-radius:0;padding:14px 0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.84rem;color:rgba(255,255,255,.65);outline:none;box-shadow:none;transition:border-color .2s}
+.fnw .c3 input::placeholder,.fnw .c3 textarea::placeholder{color:rgba(255,255,255,.25)}
+.fnw .c3 input:focus,.fnw .c3 select:focus,.fnw .c3 textarea:focus{border-bottom-color:rgba(255,255,255,.45);background:transparent;box-shadow:none}
+.fnw .c3 select{color:rgba(255,255,255,.3);cursor:pointer;-webkit-appearance:none;appearance:none}
+.fnw .c3 select option{background:#111;color:#fff}
+.fnw .c3 textarea{resize:none;min-height:72px}
+.fnw .c3 button{width:100%;padding:14px;border-radius:50px;background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.88rem;font-weight:700;border:none;cursor:pointer;margin-top:20px;transition:background .2s,transform .15s}
+.fnw .c3 button:hover{background:#e8e8e8;transform:translateY(-1px)}
+.fnw .footer-location{display:flex;align-items:flex-start;gap:7px;font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.6;margin-top:4px}
+.fn-bot{border-top:1px solid rgba(255,255,255,.07);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.fn-bot p{font-size:.76rem;color:rgba(255,255,255,.22);margin:0}
+.fn-bot-links{display:flex;gap:20px}
+.fn-bot-links a{font-size:.76rem;color:rgba(255,255,255,.22);text-decoration:none;transition:color .2s}
+.fn-bot-links a:hover{color:#fff}
+@media(max-width:960px){.fnw{grid-template-columns:1fr 1fr;gap:40px}.fnw .c3{grid-column:1/-1}}
+@media(max-width:600px){.fnw{grid-template-columns:1fr;gap:32px}footer{padding:48px 0 0}.fnw .logo-banner img{height:80px}.fnw .c3 h3{font-size:1.5rem}.fn-bot{flex-direction:column;align-items:flex-start;gap:8px}.fn-bot-links{gap:14px}}
+</style>
+
+<footer>
+  <div class="container">
+    <div class="fnw">
+      <div class="c1">
+        <h4>Contact Us</h4>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/worklo-psa/" target="_blank" rel="noopener" aria-label="LinkedIn" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a href="https://github.com/worklo-psa" target="_blank" rel="noopener" aria-label="GitHub" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
+        </div>
+        <div class="ph-block">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <a href="tel:+19296129360">+1 (929) 612 9360</a>
+        </div>
+        <div class="ph-block">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <a href="mailto:support@worklo.org">support@worklo.org</a>
+        </div>
+        <div class="ph-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <a href="https://maps.google.com/?q=888+Broadway+New+York+NY" target="_blank" rel="noopener">888 Broadway, Floor 4,<br>New York, NY 10003, US</a>
+        </div>
+        
+        <div class="logo-banner">
+          <img src="/images/logo.gif" alt="Worklo" />
+        </div>
+      </div>
+      <div class="c2">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/features">Features</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/roadmap">Roadmap</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="c3">
+        <h3>Send Us<br>A Message</h3>
+        <p class="sub">Kindly fill this form. Average response is within 24hrs.</p>
+        <form id="fn-contact-form" novalidate>
+          <input type="text" placeholder="Your name" name="name" required />
+          <input type="email" placeholder="Your email" name="email" required />
+          <select name="subject"><option value="" disabled selected>Select...</option><option value="demo">Request a demo</option><option value="support">Technical support</option><option value="pricing">Pricing inquiry</option><option value="other">Other</option></select>
+          <textarea placeholder="Your message..." name="message" required></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="fn-bot">
+      <p>&copy; 2026 Worklo. All rights reserved.</p>
+      <div class="fn-bot-links">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="/js/main.js"></script>
+<script src="/js/chatbot.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/js/auth.js"></script>
+<style>
+#job-fullpage,#apply-fullpage{
+  position:fixed;inset:0;z-index:9500;
+  background:#060a12;
+  overflow-y:auto;
+  transform:translateX(100%);
+  transition:transform .35s cubic-bezier(.16,1,.3,1);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+#job-fullpage.open,#apply-fullpage.open{transform:translateX(0);}
+.jfp-inner{max-width:760px;margin:0 auto;padding:48px 32px 80px;}
+.jfp-back{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:.85rem;display:flex;align-items:center;gap:6px;margin-bottom:32px;padding:0;transition:color .2s;}
+.jfp-back:hover{color:#fff;}
+.jfp-badge{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#00C2A8;background:rgba(0,194,168,.1);border:1px solid rgba(0,194,168,.2);padding:5px 12px;border-radius:999px;margin-bottom:14px;}
+.jfp-type{font-size:.82rem;color:rgba(255,255,255,.4);margin-left:8px;}
+.jfp-title{font-size:2.2rem;font-weight:800;color:#fff;margin:0 0 8px;letter-spacing:-.02em;}
+.jfp-salary{font-size:1.1rem;font-weight:700;color:#3b82f6;margin-bottom:28px;}
+.jfp-divider{height:1px;background:rgba(255,255,255,.08);margin-bottom:28px;}
+.jfp-about{font-size:.92rem;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:28px;}
+.jfp-about p{margin:0 0 1.1em;}
+.jfp-about p:last-child{margin-bottom:0;}
+.jfp-about .jfp-about-heading{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3b82f6;margin:1.6em 0 12px;}
+.jfp-section{margin-bottom:24px;}
+.jfp-section h4{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3b82f6;margin:0 0 12px;}
+.jfp-section ul{padding-left:20px;margin:0;}
+.jfp-section li{font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:8px;line-height:1.65;}
+.jfp-apply-btn{width:100%;padding:16px;border-radius:12px;background:linear-gradient(135deg,#3b82f6,#00C2A8);color:#fff;font-size:1rem;font-weight:700;border:none;cursor:pointer;margin-top:16px;transition:opacity .2s;}
+.jfp-apply-btn:hover{opacity:.88;}
+
+/* Application form */
+.afp-inner{max-width:680px;margin:0 auto;padding:48px 32px 80px;}
+.afp-title{font-size:2.4rem;font-weight:800;color:#fff;margin:0 0 6px;letter-spacing:-.02em;}
+.afp-sub{font-size:.88rem;color:rgba(255,255,255,.4);margin-bottom:36px;}
+.afp-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+.afp-group{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
+.afp-label{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.7);}
+.afp-label span{color:#ef4444;}
+.afp-input,.afp-textarea{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:12px 14px;font-family:inherit;font-size:.88rem;color:#fff;outline:none;transition:border-color .2s;width:100%;box-sizing:border-box;}
+.afp-input::placeholder,.afp-textarea::placeholder{color:rgba(255,255,255,.25);}
+.afp-input:focus,.afp-textarea:focus{border-color:rgba(59,130,246,.5);}
+.afp-textarea{resize:vertical;min-height:100px;}
+.afp-drop{border:1.5px dashed rgba(255,255,255,.2);border-radius:10px;padding:36px 20px;text-align:center;cursor:pointer;transition:border-color .2s;position:relative;}
+.afp-drop:hover,.afp-drop.drag{border-color:rgba(59,130,246,.5);background:rgba(59,130,246,.04);}
+.afp-drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.afp-drop-icon{font-size:1.6rem;margin-bottom:8px;}
+.afp-drop-text{font-size:.88rem;font-weight:600;color:rgba(255,255,255,.7);}
+.afp-drop-hint{font-size:.75rem;color:rgba(255,255,255,.3);margin-top:4px;}
+.afp-drop-name{font-size:.82rem;color:#00C2A8;margin-top:8px;}
+.afp-check{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;}
+.afp-check input{margin-top:3px;flex-shrink:0;accent-color:#3b82f6;}
+.afp-check label{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.55;}
+.afp-footer{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);margin-top:8px;}
+.afp-back-btn{padding:12px 28px;border-radius:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.afp-back-btn:hover{background:rgba(255,255,255,.12);}
+.afp-submit-btn{padding:12px 36px;border-radius:8px;background:linear-gradient(135deg,#3b82f6,#00C2A8);color:#fff;font-size:.9rem;font-weight:700;border:none;cursor:pointer;transition:opacity .2s;}
+.afp-submit-btn:hover{opacity:.88;}
+.afp-submit-btn:disabled{opacity:.5;cursor:default;}
+.afp-success{text-align:center;padding:60px 20px;}
+.afp-success h2{font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:12px;}
+.afp-success p{color:rgba(255,255,255,.5);font-size:.92rem;}
+@media(max-width:600px){.afp-row{grid-template-columns:1fr;}.jfp-inner,.afp-inner{padding:32px 20px 60px;}.jfp-title{font-size:1.7rem;}.afp-title{font-size:1.8rem;}}
+</style>
+
+<!-- Job full-page -->
+<div id="job-fullpage">
+  <div class="jfp-inner" id="jfp-content"></div>
+</div>
+
+<!-- Apply full-page -->
+<div id="apply-fullpage">
+  <div class="afp-inner" id="afp-content"></div>
+</div>
+
+<script>
+var SUPABASE_URL = 'https://swvpmoffserpatwxuxsl.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnBtb2Zmc2VycGF0d3h1eHNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDAwMDgsImV4cCI6MjA5MTc3NjAwOH0.rAiHFcYbRY_ZjCVHN67YXyOY9Zs7_B1bUkRrOSoVfIY';
+
+var jobs={
+  fullstack:{
+    title:'Full-Stack Engineer',
+    type:'Full-time · Remote',
+    salary:'$80,000 – $100,000',
+    dept:'Engineering',
+    about:'Worklo PSA is a professional services automation platform — a full-stack internal operations system used by agencies and consultancies to manage projects, time tracking, capacity planning, visual workflows, client portals, analytics, and role-based access control. The architecture is a Next.js 15 front end (App Router, React Server Components) communicating with a dedicated Express.js REST API server running on port 4000. That API layer handles all business logic, authentication, and database operations — it\'s not a Next.js API route setup, it\'s a proper standalone Express server that can run independently and be scaled separately from the front end. The database is Supabase (PostgreSQL) with Row Level Security enforced at the database level, not just in application code. Auth is handled via Supabase JWT tokens passed as cookies between the Next.js client and the Express API. You\'ll work across this entire system — designing schemas, writing RLS policies, building Express route handlers with Zod validation, and shipping polished React UIs. This is a high-ownership role on a small team: you take features from design to production with minimal hand-holding, and your work reaches real users immediately.',
+    responsibilities:[
+      'Build and maintain Express.js REST API endpoints on port 4000 — route handlers, middleware, request validation with Zod, and structured error responses',
+      'Design PostgreSQL schemas in Supabase with proper indexing, foreign keys, and Row Level Security policies that enforce multi-tenant data isolation',
+      'Implement authentication flows: Supabase JWT verification in Express middleware, cookie handling, session management, and role-based permission checks',
+      'Build React components and pages in Next.js 15 using the App Router — understanding when to use Server Components vs. Client Components for performance',
+      'Manage client-side state with Jotai and server state/caching with SWR, keeping the UI fast and consistent',
+      'Integrate third-party services through the Express API layer: SMTP for transactional email, Supabase Storage for file uploads, and webhook endpoints',
+      'Work with complex UI libraries: @xyflow/react for the visual workflow builder, @dnd-kit for drag-and-drop, Recharts and D3 for analytics dashboards',
+      'Write clean, well-typed TypeScript across both the Next.js front end and the Express API — shared types, strict null checks',
+      'Participate in architecture decisions — the Express/Next.js split, API versioning, caching strategy, and RLS policy design',
+      'Debug production issues across the full stack: React rendering bugs, slow PostgreSQL queries, Express middleware ordering problems'
+    ],
+    requirements:[
+      '3+ years of professional full-stack experience with React/Next.js and Node.js/Express',
+      'Strong TypeScript skills across both front end and back end',
+      'Solid Express.js experience: routing, middleware, error handling, and building production-grade REST APIs',
+      'Solid PostgreSQL knowledge: schema design, joins, indexes, transactions, and query optimization',
+      'Understanding of JWT-based authentication, cookie security, and how auth flows work across a separate API server and front end',
+      'Experience with Supabase or similar BaaS platforms, especially Row Level Security',
+      'Comfortable working in a remote-first, async environment with high autonomy'
+    ],
+    nice:[
+      'Experience with Next.js App Router and React Server Components',
+      'Familiarity with @xyflow/react, @dnd-kit, Recharts, or D3',
+      'Experience building multi-tenant SaaS applications with database-level isolation',
+      'Jotai or Zustand state management experience',
+      'Open source contributions demonstrating full-stack ownership'
+    ]
+  },
+  nextgo:{
+    title:'Senior Next.js + Go Engineer',
+    type:'Full-time · Remote',
+    salary:'$85,000 – $100,000',
+    dept:'Engineering',
+    about:'<p>Worklo is a Professional Services Automation platform built for agencies and consultancies who\'ve outgrown the spreadsheet-and-five-tabs approach. We bring projects, tasks, time tracking, capacity planning, workflow automation, client collaboration, and analytics into a single system — one login, one source of truth. Our customers run their entire delivery operation on Worklo: who\'s working on what, how much capacity is left, what a project is actually costing, and where the process is breaking down.</p>' +
+      '<div class="jfp-about-heading">About the Role</div>' +
+      '<p>We\'re introducing Go as a dedicated service layer alongside our existing Express.js API, and we want to be specific about why — because "we need Go for performance" usually isn\'t a real answer.</p>' +
+      '<p>Three things are pushing work off our Node API. First, capacity planning is CPU-bound: proportional allocation rolling up individual → department → org is real computation, and running it on the event loop blocks everything else on the process. Second, workflow execution is long-running — multi-step approval chains with retries and durable state don\'t belong inside a request/response cycle. Third, analytics aggregation is heavy enough that we want it isolated from the API\'s latency budget.</p>' +
+      '<p>Today\'s data volumes are moderate and Postgres handles them fine. This is a deliberate architectural move ahead of growth, not a rescue mission — which means you\'d be designing the service layer properly rather than firefighting one.</p>' +
+      '<p>As a Senior Go + Next.js Engineer, you\'d own that layer end to end, plus the frontend surfaces that consume it. Greenfield, no legacy baggage, and the architectural decisions are yours to make and defend.</p>',
+    responsibilities:[
+      'Design and implement Go services for the platform\'s compute-heavy and long-running work: the capacity planning engine, the time aggregation service, and the workflow execution engine',
+      'Build clean REST or gRPC interfaces between Go services and the Express.js API, with proper authentication passthrough and error propagation',
+      'Implement concurrent processing in Go — goroutines, channels, worker pools, context propagation — so bulk operations never block the main API',
+      'Own the highest-complexity Next.js pages: org-wide capacity view, analytics dashboard, and admin panel — using React Server Components and streaming for fast TTFB',
+      'Design database-level optimizations in PostgreSQL: materialized views, partial indexes, execution plan analysis, and batch operations',
+      'Integrate Go services with Supabase via direct PostgreSQL connections using pgx, bypassing the REST layer for internal high-volume reads',
+      'Build observability in from the start: structured logging, Prometheus metrics, distributed tracing, health checks',
+      'Set up and maintain CI/CD for Go service deployment alongside the Next.js frontend',
+      'Write comprehensive tests: table-driven unit tests in Go, integration tests against a test Supabase instance'
+    ],
+    requirements:[
+      '4+ years of professional backend development, with at least 2 years of production Go',
+      '3+ years of Next.js/React — deep understanding of SSR, React Server Components, streaming, and the App Router',
+      'Strong PostgreSQL: complex queries, execution plans, index strategy, optimization',
+      'Experience designing and operating microservices in production',
+      'Deep understanding of Go concurrency: goroutines, channels, mutexes, context propagation, and the failure modes of each',
+      'Familiarity with JWT authentication, API gateway patterns, and service-to-service auth',
+      'Comfortable making architectural decisions independently and defending them',
+      'Fluent in English'
+    ],
+    nice:[
+      'gRPC and Protocol Buffers for internal service communication',
+      'Supabase or PostgREST internals knowledge',
+      'pgx for direct PostgreSQL access from Go',
+      'Prometheus, Grafana, or OpenTelemetry',
+      'Docker and Kubernetes for containerized Go deployment',
+      'Experience introducing a new language or service layer into an existing codebase'
+    ],
+    why:[
+      'Greenfield service layer with real architectural ownership — no legacy baggage',
+      'Small team, flat structure, direct impact on what ships',
+      'Full depth of the stack: concurrent Go systems through to complex React frontends',
+      'Remote-friendly'
+    ]
+  },
+  nextrust:{
+    title:'Senior Next.js + Rust Engineer',
+    type:'Full-time · Remote',
+    salary:'$85,000 – $100,000',
+    dept:'Engineering',
+    about:'<p>Worklo is a Professional Services Automation platform for agencies and consultancies — projects, time tracking, capacity planning, workflows, client collaboration, and analytics in one system. Our customers run their entire delivery operation on Worklo, down to what each project costs and what each person is owed. We\'re now building the layer that turns that compensation data into on-chain payouts.</p>' +
+      '<div class="jfp-about-heading">About the Role</div>' +
+      '<p>We\'re introducing an on-chain settlement layer for compensation, and we want to be specific about why — because "put it on a blockchain" usually isn\'t a real reason.</p>' +
+      '<p>Worklo already computes what every team member has earned: hours, role multipliers, milestone bonuses, department rules. Paying that out across many recipients each cycle, in stablecoins, with a verifiable and auditable record of who was paid what, is where a contract earns its place. The calculation stays off-chain where the data lives; what goes on-chain is distribution and its guarantees — batch stablecoin transfers, a tamper-evident payment record, and correct handling of the ways a payout can fail.</p>' +
+      '<p>As a Senior Rust Engineer, you\'d own that settlement layer end to end: the on-chain programs and the Rust services around them, plus the Next.js surfaces where operators review and trigger payout runs. Greenfield, real architectural ownership, and the decisions — chain, contract model, upgrade strategy, payment semantics — are yours to make and defend.</p>',
+    responsibilities:[
+      'Design and implement the on-chain settlement contracts in Rust for batch stablecoin compensation distribution — payment model, failure semantics, and a verifiable payout record',
+      'Build the Rust services around them: constructing, submitting, and confirming transactions, reconciling on-chain state against Worklo\'s off-chain compensation data, and handling retries and reorgs',
+      'Make batch distribution safe against real-world conditions — a single failing or blocked recipient must not brick an entire payout run (pull-over-push where appropriate), and retries must never double-pay',
+      'Design the boundary between the existing Express.js/Supabase platform and the settlement layer, with clean interfaces, auth passthrough, and clear error propagation',
+      'Own the operator-facing Next.js pages — payout review, run status, and audit history — using React Server Components and streaming so large runs stay responsive',
+      'Build observability in from the start: structured logging, metrics, tracing, and health checks across both services and on-chain interactions',
+      'Write comprehensive tests: unit and property/fuzz tests for the contracts, integration tests for the settlement services against a testnet',
+      'Work with an independent third-party audit ahead of any mainnet deployment — you build and defend it, someone else signs off on it'
+    ],
+    requirements:[
+      '3+ years of professional Rust, with production experience',
+      'Real smart contract / on-chain program experience in Rust, and the security instincts that come with irreversible, money-handling code — reentrancy, access control, arithmetic safety, and adversarial account/input validation',
+      'Understanding of stablecoin (ERC-20 or SPL) mechanics and the failure modes of batch token transfers — non-standard tokens, blocked recipients, fee-on-transfer',
+      '3+ years of Next.js/React, including performance-sensitive pages and complex state',
+      'Comfortable making architectural decisions independently and defending them, including whether something belongs on-chain at all',
+      'Fluent in English'
+    ],
+    nice:[
+      'Solidity/EVM (Polygon, Base, or similar L2s) and/or Solana/Anchor experience',
+      'Experience with transaction lifecycle handling: confirmation, reorg safety, idempotent submission',
+      'Familiarity with account abstraction, multisig, or timelock patterns for treasury-grade controls',
+      'Observability tooling (Prometheus, Grafana, OpenTelemetry)',
+      'Prior work taking a contract through an external security audit'
+    ],
+    why:[
+      'Greenfield settlement layer with real architectural ownership — no legacy baggage',
+      'You\'d own a money-handling system end to end, with an external audit backing it — not marking your own homework',
+      'Full depth of the stack: on-chain Rust through to complex React frontends',
+      'Small team, flat structure, direct impact on what ships',
+      'Remote-friendly'
+    ]
+  },
+  frontend:{
+    title:'Frontend Engineer',
+    type:'Full-time · Remote',
+    salary:'$75,000 – $95,000',
+    dept:'Engineering',
+    about:'You will build the interfaces that agency operators use every single day — dashboards, Kanban boards, Gantt charts, time tracking widgets, workflow builders, analytics views, and client portals. Worklo\'s frontend is Next.js 15 with the App Router, TypeScript, Tailwind CSS 4, and shadcn/ui. The product is complex and data-dense, which means you need to care deeply about performance, accessibility, and the small details that make a tool feel fast and satisfying. You will work closely with the product designer and backend engineers, and you will have real ownership over the component library.',
+    responsibilities:[
+      'Implement UI components and pages with pixel-perfect accuracy from Figma designs',
+      'Build and maintain the shared component library using shadcn/ui and Tailwind CSS 4',
+      'Optimize frontend performance: bundle size, Core Web Vitals, rendering strategies (SSR, SSG, client)',
+      'Write accessible, semantic HTML — ARIA roles, keyboard navigation, screen reader support',
+      'Implement complex interactive features: drag-and-drop (dnd-kit), data visualization (Recharts, D3), workflow canvas (@xyflow/react)',
+      'Manage client-side state with Jotai and server state with SWR',
+      'Write unit and integration tests for components and user flows',
+      'Collaborate with backend engineers on API contracts and data shapes'
+    ],
+    requirements:[
+      '3+ years of professional frontend development experience',
+      'Expert React and TypeScript skills — hooks, context, memoization, and rendering deeply',
+      'Strong CSS skills including Tailwind, animations, and responsive design',
+      'Experience with Next.js App Router and understanding of server vs. client components',
+      'Web performance knowledge and accessibility experience building WCAG-compliant interfaces'
+    ],
+    nice:[
+      'Experience with Tailwind CSS 4 and design token systems',
+      'Framer Motion or animation library experience',
+      'Experience building data-heavy dashboards or analytics UIs',
+      'Familiarity with @xyflow/react or node-based canvas libraries'
+    ]
+  },
+  dataanalytics:{
+    title:'Data Analytics Engineer',
+    type:'Full-time · Remote',
+    salary:'$75,000 – $95,000',
+    dept:'Engineering',
+    about:'Worklo generates rich operational data — time entries, capacity allocations, project progress, workflow completions, department utilization, and client activity. You will own the entire analytics pipeline: from designing the PostgreSQL views and aggregation queries that power the dashboards, to building the Recharts and D3 visualizations that make that data legible, to architecting the data model that makes it possible to answer new questions without rewriting everything. You will work at the intersection of database engineering, backend development, and data visualization — turning raw operational data into the metrics that help agencies understand their business in real time.',
+    responsibilities:[
+      'Design and implement PostgreSQL views, materialized views, and aggregation queries that power analytics dashboards — utilization rates, capacity trends, project health scores, time distribution, and department-level metrics',
+      'Build and maintain the analytics API layer in Express.js: parameterized query endpoints with proper filtering, date range support, department/account scoping, and response caching',
+      'Implement data visualizations in Recharts and D3.js: bar charts, line charts, area charts, heat maps, and custom SVG visualizations for capacity and utilization data',
+      'Design time-series data patterns in PostgreSQL — partitioning, indexing strategies for date-range queries, and efficient aggregation over rolling windows',
+      'Build the data pipeline that computes and caches expensive metrics on a schedule rather than on every request',
+      'Implement real-time analytics updates using Supabase subscriptions — dashboards reflect changes to time entries and project status without a page refresh',
+      'Define and document the analytics data model: what each metric means, how it is calculated, and what its data sources are',
+      'Write performance benchmarks and query plans for analytics queries — you own the p95 response time of every dashboard endpoint'
+    ],
+    requirements:[
+      '3+ years of experience in data engineering, analytics engineering, or backend development with a strong analytics focus',
+      'Expert PostgreSQL skills: window functions, CTEs, materialized views, query optimization, and execution plans',
+      'Experience with D3.js or Recharts for building custom data visualizations in React',
+      'Strong TypeScript/Node.js skills for building the API layer that serves analytics data',
+      'Understanding of time-series data patterns, rolling aggregations, and efficient date-range querying at scale'
+    ],
+    nice:[
+      'Experience with dbt, Airbyte, or similar data pipeline tools',
+      'Familiarity with PostgreSQL partitioning and BRIN indexes for time-series optimization',
+      'Experience building real-time dashboards with websocket or SSE-based data streams',
+      'Background in agency operations or professional services metrics',
+      'Experience with BI tools (Metabase, Redash, Grafana)'
+    ]
+  },
+  web3:{
+    title:'Web3 Engineer',
+    type:'Full-time · Remote',
+    salary:'$80,000 – $100,000',
+    dept:'Engineering',
+    about:'Worklo is building the integration layer between its PSA platform and the blockchain network — wallet connectivity, on-chain transaction verification, user-facing payment dashboards, and the frontend experience for the crypto salary distribution system. You will own the client-side Web3 stack: wallet connection with MetaMask and WalletConnect, reading on-chain data via ethers.js or viem, and building the React components that make blockchain interactions feel as smooth as any other part of the product. You will also work on the backend integration layer that bridges Worklo\'s Supabase database with the blockchain network — syncing on-chain events, tracking payout statuses, and exposing clean API endpoints.',
+    responsibilities:[
+      'Implement wallet connection flows in React using ethers.js or viem — MetaMask, WalletConnect, Coinbase Wallet — with graceful fallbacks and clear user messaging for unsupported states',
+      'Build the user-facing wallet registry: allowing team members to link their wallet address to their Worklo profile, verify ownership via message signing, and manage multiple wallets',
+      'Implement the payment history dashboard: querying on-chain transaction records, displaying payout amounts, dates, transaction hashes, and verification links to block explorers',
+      'Build backend API endpoints in Express.js that sync on-chain events back into Supabase — keeping the database in sync with blockchain state',
+      'Implement blockchain event listeners using ethers.js provider subscriptions or webhook-based services (Alchemy, QuickNode) to detect completed payouts',
+      'Handle ERC-20 token operations: reading balances, decoding Transfer events, formatting stablecoin amounts (USDC, USDT) with correct decimal handling',
+      'Build robust error handling for Web3 interactions — transaction failures, gas estimation errors, wallet rejections, network switches',
+      'Implement network detection and chain switching: ensuring users are on the correct network (Polygon) before initiating transactions'
+    ],
+    requirements:[
+      '3+ years of web development experience with at least 2 years of hands-on Web3/dApp development',
+      'Strong ethers.js v6 or viem skills — you can read contracts, decode events, and estimate gas',
+      'Experience integrating MetaMask, WalletConnect, and/or RainbowKit into production React applications',
+      'Solid TypeScript and React skills — you can build complex state machines for multi-step Web3 flows',
+      'Understanding of EVM concepts: accounts, transactions, gas, events, ABIs, and contract interfaces',
+      'Experience working with ERC-20 tokens and stablecoins in production'
+    ],
+    nice:[
+      'Experience with wagmi or RainbowKit for wallet management',
+      'Familiarity with Polygon network specifics — gas tokens, bridge operations, block times',
+      'Experience with Alchemy, QuickNode, or Infura for reliable RPC access and event webhooks',
+      'Understanding of The Graph or Moralis for efficient on-chain data indexing',
+      'Experience building payment or payroll-related Web3 applications'
+    ]
+  },
+  smartcontract:{
+    title:'Smart Contract Developer',
+    type:'Full-time · Remote',
+    salary:'$80,000 – $100,000',
+    dept:'Engineering',
+    about:'Worklo\'s blockchain salary distribution system needs a rock-solid smart contract layer. You will design, implement, audit, and deploy the Solidity contracts that calculate and distribute compensation to team members\' wallets based on data from the Worklo PSA platform — time entries, role multipliers, project milestone bonuses, and department-level rules. These contracts will handle real money: stablecoin (USDC/USDT) distributions to potentially hundreds of wallets per pay cycle. Security, gas efficiency, and correctness are non-negotiable. You will make the key architectural decisions: upgradeable vs. immutable, single contract vs. factory pattern, push vs. pull payment model, and emergency pause mechanisms.',
+    responsibilities:[
+      'Design the salary distribution contract architecture — deciding between push payments vs. pull payments, and justifying the security tradeoffs of each approach',
+      'Implement the salary calculation logic in Solidity: base rate × hours worked × role multiplier + milestone bonuses, all with fixed-point arithmetic to avoid floating-point errors',
+      'Build the payout authorization system: multi-sig or admin-controlled approval flow before distributions execute, with clear on-chain audit trail',
+      'Implement ERC-20 stablecoin handling: USDC and USDT transfers with correct decimal precision (6 decimals for USDC), allowance management, and safe transfer patterns',
+      'Deploy contracts to Polygon mainnet and Mumbai testnet using Hardhat deployment scripts with deterministic addresses and full verification on Polygonscan',
+      'Write comprehensive test suites: unit tests for every function, integration tests for full payout cycles, and fuzz tests for arithmetic edge cases',
+      'Implement emergency controls: owner-pauseable contract with ability to cancel pending payouts and recover tokens in case of a critical vulnerability',
+      'Conduct internal security review against common vulnerabilities: reentrancy, integer overflow, access control, and front-running',
+      'Write clear NatSpec documentation for all public functions and events'
+    ],
+    requirements:[
+      '3+ years of Solidity development with at least 2 production-deployed contracts handling real value',
+      'Deep understanding of EVM security patterns: reentrancy guards, checks-effects-interactions, access control with OpenZeppelin, and safe math',
+      'Expert Hardhat skills: deployment scripts, task plugins, mainnet forking for integration tests, and gas reporting',
+      'Strong understanding of ERC-20 token mechanics and safe transfer patterns (SafeERC20)',
+      'Experience deploying to Polygon or other EVM L2 networks',
+      'Ability to read Solidity assembly and understand low-level EVM operations that affect gas costs'
+    ],
+    nice:[
+      'Foundry experience for property-based fuzz testing of contract invariants',
+      'Experience with OpenZeppelin Defender for automated monitoring and access control',
+      'Familiarity with formal verification tools (Certora, Echidna)',
+      'Experience with upgradeable proxy patterns (UUPS, Transparent Proxy)',
+      'Prior audit experience or having contracts audited by a third party'
+    ]
+  },
+  designer:{
+    title:'Product Designer',
+    type:'Full-time · Remote',
+    salary:'$70,000 – $90,000',
+    dept:'Design',
+    about:'Worklo PSA is a complex internal operations platform — capacity planning, workflow automation, time tracking, client portals, RBAC, analytics. Your job is to make all of that feel simple, fast, and satisfying to use. You will own the design system, define interaction patterns, and work directly with engineers to ship polished interfaces. This is not a role where designs sit in Figma forever — you will be in the product daily, catching issues, iterating quickly, and making sure what ships matches what was designed.',
+    responsibilities:[
+      'Design end-to-end user flows for new features — from initial concept through final handoff',
+      'Own and evolve the Worklo design system: components, tokens, spacing, typography, and interaction patterns',
+      'Create high-fidelity mockups and interactive prototypes in Figma',
+      'Conduct user interviews and usability tests with real agency operators',
+      'Define and document interaction states: loading, empty, error, success, and edge cases',
+      'Work closely with engineers during implementation to ensure design quality in production',
+      'Audit the existing product regularly and identify UX debt to address'
+    ],
+    requirements:[
+      '3+ years of product design experience on SaaS or B2B tools',
+      'Expert-level Figma skills including components, auto-layout, and prototyping',
+      'Strong portfolio demonstrating complex UI design — dashboards, data-heavy interfaces, or workflow tools',
+      'Deep understanding of accessibility (WCAG) and responsive design',
+      'Ability to communicate design decisions clearly to engineers and stakeholders'
+    ],
+    nice:[
+      'Experience designing agency management, project management, or PM tools',
+      'Motion design skills — micro-interactions, transitions, loading states',
+      'Basic front-end knowledge (HTML/CSS/React)',
+      'Familiarity with design tokens and multi-theme systems'
+    ]
+  },
+  qa:{
+    title:'QA Engineer',
+    type:'Full-time · Remote',
+    salary:'$55,000 – $75,000',
+    dept:'Engineering',
+    about:'You are the last line of defence before code reaches users. Worklo is a complex platform — multi-tenant, role-based, with intricate permission logic enforced at the database level via Supabase RLS. A bug in capacity planning or time tracking is not just a UI glitch — it affects how agencies bill clients and allocate their teams. You will build automated test suites, define test plans for new features, and perform manual regression testing on every release.',
+    responsibilities:[
+      'Write and maintain automated end-to-end tests using Playwright or Cypress covering critical user flows',
+      'Build API-level tests for the Express.js REST API using Postman or Supertest',
+      'Perform manual regression testing on every release, with focus on permission boundaries and multi-tenant isolation',
+      'Define test plans and acceptance criteria for new features in collaboration with engineers',
+      'Report bugs clearly with reproduction steps, environment details, and severity assessment',
+      'Track bugs through to resolution and verify fixes before sign-off',
+      'Contribute to CI/CD pipeline improvements to catch regressions earlier'
+    ],
+    requirements:[
+      '2+ years of QA engineering experience in a software product company',
+      'Hands-on experience with Playwright, Cypress, or Selenium',
+      'Strong attention to detail — you find the edge cases others miss',
+      'Clear, structured bug reporting that engineers can act on immediately',
+      'Understanding of CI/CD pipelines and how automated tests fit into them'
+    ],
+    nice:[
+      'Experience testing Next.js or React applications',
+      'API testing experience with Postman or Supertest',
+      'Familiarity with Supabase or PostgreSQL for database-level test verification',
+      'Experience testing multi-tenant or permission-heavy applications'
+    ]
+  }
+};
+var currentJobId = null;
+var resumeFile = null;
+
+function showCareersModal(title, messageHtml) {
+  var overlay = document.getElementById('careers-modal-overlay');
+  var titleEl = document.getElementById('careers-modal-title');
+  var msgEl   = document.getElementById('careers-modal-msg');
+  if (!overlay || !titleEl || !msgEl) return;
+  titleEl.textContent = title || 'Something went wrong';
+  msgEl.innerHTML = messageHtml || '';
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function hideCareersModal() {
+  var overlay = document.getElementById('careers-modal-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function hideToast() {
+  var t = document.getElementById('zx-toast');
+  if (t) t.classList.remove('show');
+}
+
+// Close modal on backdrop click / Esc
+document.addEventListener('click', function (e) {
+  var overlay = document.getElementById('careers-modal-overlay');
+  if (overlay && overlay.classList.contains('open') && e.target === overlay) hideCareersModal();
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') hideCareersModal();
+});
+
+function goToJob(id) {
+  currentJobId = id;
+  var j = jobs[id]; if (!j) return;
+  var html = '<button class="jfp-back" onclick="closeJobPage()">' +
+    '<i data-lucide="arrow-left"></i> Back to Careers</button>' +
+    '<div><span class="jfp-badge">' + j.dept + '</span><span class="jfp-type">' + j.type + '</span></div>' +
+    '<h1 class="jfp-title">' + j.title + '</h1>' +
+    '<div class="jfp-salary">' + j.salary + '</div>' +
+    '<div class="jfp-divider"></div>' +
+    '<div class="jfp-about">' + j.about + '</div>' +
+    jfpSection('Responsibilities', j.responsibilities) +
+    jfpSection('Requirements', j.requirements) +
+    jfpSection('Nice to Have', j.nice) +
+    (j.why ? jfpSection('Why Worklo', j.why) : '') +
+    '<button class="jfp-apply-btn" onclick="openApplyPage()">Apply for this role →</button>';
+  document.getElementById('jfp-content').innerHTML = html;
+  document.getElementById('job-fullpage').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  window.scrollTo(0,0);
+}
+
+function jfpSection(title, items) {
+  return '<div class="jfp-section"><h4>' + title + '</h4><ul>' +
+    items.map(function(i){ return '<li>' + i + '</li>'; }).join('') +
+    '</ul></div>';
+}
+
+function closeJobPage() {
+  document.getElementById('job-fullpage').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function openApplyPage() {
+  var j = jobs[currentJobId];
+  var isBlockchain = currentJobId === 'blockchain';
+
+  // Blockchain-only extra fields
+  var blockchainFields = isBlockchain ? (
+    '<p class="afp-section-label">Blockchain Specifics</p>' +
+    '<div class="afp-group"><label class="afp-label">Which role(s) are you most interested in? <span>*</span></label>' +
+      '<div class="afp-check-group">' +
+        '<label class="afp-checkbox"><input type="checkbox" name="af-roles" value="Smart Contract Developer" /> Smart Contract Developer</label>' +
+        '<label class="afp-checkbox"><input type="checkbox" name="af-roles" value="Blockchain Backend Developer" /> Blockchain Backend Developer</label>' +
+        '<label class="afp-checkbox"><input type="checkbox" name="af-roles" value="dApp / Frontend Developer" /> dApp / Frontend Developer</label>' +
+        '<label class="afp-checkbox"><input type="checkbox" name="af-roles" value="Full-Stack Web3 Developer" /> Full-Stack Web3 Developer</label>' +
+        '<label class="afp-checkbox"><input type="checkbox" name="af-roles" value="Security / Smart Contract Review" /> Security / Smart Contract Review</label>' +
+        '<label class="afp-checkbox"><input type="checkbox" name="af-roles" value="General Web3 Engineering" /> General Web3 Engineering</label>' +
+        '<label class="afp-checkbox"><input type="checkbox" name="af-roles" value="Other" /> Other</label>' +
+      '</div>' +
+    '</div>' +
+    '<div class="afp-group"><label class="afp-label">Which blockchain ecosystems, tools, or frameworks have you worked with most recently? <span>*</span></label>' +
+      '<p class="afp-field-hint">Example: Solidity, EVM, Hardhat, Foundry, ethers.js, web3.js, Rust, Solana, etc.</p>' +
+      '<textarea class="afp-textarea" id="af-blockchain-tools" placeholder="e.g. Solidity, Hardhat, ethers.js..." rows="3" required></textarea>' +
+    '</div>' +
+    '<div class="afp-group"><label class="afp-label">Which area best matches your strongest recent hands-on experience? <span>*</span></label>' +
+      '<div class="afp-radio-group">' +
+        '<label class="afp-radio"><input type="radio" name="af-strongest-area" value="Smart contracts" required /> Smart contracts</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-strongest-area" value="Blockchain backend systems" /> Blockchain backend systems</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-strongest-area" value="dApp / frontend" /> dApp / frontend</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-strongest-area" value="Full-stack Web3" /> Full-stack Web3</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-strongest-area" value="Security / review" /> Security / review</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-strongest-area" value="Infrastructure / DevOps" /> Infrastructure / DevOps</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-strongest-area" value="Other" /> Other</label>' +
+      '</div>' +
+    '</div>'
+  ) : '';
+
+  var html =
+    '<button class="jfp-back" onclick="closeApplyPage()">' +
+    '<i data-lucide="arrow-left"></i> Back to Careers</button>' +
+    '<h1 class="afp-title">Apply for</h1>' +
+    '<p class="afp-sub">Fill in your details below and we\'ll be in touch.</p>' +
+    '<form id="apply-form" novalidate onsubmit="return submitApplication(event)">' +
+    '<div class="afp-row">' +
+      '<div class="afp-group"><label class="afp-label">First name <span>*</span></label><input class="afp-input" id="af-first" type="text" placeholder="Jane" required /></div>' +
+      '<div class="afp-group"><label class="afp-label">Last name <span>*</span></label><input class="afp-input" id="af-last" type="text" placeholder="Smith" required /></div>' +
+    '</div>' +
+    '<div class="afp-row">' +
+      '<div class="afp-group"><label class="afp-label">Email <span>*</span></label><input class="afp-input" id="af-email" type="email" placeholder="jane@example.com" required /></div>' +
+      '<div class="afp-group"><label class="afp-label">Phone</label><input class="afp-input" id="af-phone" type="tel" placeholder="+1 (555) 000-0000" /></div>' +
+    '</div>' +
+    '<div class="afp-group"><label class="afp-label">Resume <span>*</span></label>' +
+      '<div class="afp-drop" id="af-drop" onclick="document.getElementById(\'af-file\').click()">' +
+        '<input type="file" id="af-file" accept=".pdf,.doc,.docx" style="display:none" onchange="handleFile(this)" />' +
+        '<div class="afp-drop-icon">\uD83D\uDCCE</div>' +
+        '<div class="afp-drop-text">Drag and drop files here</div>' +
+        '<div class="afp-drop-hint">PDF, DOC, DOCX \u00B7 max 10MB</div>' +
+        '<div class="afp-drop-name" id="af-filename"></div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="afp-group"><label class="afp-label">Cover letter</label><textarea class="afp-textarea" id="af-cover" placeholder="Tell us why you\'re a great fit for this role..." rows="4"></textarea></div>' +
+    '<div class="afp-group"><label class="afp-label">Preferred location of employment</label><input class="afp-input" id="af-location" type="text" placeholder="e.g. Remote, New York, London" /></div>' +
+    '<div class="afp-check"><input type="checkbox" id="af-keep" /><label for="af-keep">I want you to keep my information for all future positions I might be fit for. If something interesting pops up, send me an e-mail. The data will be kept for five years.</label></div>' +
+    '<div class="afp-group"><label class="afp-label">How did you hear about this job?</label><textarea class="afp-textarea" id="af-referral" placeholder="e.g. LinkedIn, GitHub, a friend..." rows="3"></textarea></div>' +
+    '<p class="afp-section-label">Contact Preference</p>' +
+    '<div class="afp-group"><label class="afp-label">Preferred Contact Method <span>*</span></label>' +
+      '<div class="afp-radio-group">' +
+        '<label class="afp-radio"><input type="radio" name="af-contact-method" value="Email" required /> Email</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-contact-method" value="WhatsApp" /> WhatsApp</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-contact-method" value="Telegram" /> Telegram</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-contact-method" value="LinkedIn" /> LinkedIn</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-contact-method" value="Other" /> Other</label>' +
+      '</div>' +
+    '</div>' +
+    '<div class="afp-group"><label class="afp-label">Preferred Contact ID / Link</label><input class="afp-input" id="af-contact-id" type="text" placeholder="e.g. @username, profile URL" /></div>' +
+    '<p class="afp-section-label">Background</p>' +
+    '<div class="afp-group"><label class="afp-label">Current Location / Country <span>*</span></label><input class="afp-input" id="af-country" type="text" placeholder="e.g. United States, Germany" required /></div>' +
+    '<div class="afp-group"><label class="afp-label">How many years of professional development experience do you have? <span>*</span></label>' +
+      '<div class="afp-radio-group">' +
+        '<label class="afp-radio"><input type="radio" name="af-exp-years" value="Less than 1 year" required /> Less than 1 year</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-exp-years" value="1\u20132 years" /> 1\u20132 years</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-exp-years" value="3\u20135 years" /> 3\u20135 years</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-exp-years" value="5\u20138 years" /> 5\u20138 years</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-exp-years" value="Over 8 years" /> Over 8 years</label>' +
+      '</div>' +
+    '</div>' +
+    '<div class="afp-group"><label class="afp-label">Current Role or Most Recent Role <span>*</span></label><input class="afp-input" id="af-current-role" type="text" placeholder="e.g. Senior Developer at XYZ" required /></div>' +
+    '<div class="afp-group"><label class="afp-label">Earliest Availability <span>*</span></label>' +
+      '<div class="afp-radio-group">' +
+        '<label class="afp-radio"><input type="radio" name="af-availability" value="Immediately" required /> Immediately</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-availability" value="Within 2 weeks" /> Within 2 weeks</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-availability" value="Within 1 month" /> Within 1 month</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-availability" value="More than 1 month" /> More than 1 month</label>' +
+        '<label class="afp-radio"><input type="radio" name="af-availability" value="Flexible / depends on discussion" /> Flexible / depends on discussion</label>' +
+      '</div>' +
+    '</div>' +
+    '<p class="afp-section-label">Portfolio &amp; Work</p>' +
+    '<div class="afp-group"><label class="afp-label">GitHub, portfolio, LinkedIn, personal website, or relevant project links <span>*</span></label>' +
+      '<p class="afp-field-hint">You may include GitHub, portfolio, LinkedIn, personal website, or project examples that best represent your experience.</p>' +
+      '<textarea class="afp-textarea" id="af-portfolio" placeholder="https://github.com/..." rows="3" required></textarea>' +
+    '</div>' +
+    blockchainFields +
+    '<div class="afp-group"><label class="afp-label">In 2\u20134 sentences, describe the most relevant work you have done in this area. <span>*</span></label>' +
+      '<textarea class="afp-textarea" id="af-relevant-work" placeholder="Describe your most relevant experience for this role..." rows="4" required></textarea>' +
+    '</div>' +
+    '<div class="afp-group"><label class="afp-label">Compensation expectation / preferred basis</label>' +
+      '<p class="afp-field-hint">Example: USD 8,000 monthly, USD 120,000 annually, USD 60/hour, or open to discussion.</p>' +
+      '<input class="afp-input" id="af-compensation" type="text" placeholder="e.g. USD 8,000/month or open to discussion" /></div>' +
+    '<div class="afp-footer">' +
+      '<button type="button" class="afp-back-btn" onclick="closeApplyPage()">Back</button>' +
+      '<button type="submit" class="afp-submit-btn" id="af-submit">Submit</button>' +
+    '</div>' +
+    '</form>';
+
+  document.getElementById('afp-content').innerHTML = html;
+  document.getElementById('apply-fullpage').classList.add('open');
+  window.scrollTo(0,0);
+
+  // Drag and drop
+  var drop = document.getElementById('af-drop');
+  drop.addEventListener('dragover', function(e){ e.preventDefault(); drop.classList.add('drag'); });
+  drop.addEventListener('dragleave', function(){ drop.classList.remove('drag'); });
+  drop.addEventListener('drop', function(e){ e.preventDefault(); drop.classList.remove('drag'); if(e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+}
+function handleFile(input) {
+  if (input.files[0]) setFile(input.files[0]);
+}
+
+function setFile(file) {
+  resumeFile = file;
+  var el = document.getElementById('af-filename');
+  if (el) el.textContent = '✓ ' + file.name;
+}
+
+function closeApplyPage() {
+  document.getElementById('apply-fullpage').classList.remove('open');
+  resumeFile = null;
+}
+
+function submitApplication(e) {
+  if (e && typeof e.preventDefault === 'function') e.preventDefault();
+
+  var form = document.getElementById('apply-form');
+  if (form && typeof form.checkValidity === 'function' && !form.checkValidity()) {
+    if (typeof form.reportValidity === 'function') form.reportValidity();
+    return false;
+  }
+
+  var first    = (document.getElementById('af-first')    || {}).value || '';
+  var last     = (document.getElementById('af-last')     || {}).value || '';
+  var email    = (document.getElementById('af-email')    || {}).value || '';
+  var phone    = (document.getElementById('af-phone')    || {}).value || '';
+  var cover    = (document.getElementById('af-cover')    || {}).value || '';
+  var location = (document.getElementById('af-location') || {}).value || '';
+  var keep     = (document.getElementById('af-keep')     || {}).checked || false;
+  var referral = (document.getElementById('af-referral') || {}).value || '';
+  var j        = jobs[currentJobId] || {};
+
+  // New fields — all roles
+  var contactMethodEl = document.querySelector('input[name="af-contact-method"]:checked');
+  var contact_method   = contactMethodEl ? contactMethodEl.value : '';
+  var contact_id       = (document.getElementById('af-contact-id')    || {}).value || '';
+  var country          = (document.getElementById('af-country')        || {}).value || '';
+  var expYearsEl       = document.querySelector('input[name="af-exp-years"]:checked');
+  var exp_years        = expYearsEl ? expYearsEl.value : '';
+  var current_role     = (document.getElementById('af-current-role')   || {}).value || '';
+  var availabilityEl   = document.querySelector('input[name="af-availability"]:checked');
+  var availability     = availabilityEl ? availabilityEl.value : '';
+  var portfolio        = (document.getElementById('af-portfolio')       || {}).value || '';
+  var relevant_work    = (document.getElementById('af-relevant-work')   || {}).value || '';
+  var compensation     = (document.getElementById('af-compensation')    || {}).value || '';
+
+  // Blockchain-only fields
+  var rolesChecked = document.querySelectorAll('input[name="af-roles"]:checked');
+  var interested_roles = rolesChecked.length ? Array.from(rolesChecked).map(function(el){ return el.value; }).join(', ') : '';
+  var blockchain_tools = (document.getElementById('af-blockchain-tools') || {}).value || '';
+  var strongestAreaEl  = document.querySelector('input[name="af-strongest-area"]:checked');
+  var strongest_area   = strongestAreaEl ? strongestAreaEl.value : '';
+
+  // Validate required
+  var errors = [];
+  if (!resumeFile)    errors.push('Resume');
+
+  if (errors.length) {
+    showCareersModal(
+      'Missing required fields',
+      'Please fill in the following before submitting:<br><strong>' + errors.join(', ') + '</strong>.'
+    );
+    return;
+  }
+
+  var btn = document.getElementById('af-submit');
+  if (btn) { btn.disabled = true; btn.textContent = 'Uploading resume...'; }
+
+  // Upload resume to Supabase Storage first, then submit the application
+  var uploadPromise;
+  if (resumeFile) {
+    var ext = resumeFile.name.split('.').pop();
+    var fileName = Date.now() + '_' + first.toLowerCase() + '_' + last.toLowerCase() + '.' + ext;
+    var storageUrl = SUPABASE_URL + '/storage/v1/object/resumes/' + fileName;
+    uploadPromise = fetch(storageUrl, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': resumeFile.type || 'application/octet-stream',
+        'x-upsert': 'true'
+      },
+      body: resumeFile
+    }).then(function(r) {
+      if (!r.ok) return r.text().then(function(t){ throw new Error('Resume upload failed: ' + (t || r.status)); });
+      return SUPABASE_URL + '/storage/v1/object/public/resumes/' + fileName;
+    });
+  } else {
+    uploadPromise = Promise.resolve(null);
+  }
+
+  if (btn) btn.textContent = 'Sending...';
+
+  uploadPromise.then(function(resume_url) {
+    return fetch(SUPABASE_URL + '/functions/v1/submit-application', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY
+      },
+      body: JSON.stringify({
+        first_name: first,
+        last_name: last,
+        email: email,
+        phone: phone,
+        job_title: j.title || currentJobId,
+        cover_letter: cover,
+        preferred_location: location,
+        referral: referral,
+        keep_for_future: keep,
+        resume_url: resume_url,
+        contact_method: contact_method,
+        contact_id: contact_id,
+        country: country,
+        exp_years: exp_years,
+        current_role: current_role,
+        availability: availability,
+        portfolio: portfolio,
+        relevant_work: relevant_work,
+        compensation: compensation,
+        interested_roles: interested_roles,
+        blockchain_tools: blockchain_tools,
+        strongest_area: strongest_area
+      })
+    }).then(function(r) {
+      return r.text().then(function(text) {
+        var data = {};
+        if (text) {
+          try { data = JSON.parse(text); } catch(parseErr) {
+            if (!r.ok) throw new Error((text && text.slice(0, 280)) || (r.status + ' ' + r.statusText));
+            throw new Error('Unexpected response from server.');
+          }
+        }
+        if (!r.ok) throw new Error((data && (data.error || data.message)) || ('Request failed (' + r.status + ')'));
+        return data;
+      });
+    });
+  }).then(function(data) {
+    if (data && data.error) throw new Error(data.error);
+    document.getElementById('afp-content').innerHTML =
+      '<div class="afp-success">' +
+        '<div style="font-size:3rem;margin-bottom:16px;">✅</div>' +
+        '<h2>Application submitted!</h2>' +
+        '<p>Thanks ' + first + ', we\'ll review your application and be in touch within 5 business days.</p>' +
+        '<button class="jfp-back" style="margin:24px auto 0;display:inline-flex;" onclick="closeApplyPage();closeJobPage();">← Back to Careers</button>' +
+      '</div>';
+  }).catch(function(err) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Submit'; }
+    showCareersModal(
+      'Submission failed',
+      'We couldn\'t submit your application right now.<br><br><strong>Error:</strong> ' +
+        (err && err.message ? String(err.message) : 'Unknown error') +
+        '<br><br>Please email <strong>talents@worklo.org</strong> directly and we\'ll help.'
+    );
+  });
+  return false;
+}
+</script><script>document.addEventListener("DOMContentLoaded",function(){lucide.createIcons();});</script>
+</body>
+</html>

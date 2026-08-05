@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile – Worklo</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="icon" href="/images/tab-logo.gif" type="image/gif" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .profile-page {
+      min-height: 100vh;
+      padding: 100px 20px 60px;
+    }
+    .profile-container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .profile-avatar-large {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 3px solid rgba(59,130,246,0.3);
+      box-shadow: 0 0 24px rgba(59,130,246,0.2);
+    }
+    .profile-header-info h1 {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+    .profile-header-info p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .profile-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .profile-card h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+    .profile-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .profile-field:last-of-type { margin-bottom: 0; }
+    .profile-field label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .profile-field input {
+      background: var(--elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--text-primary);
+      font-family: var(--font);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .profile-field input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+    }
+    .profile-field input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .profile-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .profile-msg {
+      font-size: 0.82rem;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      display: none;
+      margin-top: 16px;
+    }
+    .profile-msg.success {
+      display: block;
+      color: var(--success);
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.2);
+    }
+    .profile-msg.error {
+      display: block;
+      color: var(--error);
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+    .danger-zone {
+      border-color: rgba(239,68,68,0.25);
+    }
+    .danger-zone h2 { color: var(--error); }
+    .btn-danger {
+      background: transparent;
+      border: 1px solid var(--error);
+      color: var(--error);
+      padding: 9px 20px;
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .btn-danger:hover { background: rgba(239,68,68,0.1); }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .meta-row:last-child { border-bottom: none; }
+    .meta-row .meta-label { color: var(--text-muted); }
+    .meta-row .meta-value { color: var(--text-primary); font-weight: 500; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/images/logo.gif" alt="Worklo" /></a>
+    <ul class="nav-links">
+      <li><a href="/features">Features</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/roadmap">Roadmap</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-actions">
+      <div id="nav-actions-auth"></div>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main class="profile-page" id="profile-page">
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-avatar-large" id="profile-avatar">?</div>
+      <div class="profile-header-info">
+        <h1 id="profile-display-name">Loading...</h1>
+        <p id="profile-display-email"></p>
+      </div>
+    </div>
+
+    <!-- Account Info -->
+    <div class="profile-card">
+      <h2>Account Information</h2>
+      <form id="profile-form">
+        <div class="profile-field">
+          <label for="p-name">Full Name</label>
+          <input type="text" id="p-name" placeholder="Your full name" autocomplete="name" />
+        </div>
+        <div class="profile-field">
+          <label for="p-email">Email</label>
+          <input type="email" id="p-email" disabled />
+        </div>
+        <div class="profile-msg" id="profile-msg"></div>
+        <div class="profile-actions">
+          <button type="submit" class="btn btn-primary" id="save-btn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Change Password -->
+    <div class="profile-card">
+      <h2>Change Password</h2>
+      <form id="password-form">
+        <div class="profile-field">
+          <label for="p-new-password">New Password</label>
+          <input type="password" id="p-new-password" placeholder="Min. 8 characters" minlength="8" />
+        </div>
+        <div class="profile-field">
+          <label for="p-confirm-password">Confirm New Password</label>
+          <input type="password" id="p-confirm-password" placeholder="Repeat new password" />
+        </div>
+        <div class="profile-msg" id="password-msg"></div>
+        <div class="profile-actions">
+          <button type="submit" class="btn btn-primary" id="pw-btn">Update Password</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Account Meta -->
+    <div class="profile-card">
+      <h2>Account Details</h2>
+      <div class="meta-row">
+        <span class="meta-label">User ID</span>
+        <span class="meta-value" id="meta-uid" style="font-size:0.78rem;font-family:monospace;color:var(--text-muted);">—</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Account created</span>
+        <span class="meta-value" id="meta-created">—</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Last sign in</span>
+        <span class="meta-value" id="meta-signin">—</span>
+      </div>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="profile-card danger-zone">
+      <h2>Danger Zone</h2>
+      <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:16px;">Once you sign out from all devices, you'll need to sign in again.</p>
+      <button class="btn-danger" id="signout-all-btn">Sign Out Everywhere</button>
+    </div>
+  </div>
+</main>
+
+<script src="/js/main.js"></script>
+<script src="/js/auth.js"></script>
+<script>
+  const SUPABASE_URL = 'https://swvpmoffserpatwxuxsl.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnBtb2Zmc2VycGF0d3h1eHNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDAwMDgsImV4cCI6MjA5MTc3NjAwOH0.rAiHFcYbRY_ZjCVHN67YXyOY9Zs7_B1bUkRrOSoVfIY';
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  function showMsg(id, msg, type) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className = 'profile-msg ' + type;
+  }
+
+  async function init() {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { window.location.replace('/auth?return=/profile'); return; }
+
+    const user = session.user;
+    const name = user.user_metadata?.full_name || '';
+    const initials = name ? name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2) : user.email[0].toUpperCase();
+
+    // Header
+    document.getElementById('profile-avatar').textContent = initials;
+    document.getElementById('profile-display-name').textContent = name || user.email.split('@')[0];
+    document.getElementById('profile-display-email').textContent = user.email;
+
+    // Form
+    document.getElementById('p-name').value = name;
+    document.getElementById('p-email').value = user.email;
+
+    // Meta
+    document.getElementById('meta-uid').textContent = user.id;
+    document.getElementById('meta-created').textContent = new Date(user.created_at).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+    document.getElementById('meta-signin').textContent = user.last_sign_in_at ? new Date(user.last_sign_in_at).toLocaleString() : '—';
+  }
+
+  // Save profile
+  document.getElementById('profile-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const name = document.getElementById('p-name').value.trim();
+    const btn = document.getElementById('save-btn');
+    btn.disabled = true; btn.textContent = 'Saving…';
+
+    const { error } = await sb.auth.updateUser({ data: { full_name: name } });
+    if (error) {
+      showMsg('profile-msg', error.message, 'error');
+    } else {
+      showMsg('profile-msg', 'Profile updated successfully.', 'success');
+      document.getElementById('profile-display-name').textContent = name || document.getElementById('p-email').value.split('@')[0];
+      const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+      document.getElementById('profile-avatar').textContent = initials;
+    }
+    btn.disabled = false; btn.textContent = 'Save Changes';
+  });
+
+  // Change password
+  document.getElementById('password-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const pw  = document.getElementById('p-new-password').value;
+    const cpw = document.getElementById('p-confirm-password').value;
+    if (pw.length < 8) { showMsg('password-msg', 'Password must be at least 8 characters.', 'error'); return; }
+    if (pw !== cpw)    { showMsg('password-msg', 'Passwords do not match.', 'error'); return; }
+
+    const btn = document.getElementById('pw-btn');
+    btn.disabled = true; btn.textContent = 'Updating…';
+
+    const { error } = await sb.auth.updateUser({ password: pw });
+    if (error) {
+      showMsg('password-msg', error.message, 'error');
+    } else {
+      showMsg('password-msg', 'Password updated successfully.', 'success');
+      document.getElementById('p-new-password').value = '';
+      document.getElementById('p-confirm-password').value = '';
+    }
+    btn.disabled = false; btn.textContent = 'Update Password';
+  });
+
+  // Sign out everywhere
+  document.getElementById('signout-all-btn').addEventListener('click', async () => {
+    await sb.auth.signOut({ scope: 'global' });
+    window.location.replace('/');
+  });
+
+  init();
+</script>
+</body>
+</html>

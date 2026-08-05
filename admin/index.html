@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Worklo</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="icon" href="/images/tab-logo.gif" type="image/gif" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .admin-page {
+      min-height: 100vh;
+      padding: 80px 20px 40px;
+      background: var(--black);
+    }
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .admin-header {
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .admin-header h1 {
+      font-size: 1.8rem;
+      color: var(--text-primary);
+    }
+    .admin-header .admin-user {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+    .admin-header .admin-user strong {
+      color: var(--blue);
+    }
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+    .stat-card .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .stat-card .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--blue);
+    }
+    .admin-table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .admin-table thead {
+      background: var(--elevated);
+      border-bottom: 1px solid var(--border);
+    }
+    .admin-table th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .admin-table td {
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border);
+    }
+    .admin-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .admin-table tbody tr:hover {
+      background: var(--elevated);
+    }
+    .admin-table .user-email {
+      color: var(--blue);
+      font-weight: 600;
+    }
+    .admin-table .user-ip {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+    .admin-table .user-location {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .admin-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--elevated);
+      border-radius: var(--radius);
+      padding: 4px;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+    .admin-tab {
+      padding: 8px 20px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: calc(var(--radius) - 2px);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .admin-tab.active {
+      background: var(--blue);
+      color: #fff;
+    }
+    .loading-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
+    .loading-state svg {
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .error-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--error);
+    }
+    .access-denied {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+      padding: 20px;
+    }
+    .access-denied h1 {
+      font-size: 2rem;
+      color: var(--error);
+    }
+    .access-denied p {
+      color: var(--text-secondary);
+    }
+    .btn-logout {
+      background: var(--elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-logout:hover {
+      background: var(--error);
+      border-color: var(--error);
+      color: #fff;
+    }
+    @media (max-width: 768px) {
+      .admin-table-wrap {
+        overflow-x: auto;
+      }
+      .admin-table {
+        min-width: 800px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/images/logo.gif" alt="Worklo" /></a>
+    <ul class="nav-links">
+      <li><a href="/features">Features</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/roadmap">Roadmap</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn btn-outline btn-logout" id="logout-btn" style="display:none;">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<main class="admin-page" id="admin-content">
+  <div class="loading-state">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="2" x2="12" y2="6"></line>
+      <line x1="12" y1="18" x2="12" y2="22"></line>
+      <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+      <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+      <line x1="2" y1="12" x2="6" y2="12"></line>
+      <line x1="18" y1="12" x2="22" y2="12"></line>
+      <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+      <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+    </svg>
+    <p style="margin-top:16px;">Loading admin dashboard...</p>
+  </div>
+</main>
+
+<script src="/js/main.js"></script>
+<script>
+  const ADMIN_EMAIL = 'david85freelance@gmail.com';
+  
+  const { createClient } = supabase;
+  const sb = createClient(
+    'https://swvpmoffserpatwxuxsl.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnBtb2Zmc2VycGF0d3h1eHNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDAwMDgsImV4cCI6MjA5MTc3NjAwOH0.rAiHFcYbRY_ZjCVHN67YXyOY9Zs7_B1bUkRrOSoVfIY'
+  );
+
+  async function checkAuth() {
+    const { data: { session } } = await sb.auth.getSession();
+    
+    if (!session) {
+      window.location.href = '/auth?return=/admin';
+      return null;
+    }
+
+    if (session.user.email !== ADMIN_EMAIL) {
+      showAccessDenied();
+      return null;
+    }
+
+    document.getElementById('logout-btn').style.display = 'block';
+    return session;
+  }
+
+  function showAccessDenied() {
+    document.getElementById('admin-content').innerHTML = `
+      <div class="access-denied">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" stroke="var(--error)"/>
+          <line x1="15" y1="9" x2="9" y2="15" stroke="var(--error)"/>
+          <line x1="9" y1="9" x2="15" y2="15" stroke="var(--error)"/>
+        </svg>
+        <h1>Access Denied</h1>
+        <p>You don't have permission to view this page.</p>
+        <button class="btn btn-primary" onclick="window.location.href='/'">Go Home</button>
+      </div>
+    `;
+  }
+
+  async function getLocationFromIP(ip) {
+    if (!ip || ip === 'Unknown') return 'Unknown';
+    try {
+      const res = await fetch(`https://ipapi.co/${ip}/json/`);
+      const data = await res.json();
+      if (data.city && data.country_name) {
+        return `${data.city}, ${data.country_name}`;
+      }
+      return data.country_name || 'Unknown';
+    } catch (err) {
+      return 'Unknown';
+    }
+  }
+
+  async function loadUsers() {
+    try {
+      // Get all users from auth.users via admin API
+      // Note: This requires service_role key for production
+      // For now, we'll use the RPC function approach
+      
+      const { data, error } = await sb.rpc('get_auth_users');
+      
+      if (error) {
+        console.error('Error fetching users:', error);
+        // Fallback: show current session user only
+        const { data: { session } } = await sb.auth.getSession();
+        return [{
+          id: session.user.id,
+          email: session.user.email,
+          name: session.user.user_metadata?.full_name || 'N/A',
+          last_sign_in: session.user.last_sign_in_at,
+          ip: 'N/A',
+          location: 'N/A'
+        }];
+      }
+
+      // Enrich with location data
+      const enriched = await Promise.all(data.map(async (user) => {
+        const location = (user.city && user.city !== 'Unknown')
+          ? `${user.city}, ${user.country}`
+          : await getLocationFromIP(user.ip);
+        return { ...user, location };
+      }));
+
+      return enriched;
+    } catch (err) {
+      console.error('Error:', err);
+      return [];
+    }
+  }
+
+  async function renderDashboard(users) {
+    const totalUsers = users.length;
+    const last24h = users.filter(u => {
+      if (!u.last_sign_in) return false;
+      const diff = Date.now() - new Date(u.last_sign_in).getTime();
+      return diff < 24 * 60 * 60 * 1000;
+    }).length;
+
+    // Load applications
+    const { data: apps } = await sb.from('job_applications').select('*').order('submitted_at', { ascending: false });
+    const applications = apps || [];
+
+    const html = `
+      <div class="admin-container">
+        <div class="admin-header">
+          <div>
+            <h1>Admin Dashboard</h1>
+            <p class="admin-user">Logged in as <strong>${ADMIN_EMAIL}</strong></p>
+          </div>
+        </div>
+
+        <div class="admin-stats">
+          <div class="stat-card">
+            <div class="stat-label">Total Users</div>
+            <div class="stat-value">${totalUsers}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Active (24h)</div>
+            <div class="stat-value">${last24h}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Applications</div>
+            <div class="stat-value">${applications.length}</div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="admin-tabs">
+          <button class="admin-tab active" onclick="switchAdminTab('users', this)">Users</button>
+          <button class="admin-tab" onclick="switchAdminTab('applications', this)">Applications</button>
+        </div>
+
+        <!-- Users Table -->
+        <div id="tab-users" class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Last Sign In</th>
+                <th>IP Address</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${users.map(user => `
+                <tr>
+                  <td>${user.name || 'N/A'}</td>
+                  <td class="user-email">${user.email}</td>
+                  <td>${user.last_sign_in ? new Date(user.last_sign_in).toLocaleString() : 'Never'}</td>
+                  <td class="user-ip">${user.ip || 'N/A'}</td>
+                  <td class="user-location">${(user.city && user.city !== 'Unknown') ? `${user.city}, ${user.country}` : user.location || 'Unknown'}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Applications Table -->
+        <div id="tab-applications" class="admin-table-wrap" style="display:none;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Position</th>
+                <th>Location</th>
+                <th>Referral</th>
+                <th>Keep for Future</th>
+                <th>Resume</th>
+                <th>Cover Letter</th>
+                <th>Submitted</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${applications.length === 0 ? `<tr><td colspan="10" style="text-align:center;color:var(--text-muted);padding:32px;">No applications yet.</td></tr>` :
+                applications.map(app => `
+                  <tr>
+                    <td>${app.first_name} ${app.last_name}</td>
+                    <td class="user-email">${app.email}</td>
+                    <td>${app.phone || '—'}</td>
+                    <td>${app.job_title || '—'}</td>
+                    <td>${app.preferred_location || '—'}</td>
+                    <td>${app.referral || '—'}</td>
+                    <td>${app.keep_for_future ? '✓ Yes' : 'No'}</td>
+                    <td>${app.resume_url ? `<a href="${app.resume_url}" target="_blank" style="color:var(--blue);">Download</a>` : '—'}</td>
+                    <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(app.cover_letter||'').replace(/"/g,'&quot;')}">${app.cover_letter || '—'}</td>
+                    <td>${new Date(app.submitted_at).toLocaleString()}</td>
+                  </tr>
+                `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('admin-content').innerHTML = html;
+  }
+
+  function switchAdminTab(tab, btn) {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-users').style.display = tab === 'users' ? '' : 'none';
+    document.getElementById('tab-applications').style.display = tab === 'applications' ? '' : 'none';
+  }
+
+  async function init() {
+    const session = await checkAuth();
+    if (!session) return;
+
+    const users = await loadUsers();
+    await renderDashboard(users);
+  }
+
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await sb.auth.signOut();
+    window.location.href = '/auth';
+  });
+
+  init();
+</script>
+</body>
+</html>
