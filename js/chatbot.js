@@ -3,129 +3,155 @@
 var isOpen=false,view='home',messages=[],slideBack=false;
 
 var css=`
-/* ===== LAUNCHER ===== */
+/* ===== LAUNCHER — editorial square + motion ===== */
 #wl-btn{
-  position:fixed;bottom:72px;right:28px;z-index:2147483647;
-  width:68px;height:68px;border-radius:50%;
-  background:transparent;
-  border:none;cursor:pointer;
+  position:fixed;bottom:88px;right:24px;z-index:2147483647;
+  width:128px;height:128px;border-radius:0;
+  background:#EDE8E0;
+  border:1px solid #EDE8E0;
+  cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:none;
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 12px 32px rgba(0,0,0,.45);
+  transition:background .25s ease,border-color .25s ease,color .25s ease,box-shadow .35s cubic-bezier(.16,1,.3,1);
   overflow:visible;
+  padding:0;margin:0;
+  color:#050505;
+  -webkit-appearance:none;appearance:none;
+  animation:wlEnter .65s cubic-bezier(.16,1,.3,1) both, wlFloat 4.5s ease-in-out 1s infinite;
 }
-#wl-btn:hover{ transform:translateY(-4px) scale(1.1); }
-#wl-btn:active{ transform:scale(.9); }
+#wl-btn:hover{
+  background:#fff;
+  border-color:#fff;
+  animation:none;
+  transform:translateY(-6px);
+  box-shadow:0 22px 48px rgba(0,0,0,.55);
+}
+#wl-btn:active{
+  transform:translateY(-2px) scale(.97);
+  box-shadow:0 14px 28px rgba(0,0,0,.45);
+}
+#wl-btn.open{
+  background:#050505;
+  border-color:rgba(237,232,224,.35);
+  color:#EDE8E0;
+  animation:wlPop .4s cubic-bezier(.16,1,.3,1) both;
+  transform:none;
+  box-shadow:0 16px 40px rgba(0,0,0,.6);
+}
+#wl-btn.open:hover{
+  background:#111;
+  border-color:rgba(237,232,224,.5);
+  transform:translateY(-3px);
+}
 
-/* Logo */
-#wl-btn img {
-  position:relative;z-index:3;
-  width:56px;height:56px;object-fit:contain;
-  animation:iconFloat 3.5s ease-in-out infinite;
-  transition:filter .3s;
-  filter:drop-shadow(0 4px 12px rgba(59,130,246,.4));
+/* Square pulse rings */
+#wl-btn::before,#wl-btn::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(237,232,224,.45);
+  pointer-events:none;
+  animation:wlPulse 2.8s ease-out infinite;
 }
-#wl-btn:hover img {
-  filter:drop-shadow(0 4px 20px rgba(59,130,246,.7)) brightness(1.1);
+#wl-btn::after{animation-delay:1.4s;}
+#wl-btn.open::before,#wl-btn.open::after{display:none;}
+
+@keyframes wlEnter{
+  from{opacity:0;transform:translateY(36px) scale(.82);}
+  to{opacity:1;transform:translateY(0) scale(1);}
 }
-@keyframes iconFloat{
+@keyframes wlFloat{
   0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-6px);}
+  50%{transform:translateY(-8px);}
+}
+@keyframes wlPop{
+  0%{transform:scale(.92);}
+  60%{transform:scale(1.04);}
+  100%{transform:scale(1);}
+}
+@keyframes wlPulse{
+  0%{transform:scale(1);opacity:.55;}
+  100%{transform:scale(1.4);opacity:0;}
 }
 
-/* Sharp spinning arc border */
-#wl-btn::before{
-  content:'';position:absolute;
-  width:76px;height:76px;border-radius:50%;
-  border:2.5px solid transparent;
-  border-top-color:#3B82F6;
-  border-right-color:#8B5CF6;
-  border-bottom-color:#06b6d4;
-  border-left-color:transparent;
-  z-index:1;
-  animation:spinBorder 2s linear infinite;
-  box-shadow:0 0 12px rgba(59,130,246,.3);
-}
-@keyframes spinBorder{to{transform:rotate(360deg);}}
+#wl-pulse1,#wl-pulse2{display:none!important;}
 
-/* Second counter-rotating arc */
-#wl-btn::after{
-  display:block;
-  content:'';position:absolute;
-  width:84px;height:84px;border-radius:50%;
-  border:1.5px solid transparent;
-  border-top-color:rgba(139,92,246,.4);
-  border-left-color:rgba(6,182,212,.4);
-  z-index:0;
-  animation:spinBorderRev 3s linear infinite;
-}
-@keyframes spinBorderRev{to{transform:rotate(-360deg);}}
-
-/* Pulse rings */
-#wl-pulse1,#wl-pulse2{
-  position:absolute;border-radius:50%;
-  border:1px solid rgba(59,130,246,.5);
-  width:68px;height:68px;
-  animation:pulseOut 2.5s ease-out infinite;
-  pointer-events:none;z-index:0;
-}
-#wl-pulse2{animation-delay:1.25s;border-color:rgba(139,92,246,.4);}
-@keyframes pulseOut{
-  0%{transform:scale(1);opacity:.7;}
-  100%{transform:scale(2);opacity:0;}
-}
-
-/* Icon morph */
-#wl-btn .ico-chat{
-  display:flex;
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .25s;
-}
+/* Icon morph: chat ↔ close */
+#wl-btn .ico-chat,
 #wl-btn .ico-close{
-  display:flex;position:absolute;
-  opacity:0;transform:rotate(-90deg) scale(.4);
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .25s;
+  display:flex;align-items:center;justify-content:center;
+  position:absolute;inset:0;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .3s ease;
 }
-#wl-btn.open .ico-chat{opacity:0;transform:rotate(90deg) scale(.4);}
+#wl-btn .ico-chat{opacity:1;transform:none;}
+#wl-btn .ico-close{opacity:0;transform:rotate(-90deg) scale(.45);}
+#wl-btn.open .ico-chat{opacity:0;transform:rotate(90deg) scale(.45);}
 #wl-btn.open .ico-close{opacity:1;transform:rotate(0deg) scale(1);}
+#wl-btn svg{width:56px;height:56px;display:block;transition:transform .3s ease;}
+#wl-btn:not(.open) .ico-chat svg{
+  animation:iconBob 3.2s ease-in-out 1.2s infinite;
+}
+#wl-btn:hover .ico-chat svg{animation:none;transform:scale(1.06);}
+@keyframes iconBob{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-3px);}
+}
 
 /* Notification badge */
 #wl-notif{
-  position:absolute;top:-4px;right:-4px;
-  width:14px;height:14px;border-radius:50%;
-  background:linear-gradient(135deg,#ef4444,#dc2626);
-  border:2.5px solid #fff;
-  animation:badgePop .5s cubic-bezier(.34,1.56,.64,1) 2s both,badgePulse 2s ease-in-out 3s infinite;
+  position:absolute;top:-6px;right:-6px;
+  width:16px;height:16px;border-radius:0;
+  background:#C45C5C;
+  border:2px solid #050505;
+  animation:badgePop .45s cubic-bezier(.16,1,.3,1) 1.5s both, badgePulse 2.2s ease-in-out 2.5s infinite;
+  pointer-events:none;
 }
-@keyframes badgePop{from{transform:scale(0) rotate(-30deg);}to{transform:scale(1) rotate(0deg);}}
-@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.5);}50%{box-shadow:0 0 0 5px rgba(239,68,68,0);}}
+@keyframes badgePop{from{transform:scale(0);}to{transform:scale(1);}}
+@keyframes badgePulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(196,92,92,.45);}
+  50%{box-shadow:0 0 0 8px rgba(196,92,92,0);}
+}
 
 /* ===== PANEL ===== */
 #wl-panel{
-  position:fixed;bottom:140px;right:28px;z-index:2147483646;
-  width:340px;border-radius:16px;
-  background:#000000;
-  border:1px solid rgba(255,255,255,.15);
-  box-shadow:0 30px 70px rgba(0,0,0,.95);
+  position:fixed;bottom:232px;right:24px;z-index:2147483646;
+  width:340px;border-radius:0;
+  background:#050505;
+  border:1px solid rgba(237,232,224,.18);
+  box-shadow:0 24px 60px rgba(0,0,0,.75);
   display:flex;flex-direction:column;overflow:hidden;
-  transform:translateY(28px) scale(.9) rotateX(8deg);
+  transform:translateY(24px) scale(.94);
   opacity:0;pointer-events:none;
-  transition:transform .5s cubic-bezier(.34,1.2,.64,1),opacity .35s ease;
+  transition:transform .42s cubic-bezier(.16,1,.3,1),opacity .32s ease,box-shadow .42s ease;
   transform-origin:bottom right;
-  transform-style:preserve-3d;
-  perspective:800px;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  max-height:600px;
+  font-family:'DM Sans',sans-serif;
+  max-height:min(600px, calc(100vh - 260px));
 }
 #wl-panel.open{
-  transform:translateY(0) scale(1) rotateX(0deg);
-  opacity:1;pointer-events:all;
+  transform:translateY(0) scale(1);
+  opacity:1;pointer-events:auto;
+  box-shadow:0 28px 70px rgba(0,0,0,.8);
+  animation:panelIn .42s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes panelIn{
+  from{opacity:0;transform:translateY(28px) scale(.92);}
+  to{opacity:1;transform:translateY(0) scale(1);}
 }
 
-/* No accent bar - clean minimal */
+/* Hairline shimmer on panel top */
 #wl-panel::before{
-  display:none;
+  display:block;
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;z-index:2;
+  background:linear-gradient(90deg,transparent,rgba(237,232,224,.55),transparent);
+  background-size:200% 100%;
+  animation:shimmerLine 3.5s linear infinite;
+  pointer-events:none;
 }
-@keyframes borderFlow{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+@keyframes shimmerLine{
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
 
 /* ===== HEADER ===== */
 .wl-hdr{
@@ -136,8 +162,8 @@ var css=`
 }
 .wl-hdr-l{display:flex;align-items:center;gap:10px;}
 .wl-av{
-  width:34px;height:34px;border-radius:8px;flex-shrink:0;
-  background:#fff;
+  width:34px;height:34px;border-radius:0;flex-shrink:0;
+  background:#EDE8E0;
   display:flex;align-items:center;justify-content:center;
   font-size:.68rem;font-weight:800;color:#000;position:relative;
 }
@@ -149,7 +175,7 @@ var css=`
 .wl-hdr-name{font-size:.8rem;font-weight:600;color:#fff;}
 .wl-hdr-sub{font-size:.66rem;color:rgba(255,255,255,.4);margin-top:1px;}
 .wl-hdr-x{
-  width:28px;height:28px;border-radius:7px;border:none;
+  width:28px;height:28px;border-radius:0;border:none;
   background:rgba(255,255,255,.08);cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   color:rgba(255,255,255,.5);
@@ -201,8 +227,8 @@ var css=`
 }
 .wl-link-l{display:flex;align-items:center;gap:11px;}
 .wl-link-ic{
-  width:30px;height:30px;border-radius:7px;
-  background:#fff;
+  width:30px;height:30px;border-radius:0;
+  background:#EDE8E0;
   display:flex;align-items:center;justify-content:center;
   color:#000;flex-shrink:0;
   transition:transform .2s ease;
@@ -218,7 +244,7 @@ var css=`
 @keyframes linkIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 
 .wl-cta{
-  margin:0 18px 18px;padding:14px 20px;border-radius:50px;
+  margin:0 18px 18px;padding:14px 20px;border-radius:0;
   background:#fff;
   border:none;
   display:flex;align-items:center;justify-content:center;cursor:pointer;
@@ -228,8 +254,9 @@ var css=`
   overflow:hidden;
 }
 .wl-cta:hover{
-  transform:scale(1.02);
-  box-shadow:0 6px 20px rgba(255,255,255,.2);
+  transform:translateY(-2px);
+  background:#EDE8E0;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
 }
 .wl-cta:active{transform:scale(.98);}
 .wl-cta > div:first-child{padding:0;text-align:center;}
@@ -267,14 +294,14 @@ var css=`
 @keyframes msgIn{from{opacity:0;transform:translateY(14px) scale(.9);}to{opacity:1;transform:none;}}
 
 .wl-mav{
-  width:28px;height:28px;border-radius:9px;flex-shrink:0;
-  background:#fff;
+  width:28px;height:28px;border-radius:0;flex-shrink:0;
+  background:#EDE8E0;
   display:flex;align-items:center;justify-content:center;
   font-size:.6rem;font-weight:800;color:#000;
   box-shadow:0 2px 8px rgba(255,255,255,.2);
 }
 .wl-bbl{
-  padding:10px 14px;border-radius:16px;
+  padding:10px 14px;border-radius:0;
   font-size:.83rem;line-height:1.55;
   transition:transform .2s;
 }
@@ -283,12 +310,12 @@ var css=`
   background:rgba(255,255,255,.07);
   border:1px solid rgba(255,255,255,.08);
   color:rgba(255,255,255,.85);
-  border-bottom-left-radius:4px;
+  border-radius:0;
 }
 .wl-msg.user .wl-bbl{
-  background:linear-gradient(135deg,#3B82F6,#2563eb);
-  color:#fff;border-bottom-right-radius:4px;
-  box-shadow:0 4px 16px rgba(59,130,246,.35);
+  background:#EDE8E0;
+  color:#050505;border-radius:0;
+  box-shadow:none;
 }
 
 /* Typing */
@@ -304,30 +331,31 @@ var css=`
   display:flex;align-items:center;gap:8px;flex-shrink:0;
   transition:border-color .25s;
 }
-.wl-inp-row:focus-within{border-top-color:rgba(59,130,246,.35);}
+.wl-inp-row:focus-within{border-top-color:rgba(237,232,224,.3);}
 .wl-inp{
   flex:1;background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.09);border-radius:11px;
+  border:1px solid rgba(237,232,224,.12);border-radius:0;
   padding:10px 13px;font-size:.83rem;color:rgba(255,255,255,.88);
   font-family:inherit;outline:none;
   transition:border-color .25s,background .25s,box-shadow .25s;
 }
 .wl-inp::placeholder{color:rgba(255,255,255,.2);}
 .wl-inp:focus{
-  border-color:rgba(59,130,246,.5);
-  background:rgba(59,130,246,.06);
-  box-shadow:0 0 0 3px rgba(59,130,246,.12),0 2px 8px rgba(59,130,246,.1);
+  border-color:rgba(237,232,224,.35);
+  background:rgba(237,232,224,.06);
+  box-shadow:none;
 }
 .wl-inp.shake{animation:shake .4s cubic-bezier(.36,.07,.19,.97);}
 @keyframes shake{0%,100%{transform:translateX(0);}15%{transform:translateX(-6px);}30%{transform:translateX(6px);}45%{transform:translateX(-5px);}60%{transform:translateX(5px);}75%{transform:translateX(-3px);}90%{transform:translateX(3px);}}
 
 .wl-send{
-  width:36px;height:36px;border-radius:11px;flex-shrink:0;
-  background:linear-gradient(135deg,#3B82F6,#1d4ed8);
+  width:36px;height:36px;border-radius:0;flex-shrink:0;
+  background:#EDE8E0;
   border:none;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden;
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .25s,background .2s;
+  transition:background .2s;
+  color:#050505;
 }
 .wl-send::after{
   content:'';position:absolute;
@@ -340,8 +368,9 @@ var css=`
 }
 @keyframes ripple{to{transform:scale(3);opacity:0;}}
 .wl-send:not(:disabled):hover{
-  transform:scale(1.1) translateY(-1px);
-  box-shadow:0 6px 20px rgba(59,130,246,.55);
+  transform:translateY(-1px);
+  background:#fff;
+  box-shadow:0 4px 12px rgba(237,232,224,.2);
 }
 .wl-send:not(:disabled):active{transform:scale(.9);}
 .wl-send:disabled{background:rgba(255,255,255,.08);cursor:default;transform:none;box-shadow:none;}
@@ -356,19 +385,20 @@ var css=`
   border-top:1px solid rgba(255,255,255,.05);flex-shrink:0;
 }
 
-/* Particle burst on open */
+/* Particle burst on open — square editorial confetti */
 .wl-particle{
-  position:fixed;border-radius:50%;pointer-events:none;z-index:2147483645;
-  animation:particleFly .8s ease-out forwards;
+  position:fixed;border-radius:0;pointer-events:none;z-index:2147483645;
+  animation:particleFly .85s cubic-bezier(.16,1,.3,1) forwards;
 }
 @keyframes particleFly{
-  0%{transform:translate(0,0) scale(1);opacity:1;}
-  100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}
+  0%{transform:translate(0,0) scale(1) rotate(0deg);opacity:1;}
+  100%{transform:translate(var(--tx),var(--ty)) scale(0) rotate(90deg);opacity:0;}
 }
 
 @media(max-width:480px){
-  #wl-panel{width:calc(100vw - 24px);right:12px;bottom:126px;}
-  #wl-btn{right:16px;bottom:60px;}
+  #wl-panel{width:calc(100vw - 24px);right:12px;bottom:224px;max-height:calc(100vh - 260px);}
+  #wl-btn{right:16px;bottom:80px;width:128px;height:128px;}
+  #wl-btn svg{width:56px;height:56px;}
 }
 `;
 
@@ -376,79 +406,332 @@ var styleEl=document.createElement('style');
 styleEl.textContent=css;
 document.head.appendChild(styleEl);
 
-var replies={
-  // Greetings
-  hello:'Hey! 👋 Welcome to Worklo Support. Ask me anything about features, pricing, setup, or your account.',
+/* ── Knowledge base (loaded from JSON) + automatic study/learn ── */
+var kb=null;
+var kbReady=false;
+var LEARN_KEY='worklo-chatbot-learned-v1';
+
+function mergeLearned(list){
+  if(!kb||!Array.isArray(list)||!list.length)return;
+  kb.qa=kb.qa||[];
+  list.forEach(function(entry){
+    if(!entry||!entry.answer)return;
+    var q=(entry.question||'').toLowerCase();
+    var exists=kb.qa.some(function(e){
+      return (e.question||'').toLowerCase()===q || e.id===entry.id;
+    });
+    if(!exists){
+      kb.qa.unshift({
+        id:entry.id||('learned-'+Date.now()),
+        keywords:entry.keywords||tokenize(entry.question||'').slice(0,8),
+        patterns:entry.patterns||[entry.question||''],
+        answer:entry.answer,
+        question:entry.question||'',
+        learned:true
+      });
+    }
+  });
+}
+
+function loadLocalLearned(){
+  try{
+    var raw=localStorage.getItem(LEARN_KEY);
+    if(!raw)return [];
+    var parsed=JSON.parse(raw);
+    return Array.isArray(parsed)?parsed:[];
+  }catch(e){return [];}
+}
+
+function saveLocalLearned(list){
+  try{localStorage.setItem(LEARN_KEY,JSON.stringify(list.slice(0,100)));}catch(e){}
+}
+
+function persistLearned(question,answer,keywords){
+  var local=loadLocalLearned();
+  var qn=question.toLowerCase();
+  var entry=null;
+  for(var i=0;i<local.length;i++){
+    if((local[i].question||'').toLowerCase()===qn){
+      local[i].answer=answer;
+      local[i].count=(local[i].count||1)+1;
+      if(keywords&&keywords.length){
+        var set={};
+        (local[i].keywords||[]).concat(keywords).forEach(function(k){set[k]=true;});
+        local[i].keywords=Object.keys(set).slice(0,12);
+      }
+      entry=local[i];
+      break;
+    }
+  }
+  if(!entry){
+    entry={
+      id:'learned-local-'+Date.now(),
+      question:question,
+      answer:answer,
+      keywords:keywords||tokenize(question).slice(0,8),
+      patterns:[question],
+      count:1,
+      learned:true
+    };
+    local.unshift(entry);
+  }
+  saveLocalLearned(local);
+  mergeLearned([entry]);
+
+  // Shared learning for all visitors (requires scripts/serve.py)
+  fetch('/api/chatbot-learn',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({question:question,answer:answer,keywords:entry.keywords||[]})
+  }).catch(function(){});
+}
+
+var kbPromise=Promise.all([
+  fetch('/data/chatbot-knowledge.json').then(function(r){if(!r.ok)throw new Error('kb');return r.json();}),
+  fetch('/data/chatbot-learned.json').then(function(r){return r.ok?r.json():[];}).catch(function(){return [];})
+]).then(function(results){
+  kb=results[0];
+  mergeLearned(results[1]);
+  mergeLearned(loadLocalLearned());
+  kbReady=true;
+  return kb;
+}).catch(function(){
+  kb={qa:[],faq:[],features:[],fallback:'For help, email <b>support@worklo.org</b> or visit <a href="/contact" style="color:#EDE8E0">/contact</a>.'};
+  mergeLearned(loadLocalLearned());
+  kbReady=true;
+  return kb;
+});
+
+var STOP=new Set(['the','and','for','are','but','not','you','all','can','had','her','was','one','our','out','day','get','has','him','his','how','its','may','new','now','old','see','two','way','who','did','let','say','she','too','use','what','when','where','which','with','will','your','about','from','have','this','that','they','there','their','does','into','just','like','make','much','need','some','than','them','then','also','been','being','call','come','each','give','help','here','know','more','most','other','over','such','take','tell','very','want','well','work','would']);
+
+var quickReplies={
+  hello:'Hey! 👋 Welcome to Worklo Support. Ask me about features, pricing, getting started, or our product.',
   hi:'Hi there! 👋 How can I help you today?',
   hey:'Hey! What can I help you with?',
-  // Pricing
-  price:'Worklo is <b>free to self-host</b>. Managed cloud plans are also available. Visit <a href="/pricing" style="color:#3B82F6">/pricing</a> for full details.',
-  pricing:'Worklo has a <b>free self-hosted tier</b> and paid managed cloud plans with hosting, updates, and priority support. See <a href="/pricing" style="color:#3B82F6">/pricing</a>.',
-  cost:'Worklo is free to self-host. Managed cloud plans are available with monthly or annual billing. Check <a href="/pricing" style="color:#3B82F6">/pricing</a>.',
-  free:'Yes! Worklo is <b>open source and free to self-host</b> on your own infrastructure.',
-  plan:'We offer a free self-hosted plan and paid managed cloud plans. See <a href="/pricing" style="color:#3B82F6">/pricing</a>.',
-  subscription:'Monthly and annual subscriptions are available for managed cloud. Self-hosting is always free. See <a href="/pricing" style="color:#3B82F6">/pricing</a>.',
-  // Features
-  feature:'Worklo includes: <b>Capacity Planning</b>, <b>Time Tracking</b>, <b>Workflow Automation</b>, <b>Task Management</b> (Kanban, Gantt, Table), and a <b>Client Portal</b>. See <a href="/features" style="color:#3B82F6">/features</a>.',
-  features:'Key features: capacity planning, time tracking, visual workflow builder, Kanban/Gantt/Table views, client portal, and role-based permissions. See <a href="/features" style="color:#3B82F6">/features</a>.',
-  capacity:'<b>Capacity Planning</b> gives real-time visibility into every team member\'s availability before you commit to new work — by person, department, or org level.',
-  time:'<b>Time Tracking</b>: clock in/out with task allocation, manual logging, 14-day edit window, and full admin analytics.',
-  workflow:'<b>Workflow Automation</b> turns your SOPs into visual enforced workflows with drag-and-drop builder, role assignments, client approvals, and audit trail.',
-  kanban:'Worklo supports <b>Kanban boards</b> with drag-and-drop, plus Gantt charts, Table views, and Workflow views — all switchable instantly.',
-  gantt:'Yes, Worklo has <b>Gantt charts</b> with dependencies and critical path, alongside Kanban, Table, and Workflow views.',
-  portal:'The <b>Client Portal</b> gives each client a secure window into their projects — real-time visibility, approval workflows, satisfaction scoring, and branded access.',
-  permission:'Worklo has ~40 permissions across 15 categories, enforced at the database level with <b>PostgreSQL Row Level Security</b>.',
-  security:'Security is built-in — <b>Row Level Security</b> on every table, RBAC, audit logging, rate limiting, and input validation.',
-  // Setup
-  deploy:'Worklo deploys via Docker on any Linux server, VPS, or cloud provider (AWS, GCP, DigitalOcean, etc.).',
-  // Tech
-  tech:'Worklo is built on <b>Next.js 15</b>, <b>TypeScript</b>, <b>Supabase (PostgreSQL)</b>, Tailwind CSS 4, shadcn/ui, and Docker.',
-  'open source':'Yes, Worklo is <b>fully open source</b>. View, fork, and modify the code on GitHub.',
-  github:'Worklo is open source at <a href="https://github.com/worklo-psa" style="color:#3B82F6" target="_blank">github.com/worklo-org</a>.',
-  // Contact
-  contact:'Reach us at <b>support@worklo.org</b>, call <b>+1 (929) 612 9360</b>, or visit <a href="/contact" style="color:#3B82F6">/contact</a>. We\'re at 888 Broadway, Floor 4, New York, NY 10003.',
-  support:'Email <b>support@worklo.org</b> or use <a href="/contact" style="color:#3B82F6">/contact</a>. We respond within one business day.',
-  email:'Our support email is <b>support@worklo.org</b>. We respond within one business day.',
-  phone:'Call us at <b>+1 (929) 612 9360</b> during business hours.',
-  address:'We\'re at <b>888 Broadway, Floor 4, New York, NY 10003, US</b>.',
-  help:'Ask me about features, pricing, setup, or anything Worklo. Or visit <a href="/contact" style="color:#3B82F6">/contact</a> to reach our team.',
-  // Company
-  about:'Worklo was built by a student-run agency tired of juggling five tools. Learn more at <a href="/about" style="color:#3B82F6">/about</a>.',
-  team:'Meet the team at <a href="/about" style="color:#3B82F6">/about</a>.',
-  mission:'Worklo\'s mission is to replace the fragmented agency tool stack with one focused, open-source platform.',
-  // Roadmap & Careers
-  roadmap:'See what\'s coming at <a href="/roadmap" style="color:#3B82F6">/roadmap</a>. We ship regularly and the community shapes priorities.',
-  career:'We\'re hiring! Check open positions at <a href="/careers" style="color:#3B82F6">/careers</a>.',
-  careers:'We\'re hiring! Check open positions at <a href="/careers" style="color:#3B82F6">/careers</a>.',
-  // Misc
-  demo:'To request a demo, visit <a href="/contact" style="color:#3B82F6">/contact</a> and select "Request a demo".',
-  trial:'No trial needed — Worklo is free to self-host. Download and run it immediately.',
-  bug:'Report bugs at <b>support@worklo.org</b> or open an issue on <a href="https://github.com/worklo-psa" style="color:#3B82F6" target="_blank">GitHub</a>.',
   thanks:'You\'re welcome! 😊 Anything else I can help with?',
   'thank you':'You\'re welcome! 😊 Let me know if you need anything else.',
   bye:'Goodbye! 👋 Feel free to come back anytime.',
   goodbye:'Goodbye! 👋 Have a great day!'
 };
-var fallbacks=[
-  'I\'m not sure about that. For detailed help, email <b>support@worklo.org</b> or visit <a href="/contact" style="color:#3B82F6">/contact</a>.',
-  'Great question! For the most accurate answer, reach our team at <b>support@worklo.org</b>.',
-  'I don\'t have a specific answer for that. Try <a href="/features" style="color:#3B82F6">/features</a> or <a href="/contact" style="color:#3B82F6">/contact</a> for more info.'
-];
+
+function normalize(text){
+  return String(text||'').toLowerCase().replace(/[^\w\s]/g,' ').replace(/\s+/g,' ').trim();
+}
+
+function tokenize(text){
+  return normalize(text).split(' ').filter(function(w){return w.length>2&&!STOP.has(w);});
+}
+
+function hasPhrase(q, phrase){
+  return q.indexOf(normalize(phrase))!==-1;
+}
+
+function hasWord(q, word){
+  return new RegExp('\\b'+word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b').test(q);
+}
+
+function scoreEntry(query,tokens,entry){
+  var q=normalize(query);
+  var score=0;
+
+  (entry.patterns||[]).forEach(function(p){
+    if(hasPhrase(q,p))score+=8;
+  });
+
+  (entry.keywords||[]).forEach(function(kw){
+    var k=normalize(kw);
+    if(k.indexOf(' ')>-1){
+      if(hasPhrase(q,k))score+=5;
+      k.split(' ').forEach(function(w){
+        if(w.length>2&&tokens.indexOf(w)!==-1)score+=1.5;
+      });
+    }else if(hasWord(q,k)){
+      score+=3;
+      if(tokens.indexOf(k)!==-1)score+=1;
+    }
+  });
+
+  if(entry.question){
+    if(hasPhrase(q,entry.question))score+=10;
+    tokenize(entry.question).forEach(function(w){
+      if(tokens.indexOf(w)!==-1)score+=1;
+    });
+  }
+
+  if(entry.name&&hasPhrase(q,entry.name))score+=4;
+
+  if(entry.summary&&score>0){
+    tokenize(entry.summary).forEach(function(w){
+      if(tokens.indexOf(w)!==-1)score+=0.5;
+    });
+  }
+
+  return score;
+}
+
+function formatFeature(f){
+  var html='<b>'+f.name+'</b> — '+f.summary;
+  if(f.details&&f.details.length){
+    html+='<br><br>';
+    for(var i=0;i<Math.min(f.details.length,4);i++){
+      html+='• '+f.details[i]+'<br>';
+    }
+  }
+  html+='<br>See <a href="/features" style="color:#EDE8E0">/features</a>.';
+  return html;
+}
+
+function stripHtml(html){
+  return String(html||'').replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+}
+
+function scorePassage(tokens, text){
+  var words=tokenize(text);
+  if(!words.length||!tokens.length)return 0;
+  var set={};
+  words.forEach(function(w){set[w]=true;});
+  var hits=0;
+  tokens.forEach(function(t){if(set[t])hits++;});
+  return hits+(hits/tokens.length)*2;
+}
+
+/* Study the whole knowledge file for new / unmatched questions */
+function buildStudyPassages(){
+  if(!kb)return [];
+  var passages=[];
+  function add(title, text, link){
+    if(!text)return;
+    passages.push({title:title,text:String(text),link:link||''});
+  }
+
+  if(kb.company){
+    add('About Worklo', [kb.company.full_name, kb.company.tagline, kb.company.description, kb.company.mission, kb.company.origin, kb.company.target_audience].filter(Boolean).join('. '), '/about');
+  }
+  if(kb.product){
+    add('Product', [kb.product.summary].concat(kb.product.value_props||[]).concat(kb.product.pain_points||[]).join('. '), '/features');
+  }
+  if(kb.contact){
+    add('Contact', 'Email '+kb.contact.email+'. Phone '+kb.contact.phone+'. Address '+kb.contact.address+'. Response time: '+kb.contact.response_time+'.', '/contact');
+  }
+  if(kb.links){
+    add('Links', 'App '+kb.links.app+'. Live demo '+kb.links.demo+'. GitHub '+kb.links.github+'. Website '+kb.links.website+'.', '');
+  }
+  if(kb.pricing){
+    add('Pricing overview', kb.pricing.tagline+' Unlimited users: '+(kb.pricing.unlimited_users?'yes':'no')+'. '+kb.pricing.hosting_cost_note, '/pricing');
+    (kb.pricing.plans||[]).forEach(function(p){
+      add(p.name+' plan', [p.name, p.price||p.price_annual||'', p.price_monthly||'', p.description].concat(p.includes||[]).join('. '), '/pricing');
+    });
+  }
+  (kb.features||[]).forEach(function(f){
+    add(f.name, [f.summary].concat(f.details||[]).join('. '), '/features');
+  });
+  if(kb.tech_stack){
+    add('Tech stack', [kb.tech_stack.frontend, kb.tech_stack.backend, kb.tech_stack.database, kb.tech_stack.auth, (kb.tech_stack.other||[]).join(', '), kb.tech_stack.requirements].filter(Boolean).join('. '), '/about');
+  }
+  if(kb.deployment){
+    add('Deployment', 'Methods: '+(kb.deployment.methods||[]).join(', ')+'. '+kb.deployment.setup_summary, '/pricing');
+  }
+  (kb.roadmap||[]).forEach(function(r){
+    add('Roadmap '+r.phase, [r.title, r.status].concat(r.items||[]).join('. '), '/roadmap');
+  });
+  if(kb.careers){
+    add('Careers', [kb.careers.summary, 'Open roles: '+(kb.careers.open_roles||[]).join(', '), kb.careers.review_time].join('. '), '/careers');
+  }
+  (kb.faq||[]).forEach(function(f){
+    add(f.question, stripHtml(f.answer), '/pricing');
+  });
+  (kb.qa||[]).forEach(function(q){
+    if(q.learned)return;
+    add(q.question||q.id, stripHtml(q.answer), '');
+  });
+  return passages;
+}
+
+function studyFromKnowledge(query){
+  var tokens=tokenize(query);
+  if(!tokens.length)return null;
+  var passages=buildStudyPassages();
+  var ranked=passages.map(function(p){
+    return {p:p, score:scorePassage(tokens, p.title+' '+p.text)};
+  }).filter(function(x){return x.score>=1.5;})
+    .sort(function(a,b){return b.score-a.score;})
+    .slice(0,3);
+
+  if(!ranked.length||ranked[0].score<2)return null;
+
+  var parts=[];
+  ranked.forEach(function(item, idx){
+    var snippet=item.p.text;
+    if(snippet.length>280)snippet=snippet.slice(0,277)+'…';
+    parts.push((idx===0?'<b>'+item.p.title+'</b><br>':'<b>'+item.p.title+'</b> — ')+snippet);
+  });
+  var topLink=ranked[0].p.link;
+  if(topLink)parts.push('<br>More: <a href="'+topLink+'" style="color:#EDE8E0">'+topLink+'</a>');
+  return parts.join('<br><br>');
+}
+
+function findAnswer(text){
+  if(!kb)return null;
+  var l=normalize(text);
+  for(var k in quickReplies){
+    if(l===k||l.indexOf(k+' ')===0||l.endsWith(' '+k)||(' '+l+' ').indexOf(' '+k+' ')!==-1){
+      return {answer:quickReplies[k], learned:false, studied:false};
+    }
+  }
+
+  var tokens=tokenize(text);
+  var best=null,bestScore=0,score;
+
+  (kb.qa||[]).forEach(function(entry){
+    score=scoreEntry(text,tokens,entry);
+    if(score>bestScore){bestScore=score;best={answer:entry.answer, learned:!!entry.learned};}
+  });
+
+  (kb.faq||[]).forEach(function(item){
+    score=scoreEntry(text,tokens,item);
+    if(score>bestScore){bestScore=score;best={answer:item.answer, learned:false};}
+  });
+
+  (kb.features||[]).forEach(function(f){
+    score=scoreEntry(text,tokens,f);
+    if(score>bestScore){bestScore=score;best={answer:formatFeature(f), learned:false};}
+  });
+
+  if(bestScore>=4&&best){
+    return {answer:best.answer, learned:false, studied:false};
+  }
+
+  // New question: study the full knowledge database
+  var studied=studyFromKnowledge(text);
+  if(studied){
+    return {answer:studied, learned:false, studied:true, shouldLearn:true};
+  }
+
+  return {
+    answer:kb.fallback||'For help, email <b>support@worklo.org</b> or visit <a href="/contact" style="color:#EDE8E0">/contact</a>.',
+    learned:false,
+    studied:false,
+    shouldLearn:false
+  };
+}
+
 function getReply(t){
-  var l=t.toLowerCase();
-  for(var k in replies){if(l.indexOf(k)!==-1)return replies[k];}
-  return fallbacks[Math.floor(Math.random()*fallbacks.length)];
+  var result=findAnswer(t);
+  if(result&&result.shouldLearn&&result.answer){
+    persistLearned(t, result.answer, tokenize(t).slice(0,8));
+  }
+  return result?result.answer:(kb&&kb.fallback)||'';
 }
 
 /* particle burst */
 function burst(x,y){
-  var colors=['#3B82F6','#8B5CF6','#06b6d4','#10b981','#f59e0b'];
-  for(var i=0;i<12;i++){
+  var colors=['#EDE8E0','#9A958C','#C4A574','#C45C5C'];
+  for(var i=0;i<14;i++){
     var p=document.createElement('div');
     p.className='wl-particle';
-    var size=4+Math.random()*6;
+    var size=5+Math.random()*8;
     var angle=Math.random()*Math.PI*2;
-    var dist=40+Math.random()*60;
+    var dist=50+Math.random()*80;
     p.style.cssText='width:'+size+'px;height:'+size+'px;left:'+x+'px;top:'+y+'px;background:'+colors[i%colors.length]+';--tx:'+(Math.cos(angle)*dist)+'px;--ty:'+(Math.sin(angle)*dist)+'px;';
     document.body.appendChild(p);
     setTimeout(function(el){return function(){el.remove();};}(p),900);
@@ -459,9 +742,16 @@ var btn=document.createElement('button');
 btn.id='wl-btn';
 btn.setAttribute('aria-label','Open support');
 btn.innerHTML=
-  '<span id="wl-pulse1"></span>'+
-  '<span id="wl-pulse2"></span>'+
-  '<img src="/images/tab-logo.gif" alt="Worklo" style="width:48px;height:48px;object-fit:contain;display:block;position:relative;z-index:3;" />'+
+  '<span class="ico-chat" aria-hidden="true">'+
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter">'+
+      '<path d="M4 5h16v11H8l-4 3V5z"/>'+
+    '</svg>'+
+  '</span>'+
+  '<span class="ico-close" aria-hidden="true">'+
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square">'+
+      '<path d="M6 6l12 12M18 6L6 18"/>'+
+    '</svg>'+
+  '</span>'+
   '<span id="wl-notif"></span>';
 
 var panel=document.createElement('div');
@@ -536,10 +826,13 @@ function sendMsg(){
     t.innerHTML='<div class="wl-mav">W</div><div class="wl-bbl"><span class="wl-dot"></span><span class="wl-dot"></span><span class="wl-dot"></span></div>';
     msgs.appendChild(t);scrollBottom();
   }
-  setTimeout(function(){
-    var typing=document.getElementById('wl-typing');if(typing)typing.remove();
-    slideBack=false;addMsg('bot',getReply(text));
-  },800+Math.random()*500);
+  var delay=800+Math.random()*500;
+  kbPromise.then(function(){
+    setTimeout(function(){
+      var typing=document.getElementById('wl-typing');if(typing)typing.remove();
+      slideBack=false;addMsg('bot',getReply(text));
+    },delay);
+  });
 }
 
 function render(){

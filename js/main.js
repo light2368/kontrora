@@ -1,3 +1,6 @@
+// ── Enable JS-driven motion ──
+document.documentElement.classList.add('js');
+
 // ── Nav scroll effect ──
 const nav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
@@ -94,21 +97,38 @@ document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
 })();
 
 // ── Scroll animations ──
+const revealSelectors = '.fade-up, .reveal, .reveal-left, .reveal-right';
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      // Stagger siblings inside grids
       const parent = entry.target.parentElement;
-      const siblings = parent ? [...parent.querySelectorAll('.fade-up')] : [];
+      const siblings = parent ? [...parent.querySelectorAll(revealSelectors)] : [];
       const index = siblings.indexOf(entry.target);
-      const delay = index >= 0 ? index * 80 : 0;
+      const delay = reducedMotion ? 0 : (index >= 0 ? index * 80 : 0);
       setTimeout(() => entry.target.classList.add('visible'), delay);
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.08 });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+if (reducedMotion) {
+  document.querySelectorAll(revealSelectors).forEach(el => el.classList.add('visible'));
+} else {
+  document.querySelectorAll(revealSelectors).forEach(el => observer.observe(el));
+}
+
+// ── Hero parallax on scroll ──
+(function () {
+  if (reducedMotion) return;
+  var heroBg = document.querySelector('.hero-video-bg img, .hero-video-bg video');
+  if (!heroBg) return;
+  window.addEventListener('scroll', function () {
+    var y = Math.min(window.scrollY * 0.18, 120);
+    heroBg.style.transform = 'scale(1.05) translateY(' + y + 'px)';
+  }, { passive: true });
+})();
 
 // ── Counter animation ──
 function animateCounter(el) {
@@ -244,7 +264,7 @@ document.querySelectorAll('.feature-card, .testimonial-card, .pricing-card, .dow
 (function () {
   var glow = document.createElement('div');
   glow.id = 'cursor-glow';
-  glow.style.cssText = 'position:fixed;width:400px;height:400px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(0,194,168,0.06) 0%,transparent 70%);transform:translate(-50%,-50%);transition:opacity 0.3s ease;opacity:0;';
+  glow.style.cssText = 'position:fixed;width:400px;height:400px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(237,232,224,0.04) 0%,transparent 70%);transform:translate(-50%,-50%);transition:opacity 0.3s ease;opacity:0;';
   document.body.appendChild(glow);
   document.addEventListener('mousemove', function (e) {
     glow.style.left = e.clientX + 'px';
@@ -267,45 +287,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── Text reveal on hero h1 ──
-(function () {
-  var h1 = document.querySelector('.hero h1');
-  if (!h1) return;
-  h1.style.opacity = '0';
-  h1.style.transform = 'translateY(30px)';
-  h1.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
-  setTimeout(function () {
-    h1.style.opacity = '1';
-    h1.style.transform = 'translateY(0)';
-  }, 200);
-
-  var p = document.querySelector('.hero p');
-  if (p) {
-    p.style.opacity = '0';
-    p.style.transform = 'translateY(20px)';
-    p.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
-    setTimeout(function () {
-      p.style.opacity = '1';
-      p.style.transform = 'translateY(0)';
-    }, 400);
-  }
-
-  var actions = document.querySelector('.hero-actions');
-  if (actions) {
-    actions.style.opacity = '0';
-    actions.style.transform = 'translateY(20px)';
-    actions.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
-    setTimeout(function () {
-      actions.style.opacity = '1';
-      actions.style.transform = 'translateY(0)';
-    }, 600);
-  }
-})();
+// Hero copy stays visible on first paint (no delayed opacity reveal).
 
 // ── Scroll progress bar ──
 (function () {
   var bar = document.createElement('div');
-  bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#3B82F6,#00C2A8);z-index:9999;width:0%;transition:width 0.1s linear;pointer-events:none;';
+  bar.id = 'scroll-progress';
   document.body.appendChild(bar);
   window.addEventListener('scroll', function () {
     var scrolled = window.scrollY;
@@ -363,27 +350,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   draw();
 })();
 
-// ── Section label typing effect ──
-(function () {
-  document.querySelectorAll('.section-label').forEach(function (el) {
-    var text = el.textContent;
-    el.textContent = '';
-    el.style.opacity = '1';
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        io.unobserve(el);
-        var i = 0;
-        var timer = setInterval(function () {
-          el.textContent += text[i];
-          i++;
-          if (i >= text.length) clearInterval(timer);
-        }, 40);
-      });
-    }, { threshold: 0.5 });
-    io.observe(el);
-  });
-})();
+// ── Section label typing effect (disabled — emptied labels never re-trigger IO) ──
+// Labels render as static editorial text.
 
 // ── Shimmer sweep: plays on enter, gone when paused ──
 (function () {

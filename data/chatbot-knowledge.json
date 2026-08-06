@@ -1,0 +1,483 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "updated": "2026-08-06",
+    "source": "worklo.org marketing site and product docs"
+  },
+  "company": {
+    "name": "Worklo",
+    "full_name": "Worklo PSA",
+    "tagline": "One platform. Zero tool chaos.",
+    "description": "Worklo PSA is an open-source Professional Services Automation platform for agencies and consultancies. It runs projects, time tracking, capacity planning, workflows, and client visibility in one command center.",
+    "target_audience": "Agencies and consultancies, especially teams of 5–50 who outgrew spreadsheets and multi-tool stacks.",
+    "license": "MIT",
+    "origin": "Built inside a student-run marketing agency managing 11 client accounts across 8 departments with 15+ members, tired of juggling Basecamp, Monday.com, Notion, MS Planner, and Slack.",
+    "mission": "Agency operations shouldn't require a full-time systems administrator. One platform, one source of truth — that's the whole idea.",
+    "values": [
+      "Focused, not bloated",
+      "Open by default (open source, no vendor lock-in)",
+      "Security-first (PostgreSQL Row Level Security)",
+      "Speed matters",
+      "Built with the community"
+    ]
+  },
+  "contact": {
+    "email": "support@worklo.org",
+    "careers_email": "talents@worklo.org",
+    "phone": "+1 (929) 612 9360",
+    "address": "888 Broadway, Floor 4, New York, NY 10003, US",
+    "response_time": "Typically within 1 business day"
+  },
+  "links": {
+    "website": "https://worklo.org",
+    "app": "https://app.worklo.org/",
+    "demo": "https://demo.worklo.org/",
+    "github": "https://github.com/Worklo-Group",
+    "linkedin": "https://www.linkedin.com/company/worklo-psa/",
+    "features": "/features",
+    "pricing": "/pricing",
+    "roadmap": "/roadmap",
+    "about": "/about",
+    "careers": "/careers",
+    "contact": "/contact",
+    "privacy": "/privacy",
+    "terms": "/terms"
+  },
+  "product": {
+    "summary": "Your agency's operating system — projects, time, capacity, workflows, and clients in one view.",
+    "pain_points": [
+      "Capacity blindspot — nobody knows if the team can take new work until it's too late",
+      "SOPs nobody follows — static docs in Notion or PDFs get ignored",
+      "Client update loop — clients email constantly because they have no visibility"
+    ],
+    "value_props": [
+      "Say yes with confidence — see who is actually free before promising a date",
+      "Clients stop guessing — progress, feedback, and approvals in one portal",
+      "Your process sticks — handoffs and approvals live in the product, not PDFs"
+    ]
+  },
+  "features": [
+    {
+      "id": "capacity",
+      "name": "Capacity Planning",
+      "keywords": ["capacity", "availability", "utilization", "workload", "bandwidth", "resource", "forecast", "leave", "holiday"],
+      "summary": "Real-time team availability before you commit to new work — by person, department, or org level.",
+      "details": [
+        "Proportional allocation across accounts",
+        "Individual, department, and org-level utilization views",
+        "Historical capacity trends and forecasting",
+        "Availability calendar with leave and holiday support"
+      ]
+    },
+    {
+      "id": "time",
+      "name": "Time Tracking",
+      "keywords": ["time", "tracking", "timer", "clock", "hours", "billable", "timesheet", "log"],
+      "summary": "Built-in time tracking with timers, manual entry, and admin analytics.",
+      "details": [
+        "Clock in/out with task allocation on clock-out",
+        "Manual entry for retroactive logging",
+        "Auto clock-out after 16 hours",
+        "14-day edit window for corrections",
+        "Admin view with full team time analytics",
+        "Billable vs non-billable tracking"
+      ]
+    },
+    {
+      "id": "workflow",
+      "name": "Workflow Automation",
+      "keywords": ["workflow", "automation", "sop", "process", "handoff", "approval", "audit"],
+      "summary": "Visual, enforced workflows that replace static SOPs.",
+      "details": [
+        "Drag-and-drop workflow builder with 8 node types",
+        "Department handoffs and role assignments",
+        "Client approval steps",
+        "Complete audit trail for every transition",
+        "Automated notifications on handoffs and blockers"
+      ]
+    },
+    {
+      "id": "tasks",
+      "name": "Task Management",
+      "keywords": ["task", "kanban", "gantt", "table", "board", "project", "dependency"],
+      "summary": "Kanban, Gantt, Table, and Workflow views — switchable instantly.",
+      "details": [
+        "Kanban boards with drag-and-drop",
+        "Gantt charts with dependencies and critical path",
+        "Table views for bulk updates and filtering",
+        "Workflow views through custom approval stages"
+      ]
+    },
+    {
+      "id": "portal",
+      "name": "Client Portal",
+      "keywords": ["client", "portal", "customer", "visibility", "approval", "feedback", "branded"],
+      "summary": "Secure client window into their projects without exposing internal operations.",
+      "details": [
+        "Real-time project visibility per client (RLS-enforced)",
+        "Built-in approval workflows",
+        "Post-project satisfaction scoring",
+        "Branded portal with secure invite-based access"
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Security & Permissions",
+      "keywords": ["security", "permission", "rbac", "role", "rls", "row level", "audit", "access"],
+      "summary": "~40 permissions across 15 categories, enforced at the database level with PostgreSQL Row Level Security.",
+      "details": [
+        "Role-based access control with custom role creation",
+        "Context-aware permissions based on project assignments",
+        "Row Level Security on every database table",
+        "Audit logging for all critical changes",
+        "Rate limiting and input validation"
+      ]
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics",
+      "keywords": ["analytics", "dashboard", "report", "insights", "metrics"],
+      "summary": "Project analytics dashboards with deeper insights on the roadmap.",
+      "details": [
+        "Project analytics dashboards",
+        "Roadmap: project health scoring, workflow analytics, team wellbeing dashboard, enhanced forecasting"
+      ]
+    }
+  ],
+  "pricing": {
+    "tagline": "Simple, transparent pricing — open source and self-hosted. Pay for hosting, not per seat.",
+    "unlimited_users": true,
+    "plans": [
+      {
+        "id": "community",
+        "name": "Community",
+        "price": "Free",
+        "period": "forever",
+        "description": "Self-hosted open-source edition under MIT license.",
+        "includes": [
+          "Full source code access",
+          "Unlimited users",
+          "All core features",
+          "Community support (Discord)",
+          "Self-hosted on your infrastructure"
+        ]
+      },
+      {
+        "id": "managed",
+        "name": "Managed",
+        "price_annual": "$39/month, billed annually",
+        "price_monthly": "$49/month",
+        "description": "We host and manage Worklo for you — updates, backups, and monitoring included.",
+        "includes": [
+          "Everything in Community",
+          "Managed hosting and infrastructure",
+          "Automatic updates",
+          "Daily backups",
+          "Uptime monitoring",
+          "Priority email support",
+          "Custom domain"
+        ],
+        "trial": "14-day free trial via contact page"
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "price": "Custom",
+        "period": "month",
+        "description": "Dedicated infrastructure and white-glove support for larger organizations.",
+        "includes": [
+          "Everything in Managed",
+          "Dedicated infrastructure",
+          "Custom SLA",
+          "SSO / SAML integration",
+          "Dedicated Slack channel",
+          "Onboarding and training",
+          "Custom feature development"
+        ]
+      }
+    ],
+    "hosting_cost_note": "Self-hosting typically costs $5–20/month for a small-team VPS."
+  },
+  "tech_stack": {
+    "frontend": "Next.js 15 (App Router), TypeScript, Tailwind CSS 4, shadcn/ui",
+    "backend": "Express.js REST API (port 4000)",
+    "database": "Supabase (PostgreSQL + Row Level Security)",
+    "auth": "Supabase Auth (JWT + cookies)",
+    "other": ["Zod", "Recharts", "D3", "Jotai", "SWR", "@xyflow/react", "Docker"],
+    "requirements": "Node.js 18+, Supabase project, optional SMTP for invitations"
+  },
+  "deployment": {
+    "methods": ["Docker Compose", "Cloud (AWS, GCP, Azure, DigitalOcean, Hetzner)", "On-premise"],
+    "ports": { "frontend": 3000, "backend": 4000 },
+    "setup_summary": "Copy .env.local.template, configure Supabase keys, run backend on port 4000 and frontend on port 3000, complete onboarding to create superadmin.",
+    "demo_mode": "npm run dev:demo enables quick-login demo users"
+  },
+  "roadmap": [
+    {
+      "phase": "v1.0.0",
+      "status": "Released",
+      "title": "Core Platform Live",
+      "items": [
+        "Project management with Kanban boards",
+        "Capacity planning and resource allocation",
+        "Time tracking with clock in/out",
+        "Workflow builder with 8 node types",
+        "Complete RBAC system (40+ permissions)",
+        "Multi-tenant architecture"
+      ]
+    },
+    {
+      "phase": "Q1–Q2 2026",
+      "status": "In Progress",
+      "title": "Analytics & Client Enhancements",
+      "items": [
+        "Project health scoring and risk indicators",
+        "Workflow analytics (completion times, bottlenecks)",
+        "Team wellbeing dashboard for leadership",
+        "Enhanced capacity forecasting",
+        "Full client dashboard with project visibility",
+        "External data source integrations",
+        "Strategic plans tied to accounts and projects"
+      ]
+    },
+    {
+      "phase": "Q3–Q4 2026",
+      "status": "Planned",
+      "title": "Revenue & Business Operations",
+      "items": [
+        "Service offerings library",
+        "Proposals and estimates",
+        "Bill of materials / project budgeting",
+        "QuickBooks and/or Stripe integration",
+        "CRM functions and pipeline management",
+        "Collaboration analytics and network visualizations"
+      ]
+    },
+    {
+      "phase": "2026+",
+      "status": "Long-term",
+      "title": "Platform Maturity & Blockchain Foundations",
+      "items": [
+        "Executive analytics dashboard",
+        "Full mobile compatibility",
+        "Performance recognition system",
+        "Advanced reporting and custom dashboards",
+        "Blockchain integration foundations for time and payroll data"
+      ]
+    }
+  ],
+  "careers": {
+    "summary": "Small, focused team. All roles are remote-first and async-friendly.",
+    "apply_url": "/careers",
+    "review_time": "Applications reviewed within 5 business days",
+    "perks": ["Fully remote", "Real impact", "Equity and growth", "Learning budget", "Home office stipend"],
+    "open_roles": [
+      "Full-Stack Engineer",
+      "Senior Next.js + Go Engineer",
+      "Senior Next.js + Rust Engineer",
+      "Frontend Engineer",
+      "Data Analytics Engineer",
+      "Web3 Engineer",
+      "Smart Contract Developer",
+      "Product Designer",
+      "QA Engineer"
+    ]
+  },
+  "faq": [
+    {
+      "question": "Is Worklo really free to self-host?",
+      "keywords": ["free", "self-host", "self host", "community", "cost", "mit"],
+      "answer": "Yes. The <b>Community</b> plan is MIT licensed — you can self-host Worklo for free with no restrictions. You only pay for your own hosting (typically a <b>$5–20/month</b> VPS for small teams)."
+    },
+    {
+      "question": "How many users can I have?",
+      "keywords": ["users", "seats", "team size", "limit", "per seat"],
+      "answer": "All plans support <b>unlimited users</b>. No per-seat charges. Worklo is built for teams of 5–50, but there's no hard limit."
+    },
+    {
+      "question": "What's included in the Managed plan?",
+      "keywords": ["managed", "hosting", "cloud", "devops"],
+      "answer": "Managed includes hosting, automatic updates, daily backups, uptime monitoring, a custom domain, and priority email support — <b>Worklo without the DevOps</b>."
+    },
+    {
+      "question": "Can I migrate from self-hosted to Managed?",
+      "keywords": ["migrate", "migration", "self-hosted to managed"],
+      "answer": "Yes. We provide migration assistance to move your data from a self-hosted instance to managed infrastructure with <b>zero downtime</b>."
+    },
+    {
+      "question": "What database does Worklo use?",
+      "keywords": ["database", "postgres", "postgresql", "supabase", "db"],
+      "answer": "Worklo uses <b>Supabase (PostgreSQL)</b> with Row Level Security. Run it locally via Docker or connect to a hosted Supabase project."
+    },
+    {
+      "question": "Do you offer a trial for the Managed plan?",
+      "keywords": ["trial", "managed trial", "try managed"],
+      "answer": "Yes — reach out via <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a> and we'll set up a <b>14-day free trial</b> of the Managed plan."
+    }
+  ],
+  "qa": [
+    {
+      "id": "what-is-worklo",
+      "keywords": ["what is worklo", "what is psa", "tell me about", "worklo psa", "platform", "product"],
+      "patterns": ["what is worklo", "what does worklo do", "tell me about worklo"],
+      "answer": "<b>Worklo PSA</b> is an open-source Professional Services Automation platform for agencies and consultancies. It unifies projects, time tracking, capacity planning, workflows, client portal, analytics, and RBAC in one system — so you stop juggling five tabs and a spreadsheet.<br><br>Explore <a href=\"/features\" style=\"color:#EDE8E0\">features</a> or try the <a href=\"https://demo.worklo.org/\" style=\"color:#EDE8E0\" target=\"_blank\">live demo</a>."
+    },
+    {
+      "id": "who-is-it-for",
+      "keywords": ["who is", "for agencies", "consultancy", "target", "audience", "team size"],
+      "patterns": ["who is worklo for", "who should use"],
+      "answer": "Worklo is built for <b>agencies and consultancies</b>, especially teams of <b>5–50</b> who outgrew spreadsheets and multi-tool stacks like Monday.com, Notion, and Slack. There's no hard user limit on any plan."
+    },
+    {
+      "id": "pricing-overview",
+      "keywords": ["price", "pricing", "cost", "how much", "plans", "subscription"],
+      "patterns": ["how much does", "what does it cost"],
+      "answer": "<b>Community</b> (self-hosted) is <b>free forever</b> under MIT license.<br><br><b>Managed</b> hosting is <b>$39/month</b> billed annually or <b>$49/month</b> monthly — includes hosting, updates, backups, monitoring, custom domain, and priority support.<br><br><b>Enterprise</b> is custom pricing with dedicated infrastructure, SSO/SAML, and onboarding.<br><br>All plans include <b>unlimited users</b>. See <a href=\"/pricing\" style=\"color:#EDE8E0\">/pricing</a>."
+    },
+    {
+      "id": "free-self-host",
+      "keywords": ["free", "open source", "opensource", "self host", "self-host", "community"],
+      "patterns": ["is it free", "free to use"],
+      "answer": "Yes! Worklo is <b>open source (MIT license)</b> and <b>free to self-host</b> on your own infrastructure. The Community plan includes all core features and unlimited users. Typical VPS hosting costs <b>$5–20/month</b> for small teams."
+    },
+    {
+      "id": "managed-pricing",
+      "keywords": ["managed", "$39", "$49", "cloud plan", "hosted"],
+      "patterns": ["managed plan", "managed price"],
+      "answer": "The <b>Managed</b> plan is <b>$39/month</b> when billed annually (~20% savings) or <b>$49/month</b> monthly. It includes hosting, automatic updates, daily backups, uptime monitoring, custom domain, and priority email support. A <b>14-day free trial</b> is available — contact us at <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>."
+    },
+    {
+      "id": "enterprise-pricing",
+      "keywords": ["enterprise", "custom", "sla", "sso", "saml"],
+      "patterns": ["enterprise plan"],
+      "answer": "<b>Enterprise</b> is custom pricing and includes everything in Managed plus dedicated infrastructure, custom SLA, SSO/SAML, a dedicated Slack channel, onboarding & training, and custom feature development. Contact us at <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>."
+    },
+    {
+      "id": "unlimited-users",
+      "keywords": ["unlimited", "per seat", "per-seat", "seats", "user limit"],
+      "patterns": ["how many users", "per seat pricing"],
+      "answer": "All Worklo plans include <b>unlimited users</b> — no per-seat pricing. Worklo is optimized for teams of 5–50, but there's no hard cap."
+    },
+    {
+      "id": "get-started",
+      "keywords": ["get started", "start", "sign up", "signup", "register", "download", "install"],
+      "patterns": ["how do i start", "how to get started"],
+      "answer": "Three ways to get started:<br>1. <a href=\"https://app.worklo.org/\" style=\"color:#EDE8E0\">Start free trial</a> in the cloud app<br>2. Explore the <a href=\"https://demo.worklo.org/\" style=\"color:#EDE8E0\" target=\"_blank\">live demo</a><br>3. Self-host the open-source Community edition via <a href=\"https://github.com/Worklo-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>"
+    },
+    {
+      "id": "demo",
+      "keywords": ["demo", "live demo", "tour", "preview"],
+      "patterns": ["see a demo", "request demo"],
+      "answer": "Explore the <a href=\"https://demo.worklo.org/\" style=\"color:#EDE8E0\" target=\"_blank\">live demo</a> anytime — no signup required. For a guided walkthrough, visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a> and select \"Request a demo\"."
+    },
+    {
+      "id": "trial",
+      "keywords": ["trial", "try", "test"],
+      "patterns": ["free trial"],
+      "answer": "Self-hosting is always free — no trial needed. For the <b>Managed</b> cloud plan, we offer a <b>14-day free trial</b>. Start a cloud trial at <a href=\"https://app.worklo.org/\" style=\"color:#EDE8E0\">app.worklo.org</a> or contact us at <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>."
+    },
+    {
+      "id": "capacity",
+      "keywords": ["capacity", "availability", "utilization", "workload", "bandwidth", "can we take"],
+      "patterns": ["capacity planning", "do we have capacity"],
+      "answer": "<b>Capacity Planning</b> gives real-time visibility into every team member's availability before you commit to new work — by person, department, or org level. Includes proportional allocation, forecasting, and a leave/holiday calendar. See <a href=\"/features\" style=\"color:#EDE8E0\">/features</a>."
+    },
+    {
+      "id": "time-tracking",
+      "keywords": ["time tracking", "timer", "clock in", "clock out", "hours", "billable", "timesheet"],
+      "patterns": ["track time", "time entries"],
+      "answer": "<b>Time Tracking</b> includes clock in/out with task allocation, manual retroactive entry, auto clock-out after 16 hours, a 14-day edit window, and full admin team analytics with billable vs non-billable tracking."
+    },
+    {
+      "id": "workflow",
+      "keywords": ["workflow", "automation", "sop", "process", "handoff", "approval"],
+      "patterns": ["workflow builder", "workflow automation"],
+      "answer": "<b>Workflow Automation</b> turns your SOPs into visual, enforced workflows with a drag-and-drop builder (8 node types), role assignments, client approvals, automatic handoffs, and a complete audit trail."
+    },
+    {
+      "id": "kanban-gantt",
+      "keywords": ["kanban", "gantt", "table view", "task", "board", "dependency"],
+      "patterns": ["task management", "project views"],
+      "answer": "Worklo supports <b>Kanban boards</b> (drag-and-drop), <b>Gantt charts</b> (dependencies + critical path), <b>Table views</b> (bulk updates), and <b>Workflow views</b> — all switchable instantly on the same project."
+    },
+    {
+      "id": "client-portal",
+      "keywords": ["client portal", "client", "customer", "visibility", "branded"],
+      "patterns": ["client access", "client dashboard"],
+      "answer": "The <b>Client Portal</b> gives each client a secure, branded window into their projects — real-time visibility, approval workflows, satisfaction scoring, and invite-based access. Internal operations stay hidden via RLS."
+    },
+    {
+      "id": "security",
+      "keywords": ["security", "permission", "rbac", "role", "rls", "row level", "audit"],
+      "patterns": ["how secure", "access control"],
+      "answer": "Security is built-in: <b>~40 permissions</b> across 15 categories, custom roles, context-aware project permissions, <b>PostgreSQL Row Level Security</b> on every table, audit logging, rate limiting, and input validation."
+    },
+    {
+      "id": "tech-stack",
+      "keywords": ["tech stack", "technology", "nextjs", "next.js", "typescript", "supabase", "docker", "stack"],
+      "patterns": ["built with", "what is worklo built"],
+      "answer": "Worklo is built on <b>Next.js 15</b>, <b>TypeScript</b>, <b>Express.js</b> (API on port 4000), <b>Supabase (PostgreSQL + RLS)</b>, Tailwind CSS 4, shadcn/ui, Zod, Recharts, and Docker. Requires Node.js 18+."
+    },
+    {
+      "id": "database",
+      "keywords": ["database", "postgres", "postgresql", "supabase", "db"],
+      "patterns": ["what database"],
+      "answer": "Worklo uses <b>Supabase (PostgreSQL)</b> with Row Level Security enforced at the database level. You can run Supabase locally via Docker or connect to a hosted Supabase project."
+    },
+    {
+      "id": "deploy",
+      "keywords": ["deploy", "deployment", "docker", "self host", "self-host", "install", "setup", "host"],
+      "patterns": ["how to deploy", "how to install", "how to self-host"],
+      "answer": "Deploy Worklo via <b>Docker Compose</b> on any Linux VPS, cloud provider (AWS, GCP, Azure, DigitalOcean, Hetzner), or on-premise hardware. Configure Supabase, run the Express API (port 4000) and Next.js frontend (port 3000), then complete onboarding. Source code: <a href=\"https://github.com/Worklo-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>."
+    },
+    {
+      "id": "open-source",
+      "keywords": ["open source", "opensource", "github", "source code", "fork", "mit"],
+      "patterns": ["is worklo open source"],
+      "answer": "Yes — Worklo is <b>fully open source</b> under the <b>MIT license</b>. View, fork, and modify the code on <a href=\"https://github.com/Worklo-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>. No vendor lock-in."
+    },
+    {
+      "id": "contact",
+      "keywords": ["contact", "email", "phone", "address", "reach", "support", "help"],
+      "patterns": ["how to contact", "get in touch"],
+      "answer": "Reach us at <b>support@worklo.org</b>, call <b>+1 (929) 612 9360</b>, or visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>. Office: <b>888 Broadway, Floor 4, New York, NY 10003</b>. We typically respond within 1 business day."
+    },
+    {
+      "id": "about",
+      "keywords": ["about", "story", "mission", "team", "origin", "history", "who built"],
+      "patterns": ["tell me about the company", "who made worklo"],
+      "answer": "Worklo was built inside a student-run marketing agency managing 11 clients across 8 departments. The team was tired of juggling Basecamp, Monday.com, Notion, MS Planner, and Slack — so they built one platform to answer \"Do we have capacity for this?\" in seconds. Learn more at <a href=\"/about\" style=\"color:#EDE8E0\">/about</a>."
+    },
+    {
+      "id": "roadmap",
+      "keywords": ["roadmap", "future", "upcoming", "planned", "next", "coming soon"],
+      "patterns": ["what's coming", "whats next"],
+      "answer": "<b>v1.0</b> (released): projects, time, capacity, workflows, RBAC, client portal.<br><br><b>Q1–Q2 2026</b> (in progress): analytics, project health scoring, client dashboard enhancements.<br><br><b>Q3–Q4 2026</b> (planned): revenue tools, proposals, CRM, QuickBooks/Stripe integration.<br><br>See the full timeline at <a href=\"/roadmap\" style=\"color:#EDE8E0\">/roadmap</a>."
+    },
+    {
+      "id": "careers",
+      "keywords": ["career", "careers", "job", "jobs", "hiring", "open role", "apply", "work here"],
+      "patterns": ["are you hiring", "open positions"],
+      "answer": "We're hiring! <b>9 open remote-first roles</b> including Full-Stack Engineer, Frontend Engineer, Product Designer, Web3 Engineer, and QA Engineer. All roles are async-friendly. Apply at <a href=\"/careers\" style=\"color:#EDE8E0\">/careers</a> — we review within 5 business days."
+    },
+    {
+      "id": "bug-report",
+      "keywords": ["bug", "issue", "report", "broken", "error"],
+      "patterns": ["report a bug", "found a bug"],
+      "answer": "Report bugs by emailing <b>support@worklo.org</b> or opening an issue on <a href=\"https://github.com/Worklo-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>."
+    },
+    {
+      "id": "migrate",
+      "keywords": ["migrate", "migration", "move data", "switch"],
+      "patterns": ["migrate to managed"],
+      "answer": "Yes — we provide migration assistance to move from a self-hosted instance to Managed hosting with <b>zero downtime</b>. Contact us at <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>."
+    },
+    {
+      "id": "features-list",
+      "keywords": ["features", "what can", "capabilities", "functionality"],
+      "patterns": ["what features", "list features"],
+      "answer": "Worklo includes:<br>• <b>Capacity Planning</b> — real-time availability<br>• <b>Time Tracking</b> — clock in/out + analytics<br>• <b>Workflow Automation</b> — visual SOPs with audit trail<br>• <b>Task Management</b> — Kanban, Gantt, Table, Workflow views<br>• <b>Client Portal</b> — branded client visibility<br>• <b>RBAC + RLS</b> — ~40 permissions, database-enforced security<br><br>See <a href=\"/features\" style=\"color:#EDE8E0\">/features</a> for details."
+    }
+  ],
+  "fallback": "I'm not sure about that specific question. Try asking about <b>features</b>, <b>pricing</b>, <b>getting started</b>, or <b>contact</b>. For detailed help, email <b>support@worklo.org</b> or visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>."
+}

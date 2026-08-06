@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact - Worklo</title>
   <meta name="description" content="Get in touch with the Worklo team. We'd love to hear from you." />
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/style.css?v=20260806g" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <link rel="icon" href="/images/tab-logo.gif" type="image/gif" sizes="192x192" /><link rel="apple-touch-icon" sizes="180x180" href="/images/tab-logo.gif" /><link rel="shortcut icon" href="/images/tab-logo.gif" />
   <style>
@@ -50,12 +50,7 @@
       color: #fff;
       margin-bottom: 20px;
     }
-    .contact-headline span {
-      background: var(--grad-text);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    .contact-headline span{color:var(--bone);background:none;-webkit-text-fill-color:var(--bone);}
 
     .contact-sub {
       font-size: 1rem;
@@ -87,14 +82,10 @@
     }
 
     /* Colored dot per row */
-    .contact-row-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .contact-row:nth-child(1) .contact-row-dot { background: #60A5FA; box-shadow: 0 0 8px rgba(96,165,250,0.7); }
-    .contact-row:nth-child(2) .contact-row-dot { background: #34D399; box-shadow: 0 0 8px rgba(52,211,153,0.7); }
-    .contact-row:nth-child(3) .contact-row-dot { background: #F472B6; box-shadow: 0 0 8px rgba(244,114,182,0.7); }
+    .contact-row-dot{display:none!important;}
+    
+    
+    
 
     .contact-row-body { flex: 1; }
     .contact-row-label {
@@ -256,13 +247,13 @@
       .contact-headline { font-size: 2.4rem; }
     }
   </style>
-<link rel="manifest" href="/manifest.json" /><meta name="theme-color" content="#00C2A8" /><meta name="mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="manifest" href="/manifest.json" /><meta name="theme-color" content="#050505" /><meta name="mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-logo"><img src="/images/logo.gif" alt="Worklo" /></a>
+    <a href="/" class="nav-logo"><img src="/images/logo-nav.png" alt="Worklo" /></a>
     <ul class="nav-links">
       <li><a href="/features">Features</a></li>
       <li><a href="/pricing">Pricing</a></li>
@@ -270,18 +261,9 @@
       <li class="nav-dropdown">
         <a href="#">Company <i data-lucide="chevron-down" class="chevron"></i></a>
         <div class="dropdown-menu">
-          <a href="/about" class="dropdown-item">
-            <h4>About</h4>
-            <p>Our story, mission, and the team behind Worklo</p>
-          </a>
-          <a href="/careers" class="dropdown-item">
-            <h4>Careers</h4>
-            <p>Join us and help build the future of agency operations</p>
-          </a>
-          <a href="/contact" class="dropdown-item">
-            <h4>Contact</h4>
-            <p>Get in touch for support or questions</p>
-          </a>
+          <a href="/about" class="dropdown-item">About</a>
+          <a href="/careers" class="dropdown-item">Careers</a>
+          <a href="/contact" class="dropdown-item">Contact</a>
         </div>
       </li>
     </ul>
@@ -306,7 +288,7 @@
 <div class="page-hero">
   <div class="container">
     <span class="section-label">Contact</span>
-    <h1>Let's <span class="gradient-text">talk</span></h1>
+    <h1>Let's talk</h1>
     <p>Whether you have a question, want a demo, or just want to say hi - we're here.</p>
   </div>
 </div>
@@ -407,54 +389,13 @@
 
 
 <!-- Footer -->
-<style>
-footer{background:#000;border-top:1px solid rgba(255,255,255,.08);padding:80px 0 0}
-footer .container{position:relative;z-index:1}
-.fnw{display:grid;grid-template-columns:1.1fr 1fr 1.5fr;gap:60px;align-items:start}
-.fnw .c1 h4,.fnw .c2 h4{font-size:1rem;font-weight:700;color:#fff;margin:0 0 20px;letter-spacing:-.01em;text-transform:none;background:none;-webkit-text-fill-color:#fff}
-.fnw .socials{display:flex;gap:8px;margin-bottom:28px}
-.fnw .socials a{width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;transition:background .2s,transform .2s;flex-shrink:0}
-.fnw .socials a svg{width:13px;height:13px}
-.fnw .socials a:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
-.fnw .ph-block{margin-bottom:22px}
-.fnw .ph-block>svg,.fnw .ad-block>svg{display:block;color:rgba(255,255,255,.65);margin-bottom:10px;width:22px;height:22px}
-.fnw .ph-block a{display:block;font-size:.83rem;color:rgba(255,255,255,.45);text-decoration:none;line-height:1.9;transition:color .2s}
-.fnw .ph-block a:hover{color:#fff}
-.fnw .ad-block{margin-bottom:28px}
-.fnw .ad-block p{font-size:.83rem!important;color:rgba(255,255,255,.55)!important;line-height:1.7!important;margin:0!important;display:block!important;visibility:visible!important;}
-.fnw .logo-banner{width:100%;padding:16px 0;background:none;border:none;display:flex;align-items:center;justify-content:flex-start;margin-top:8px}
-.fnw .logo-banner img{height:120px;width:auto;max-width:100%;object-fit:contain;filter:brightness(1.2) drop-shadow(0 0 24px rgba(59,130,246,.35))}
-.fnw .c2 ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
-.fnw .c2 ul li a{font-size:.84rem;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;display:block;padding:0}
-.fnw .c2 ul li a:hover{color:rgba(255,255,255,.85)}
-.fnw .c3 h3{font-size:1.9rem;font-weight:700;color:#fff;line-height:1.15;margin:0 0 8px;letter-spacing:-.02em;background:none;-webkit-text-fill-color:#fff}
-.fnw .c3 .sub{font-size:.78rem;color:rgba(255,255,255,.32);margin-bottom:24px;line-height:1.6}
-.fnw .c3 form{display:flex;flex-direction:column;gap:0}
-.fnw .c3 input,.fnw .c3 select,.fnw .c3 textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.12);border-radius:0;padding:14px 0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.84rem;color:rgba(255,255,255,.65);outline:none;box-shadow:none;transition:border-color .2s}
-.fnw .c3 input::placeholder,.fnw .c3 textarea::placeholder{color:rgba(255,255,255,.25)}
-.fnw .c3 input:focus,.fnw .c3 select:focus,.fnw .c3 textarea:focus{border-bottom-color:rgba(255,255,255,.45);background:transparent;box-shadow:none}
-.fnw .c3 select{color:rgba(255,255,255,.3);cursor:pointer;-webkit-appearance:none;appearance:none}
-.fnw .c3 select option{background:#111;color:#fff}
-.fnw .c3 textarea{resize:none;min-height:72px}
-.fnw .c3 button{width:100%;padding:14px;border-radius:50px;background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.88rem;font-weight:700;border:none;cursor:pointer;margin-top:20px;transition:background .2s,transform .15s}
-.fnw .c3 button:hover{background:#e8e8e8;transform:translateY(-1px)}
-.fnw .footer-location{display:flex;align-items:flex-start;gap:7px;font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.6;margin-top:4px}
-.fn-bot{border-top:1px solid rgba(255,255,255,.07);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.fn-bot p{font-size:.76rem;color:rgba(255,255,255,.22);margin:0}
-.fn-bot-links{display:flex;gap:20px}
-.fn-bot-links a{font-size:.76rem;color:rgba(255,255,255,.22);text-decoration:none;transition:color .2s}
-.fn-bot-links a:hover{color:#fff}
-@media(max-width:960px){.fnw{grid-template-columns:1fr 1fr;gap:40px}.fnw .c3{grid-column:1/-1}}
-@media(max-width:600px){.fnw{grid-template-columns:1fr;gap:32px}footer{padding:48px 0 0}.fnw .logo-banner img{height:80px}.fnw .c3 h3{font-size:1.5rem}.fn-bot{flex-direction:column;align-items:flex-start;gap:8px}.fn-bot-links{gap:14px}}
-</style>
-
 <footer>
   <div class="container">
     <div class="fnw">
       <div class="c1">
         <h4>Contact Us</h4>
         <div class="socials">
-          <a href="https://www.linkedin.com/company/worklo-psa/" target="_blank" rel="noopener" aria-label="LinkedIn" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a href="https://github.com/worklo-psa" target="_blank" rel="noopener" aria-label="GitHub" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
+          <a href="https://www.linkedin.com/company/worklo-psa/" target="_blank" rel="noopener" aria-label="LinkedIn" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a href="https://github.com/Worklo-Group" target="_blank" rel="noopener" aria-label="GitHub" class="soc-box"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
         </div>
         <div class="ph-block">
           <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:rgba(255,255,255,.85);display:block;margin-bottom:12px;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>

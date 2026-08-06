@@ -171,7 +171,7 @@
       <div class="nav-lang-menu notranslate" id="nav-lang-menu" translate="no">
         <button class="nav-lang-btn" id="nav-lang-btn">
           <span class="nav-lang-flag">${langObj.flag}</span>
-          <span>${langObj.code.toUpperCase()}</span>
+          ${langObj.flag.toUpperCase() === langObj.code.toUpperCase() ? '' : `<span>${langObj.code.toUpperCase()}</span>`}
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="nav-lang-dropdown notranslate" id="nav-lang-dropdown" translate="no">
@@ -228,7 +228,7 @@
         const selected = LANGS.find(l => l.code === code);
         document.getElementById('nav-lang-btn').innerHTML = `
           <span class="nav-lang-flag">${selected.flag}</span>
-          <span>${selected.code.toUpperCase()}</span>
+          ${selected.flag.toUpperCase() === selected.code.toUpperCase() ? '' : `<span>${selected.code.toUpperCase()}</span>`}
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         `;
         langDropdown.querySelectorAll('.nav-lang-option').forEach(b => b.classList.toggle('active', b.dataset.lang === code));

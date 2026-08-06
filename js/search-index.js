@@ -92,7 +92,7 @@ window.WORKLO_SEARCH_INDEX = [
   },
   {
     title: 'GitHub',
-    url: 'https://github.com/worklo-psa',
+    url: 'https://github.com/Worklo-Group',
     snippet: 'Worklo is open source. View the source code, contribute, and report issues on GitHub.',
     keywords: 'github open source code repository contribute'
   }
