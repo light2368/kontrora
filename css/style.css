@@ -1944,14 +1944,22 @@ footer .container {
 /* ── Page hero (inner pages) ── */
 .page-hero {
   padding: 140px 0 72px;
-  text-align: left;
+  text-align: center;
   position: relative;
   overflow: visible;
   border-bottom: 1px solid var(--border);
   background: var(--black);
 }
 .page-hero::before { display: none; }
-.page-hero .container { position: relative; z-index: 1; max-width: 1280px; overflow: visible; }
+.page-hero .container {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .page-hero h1 {
   margin-bottom: 20px;
   max-width: 720px;
@@ -1959,13 +1967,15 @@ footer .container {
   line-height: 1.2;
   overflow: visible;
   padding-bottom: 0.08em;
+  text-align: center;
 }
 .page-hero p {
   font-size: 1.05rem;
   max-width: 480px;
-  margin: 0;
+  margin: 0 auto;
   color: var(--text-secondary);
   line-height: 1.7;
+  text-align: center;
 }
 
 /* ── Cards ── */
@@ -4620,14 +4630,31 @@ nav {
 .btn-outline::before { display: none !important; }
 
 .page-hero {
-  text-align: left !important;
+  text-align: center !important;
   padding: 140px 0 72px !important;
   border-bottom: 1px solid rgba(237,232,224,0.12) !important;
   background: #050505 !important;
 }
 .page-hero::before { display: none !important; }
-.page-hero h1 { text-align: left !important; max-width: 720px !important; }
-.page-hero p { text-align: left !important; margin: 0 !important; max-width: 480px !important; }
+.page-hero .container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+.page-hero h1 {
+  text-align: center !important;
+  max-width: 720px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.page-hero p {
+  text-align: center !important;
+  margin: 0 auto !important;
+  max-width: 480px !important;
+}
+.page-hero .section-label {
+  text-align: center !important;
+}
 
 .section-label {
   background: none !important;
@@ -4865,6 +4892,10 @@ h1, h2, h3, h4, h5, h6,
 }
 .page-hero .container {
   overflow: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
 }
 h2, .section-header h2, .cta-section h2 {
   font-size: clamp(1.75rem, 3.5vw, 2.75rem) !important;
