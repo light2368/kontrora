@@ -391,6 +391,42 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 (function () {
   if (localStorage.getItem('cookie_consent')) return;
 
+  if (!document.getElementById('cookie-banner-styles')) {
+    const style = document.createElement('style');
+    style.id = 'cookie-banner-styles';
+    style.textContent = `
+      .cookie-banner {
+        background: #FFFFFF !important;
+        border-top: 1px solid rgba(5, 5, 5, 0.12) !important;
+      }
+      .cookie-banner-text { color: #5C5852 !important; }
+      .cookie-banner-text a { color: #050505 !important; }
+      .cookie-banner-text a:hover { color: #3D3A36 !important; }
+      .cookie-btn-manage,
+      .cookie-btn-decline {
+        background: transparent !important;
+        color: #3D3A36 !important;
+        border: 1px solid rgba(5, 5, 5, 0.28) !important;
+      }
+      .cookie-btn-manage:hover,
+      .cookie-btn-decline:hover {
+        background: rgba(5, 5, 5, 0.06) !important;
+        color: #050505 !important;
+      }
+      .cookie-btn-accept {
+        background: #050505 !important;
+        color: #EDE8E0 !important;
+        border: 1px solid #050505 !important;
+      }
+      .cookie-btn-accept:hover {
+        background: #171717 !important;
+        border-color: #171717 !important;
+        color: #EDE8E0 !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   const banner = document.createElement('div');
   banner.className = 'cookie-banner';
   banner.innerHTML = `
