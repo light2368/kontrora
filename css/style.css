@@ -371,10 +371,10 @@ nav.scrolled::before { display: none; }
   color: var(--text-primary);
 }
 .nav-logo img {
-  height: auto;
+  height: 40px;
   width: auto;
-  max-height: 55px;
-  max-width: min(280px, 50vw);
+  max-height: 40px;
+  max-width: 100%;
   filter: none !important;
   transition: opacity 0.2s ease;
   transform: none !important;
@@ -4487,14 +4487,22 @@ nav.scrolled {
   justify-content: flex-start !important;
 }
 .nav-logo img {
-  height: auto !important;
+  height: 40px !important;
   width: auto !important;
-  max-height: 55px !important;
-  max-width: min(280px, 50vw) !important;
+  max-height: 40px !important;
+  max-width: 100% !important;
   filter: none !important;
   transform: none !important;
   object-fit: contain !important;
   object-position: left center !important;
+}
+
+/* Keep nav logo identical to footer logo size */
+@media (max-width: 600px) {
+  .nav-logo img {
+    height: 36px !important;
+    max-height: 36px !important;
+  }
 }
 nav {
   height: 84px !important;
