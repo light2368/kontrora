@@ -24,7 +24,7 @@
   "contact": {
     "email": "support@kontrora.com",
     "careers_email": "talents@kontrora.com",
-    "phone": "+1 (929) 612 9360",
+    "phone": "+1 (646) 272 0798",
     "address": "888 Broadway, Floor 4, New York, NY 10003, US",
     "response_time": "Typically within 1 business day"
   },
@@ -440,7 +440,7 @@
       "id": "contact",
       "keywords": ["contact", "email", "phone", "address", "reach", "support", "help"],
       "patterns": ["how to contact", "get in touch"],
-      "answer": "Reach us at <b>support@kontrora.com</b>, call <b>+1 (929) 612 9360</b>, or visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>. Office: <b>888 Broadway, Floor 4, New York, NY 10003</b>. We typically respond within 1 business day."
+      "answer": "Reach us at <b>support@kontrora.com</b>, call <b>+1 (646) 272 0798</b>, or visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>. Office: <b>888 Broadway, Floor 4, New York, NY 10003</b>. We typically respond within 1 business day."
     },
     {
       "id": "about",
