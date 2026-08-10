@@ -1,16 +1,16 @@
 {
-  "name": "Worklo PSA",
-  "short_name": "Worklo",
-  "description": "Worklo PSA — Professional Services Automation for agencies and consultancies.",
+  "name": "Kontrora PSA",
+  "short_name": "Kontrora",
+  "description": "Kontrora PSA — Professional Services Automation for agencies and consultancies.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#080b0f",
-  "theme_color": "#3B82F6",
+  "theme_color": "#050505",
   "icons": [
     {
-      "src": "/images/tab-logo.gif",
+      "src": "/images/tab-logo.png",
       "sizes": "192x192",
-      "type": "image/gif"
+      "type": "image/png"
     }
   ]
 }

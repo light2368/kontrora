@@ -7,7 +7,7 @@
 
 ## Architecture (summary)
 
-Worklo PSA is a **Next.js** web app (default dev port **3000**) that calls a separate **Express.js** REST API (default **4000**). The API uses **Supabase** for PostgreSQL, **Row Level Security**, and **Supabase Auth** (JWT + cookies). The Express server can host Next-style route handlers via an adapter so shared handler code works in both environments.
+Kontrora PSA is a **Next.js** web app (default dev port **3000**) that calls a separate **Express.js** REST API (default **4000**). The API uses **Supabase** for PostgreSQL, **Row Level Security**, and **Supabase Auth** (JWT + cookies). The Express server can host Next-style route handlers via an adapter so shared handler code works in both environments.
 
 ## Steps
 
@@ -68,7 +68,7 @@ SMTP_HOST=smtp.your-domain.com
 SMTP_PORT=587
 SMTP_USER=your-user
 SMTP_PASS=your-password
-SMTP_FROM=Worklo <noreply@Worklo.dev>
+SMTP_FROM=Kontrora <noreply@kontrora.com>
 ```
 
 ## Demo Mode

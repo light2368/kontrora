@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Static site server with chatbot learning endpoint.
 
-Serves the Worklo marketing site and accepts POST /api/chatbot-learn
+Serves the Kontrora marketing site and accepts POST /api/chatbot-learn
 so the chatbot can persist new Q&A pairs to data/chatbot-learned.json.
 
 Usage:
@@ -128,7 +128,7 @@ def main():
         save_learned([])
 
     server = ThreadingHTTPServer(("0.0.0.0", port), Handler)
-    print(f"Worklo server + chatbot learn API on http://127.0.0.1:{port}")
+    print(f"Kontrora server + chatbot learn API on http://127.0.0.1:{port}")
     print(f"Learning file: {LEARNED_PATH}")
     try:
         server.serve_forever()

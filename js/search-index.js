@@ -1,10 +1,10 @@
-// ── Worklo Site Search Index ──
-window.WORKLO_SEARCH_INDEX = [
+// ── Kontrora Site Search Index ──
+window.KONTRORA_SEARCH_INDEX = [
   {
     title: 'Home',
     url: '/',
-    snippet: 'Worklo — Professional services automation for the modern agency. Project management, time tracking, capacity planning, client portal.',
-    keywords: 'home worklo agency operations platform download'
+    snippet: 'Kontrora — Professional services automation for the modern agency. Project management, time tracking, capacity planning, client portal.',
+    keywords: 'home kontrora agency operations platform download'
   },
   {
     title: 'Features',
@@ -15,7 +15,7 @@ window.WORKLO_SEARCH_INDEX = [
   {
     title: 'Pricing',
     url: '/pricing',
-    snippet: 'Worklo is free and open source. Self-host it for free or use our cloud plan. No hidden fees, no vendor lock-in.',
+    snippet: 'Kontrora is free and open source. Self-host it for free or use our cloud plan. No hidden fees, no vendor lock-in.',
     keywords: 'pricing free open source self-host cloud plan cost'
   },
   {
@@ -27,50 +27,50 @@ window.WORKLO_SEARCH_INDEX = [
   {
     title: 'About',
     url: '/about',
-    snippet: 'Worklo was built by a student-run marketing agency. Our story, mission, values, team, and the tech stack behind the product.',
+    snippet: 'Kontrora was built by a student-run marketing agency. Our story, mission, values, team, and the tech stack behind the product.',
     keywords: 'about story mission team values origin history'
   },
   {
     title: 'Careers',
     url: '/careers',
-    snippet: 'Join the Worklo team. Open roles in engineering, design, product, and more. We are hiring.',
+    snippet: 'Join the Kontrora team. Open roles in engineering, design, product, and more. We are hiring.',
     keywords: 'careers jobs hiring roles engineer designer product manager'
   },
   {
     title: 'Contact',
     url: '/contact',
-    snippet: 'Get in touch with the Worklo team. Support, partnerships, press inquiries. Email us at support@worklo.org.',
+    snippet: 'Get in touch with the Kontrora team. Support, partnerships, press inquiries. Email us at support@kontrora.com.',
     keywords: 'contact support help email get in touch'
   },
   {
     title: 'Privacy Policy',
     url: '/privacy',
-    snippet: 'How Worklo collects, uses, and protects your information. GDPR compliant. Your data belongs to you.',
+    snippet: 'How Kontrora collects, uses, and protects your information. GDPR compliant. Your data belongs to you.',
     keywords: 'privacy policy data gdpr cookies personal information'
   },
   {
     title: 'Terms of Service',
     url: '/terms',
-    snippet: 'Terms and conditions for using Worklo. Usage policies, intellectual property, disclaimers.',
+    snippet: 'Terms and conditions for using Kontrora. Usage policies, intellectual property, disclaimers.',
     keywords: 'terms service conditions legal usage policy'
   },
   {
     title: 'Sign In',
-    url: 'https://app.worklo.org/',
-    snippet: 'Open the Worklo web app to sign in or create an account.',
+    url: 'https://app.kontrora.com/',
+    snippet: 'Open the Kontrora web app to sign in or create an account.',
     keywords: 'sign in login account register signup app'
   },
   {
     title: 'Profile',
     url: '/profile',
-    snippet: 'Manage your Worklo account. Update your name, change password, view account details.',
+    snippet: 'Manage your Kontrora account. Update your name, change password, view account details.',
     keywords: 'profile account settings password update'
   },
   {
     title: 'Capacity Planning',
     url: '/features',
     snippet: 'Real-time capacity planning so you can answer "can we take this?" in seconds. Availability calendar with leave and holiday support.',
-    keywords: 'capacity planning availability workload team bandwidth'
+    keywords: 'capacity planning availability <<<<<<KONTRORAAD_U>>>>>> team bandwidth'
   },
   {
     title: 'Time Tracking',
@@ -92,8 +92,8 @@ window.WORKLO_SEARCH_INDEX = [
   },
   {
     title: 'GitHub',
-    url: 'https://github.com/Worklo-Group',
-    snippet: 'Worklo is open source. View the source code, contribute, and report issues on GitHub.',
+    url: 'https://github.com/Kontrora-Group',
+    snippet: 'Kontrora is open source. View the source code, contribute, and report issues on GitHub.',
     keywords: 'github open source code repository contribute'
   }
 ];

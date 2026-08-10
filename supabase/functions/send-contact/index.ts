@@ -29,8 +29,8 @@ Deno.serve(async (req) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Worklo Contact <noreply@worklo.org>',
-          to: ['emir@worklo.org'],
+          from: 'Kontrora Contact <noreply@kontrora.com>',
+          to: ['emir@kontrora.com'],
           reply_to: email,
           subject: `Contact Form: ${subject} — ${first_name} ${last_name}`,
           html: `

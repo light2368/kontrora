@@ -1,4 +1,4 @@
-/* ── Worklo Chat Widget – Rich Animations ── */
+/* ── Kontrora Chat Widget – Rich Animations ── */
 (function(){
 var isOpen=false,view='home',messages=[],slideBack=false;
 
@@ -409,7 +409,7 @@ document.head.appendChild(styleEl);
 /* ── Knowledge base (loaded from JSON) + automatic study/learn ── */
 var kb=null;
 var kbReady=false;
-var LEARN_KEY='worklo-chatbot-learned-v1';
+var LEARN_KEY='kontrora-chatbot-learned-v1';
 
 function mergeLearned(list){
   if(!kb||!Array.isArray(list)||!list.length)return;
@@ -496,7 +496,7 @@ var kbPromise=Promise.all([
   kbReady=true;
   return kb;
 }).catch(function(){
-  kb={qa:[],faq:[],features:[],fallback:'For help, email <b>support@worklo.org</b> or visit <a href="/contact" style="color:#EDE8E0">/contact</a>.'};
+  kb={qa:[],faq:[],features:[],fallback:'For help, email <b>support@kontrora.com</b> or visit <a href="/contact" style="color:#EDE8E0">/contact</a>.'};
   mergeLearned(loadLocalLearned());
   kbReady=true;
   return kb;
@@ -505,7 +505,7 @@ var kbPromise=Promise.all([
 var STOP=new Set(['the','and','for','are','but','not','you','all','can','had','her','was','one','our','out','day','get','has','him','his','how','its','may','new','now','old','see','two','way','who','did','let','say','she','too','use','what','when','where','which','with','will','your','about','from','have','this','that','they','there','their','does','into','just','like','make','much','need','some','than','them','then','also','been','being','call','come','each','give','help','here','know','more','most','other','over','such','take','tell','very','want','well','work','would']);
 
 var quickReplies={
-  hello:'Hey! 👋 Welcome to Worklo Support. Ask me about features, pricing, getting started, or our product.',
+  hello:'Hey! 👋 Welcome to Kontrora Support. Ask me about features, pricing, getting started, or our product.',
   hi:'Hi there! 👋 How can I help you today?',
   hey:'Hey! What can I help you with?',
   thanks:'You\'re welcome! 😊 Anything else I can help with?',
@@ -605,7 +605,7 @@ function buildStudyPassages(){
   }
 
   if(kb.company){
-    add('About Worklo', [kb.company.full_name, kb.company.tagline, kb.company.description, kb.company.mission, kb.company.origin, kb.company.target_audience].filter(Boolean).join('. '), '/about');
+    add('About Kontrora', [kb.company.full_name, kb.company.tagline, kb.company.description, kb.company.mission, kb.company.origin, kb.company.target_audience].filter(Boolean).join('. '), '/about');
   }
   if(kb.product){
     add('Product', [kb.product.summary].concat(kb.product.value_props||[]).concat(kb.product.pain_points||[]).join('. '), '/features');
@@ -708,7 +708,7 @@ function findAnswer(text){
   }
 
   return {
-    answer:kb.fallback||'For help, email <b>support@worklo.org</b> or visit <a href="/contact" style="color:#EDE8E0">/contact</a>.',
+    answer:kb.fallback||'For help, email <b>support@kontrora.com</b> or visit <a href="/contact" style="color:#EDE8E0">/contact</a>.',
     learned:false,
     studied:false,
     shouldLearn:false
@@ -757,13 +757,13 @@ btn.innerHTML=
 var panel=document.createElement('div');
 panel.id='wl-panel';
 panel.setAttribute('role','dialog');
-panel.setAttribute('aria-label','Worklo support');
+panel.setAttribute('aria-label','Kontrora support');
 
 function hdr(){
   return '<div class="wl-hdr">'+
     '<div class="wl-hdr-l">'+
-      '<div class="wl-av">W</div>'+
-      '<div><div class="wl-hdr-name">Worklo Support</div><div class="wl-hdr-sub">Typically replies in minutes</div></div>'+
+      '<div class="wl-av">K</div>'+
+      '<div><div class="wl-hdr-name">Kontrora Support</div><div class="wl-hdr-sub">Typically replies in minutes</div></div>'+
     '</div>'+
     '<button class="wl-hdr-x" id="wl-x" aria-label="Close">'+
       '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'+
@@ -785,14 +785,14 @@ function renderHome(){
         '<div class="wl-cta-arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>'+
       '</div>'+
     '</div>'+
-    '<div class="wl-foot">Worklo Support</div>';
+    '<div class="wl-foot">Kontrora Support</div>';
 }
 
 function renderChat(){
   var msgsHtml=messages.length===0
-    ?'<div class="wl-msg bot"><div class="wl-mav">W</div><div class="wl-bbl">Hi! Ask me anything about Worklo — features, pricing, or getting started.</div></div>'
+    ?'<div class="wl-msg bot"><div class="wl-mav">K</div><div class="wl-bbl">Hi! Ask me anything about Kontrora — features, pricing, or getting started.</div></div>'
     :messages.map(function(m){
-      return '<div class="wl-msg '+m.role+'">'+(m.role==='bot'?'<div class="wl-mav">W</div>':'')+
+      return '<div class="wl-msg '+m.role+'">'+(m.role==='bot'?'<div class="wl-mav">K</div>':'')+
         '<div class="wl-bbl">'+m.text+'</div></div>';
     }).join('');
   return hdr()+
@@ -804,7 +804,7 @@ function renderChat(){
         '<button class="wl-send" id="wl-send" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>'+
       '</div>'+
     '</div>'+
-    '<div class="wl-foot">Worklo Support</div>';
+    '<div class="wl-foot">Kontrora Support</div>';
 }
 
 function scrollBottom(){var el=document.getElementById('wl-msgs');if(el)el.scrollTop=el.scrollHeight;}
@@ -823,7 +823,7 @@ function sendMsg(){
   if(msgs){
     var t=document.createElement('div');
     t.className='wl-msg bot wl-typing';t.id='wl-typing';
-    t.innerHTML='<div class="wl-mav">W</div><div class="wl-bbl"><span class="wl-dot"></span><span class="wl-dot"></span><span class="wl-dot"></span></div>';
+    t.innerHTML='<div class="wl-mav">K</div><div class="wl-bbl"><span class="wl-dot"></span><span class="wl-dot"></span><span class="wl-dot"></span></div>';
     msgs.appendChild(t);scrollBottom();
   }
   var delay=800+Math.random()*500;

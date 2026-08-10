@@ -2,13 +2,13 @@
   "meta": {
     "version": "1.0.0",
     "updated": "2026-08-06",
-    "source": "worklo.org marketing site and product docs"
+    "source": "kontrora.com marketing site and product docs"
   },
   "company": {
-    "name": "Worklo",
-    "full_name": "Worklo PSA",
+    "name": "Kontrora",
+    "full_name": "Kontrora PSA",
     "tagline": "One platform. Zero tool chaos.",
-    "description": "Worklo PSA is an open-source Professional Services Automation platform for agencies and consultancies. It runs projects, time tracking, capacity planning, workflows, and client visibility in one command center.",
+    "description": "Kontrora PSA is an open-source Professional Services Automation platform for agencies and consultancies. It runs projects, time tracking, capacity planning, workflows, and client visibility in one command center.",
     "target_audience": "Agencies and consultancies, especially teams of 5–50 who outgrew spreadsheets and multi-tool stacks.",
     "license": "MIT",
     "origin": "Built inside a student-run marketing agency managing 11 client accounts across 8 departments with 15+ members, tired of juggling Basecamp, Monday.com, Notion, MS Planner, and Slack.",
@@ -22,18 +22,18 @@
     ]
   },
   "contact": {
-    "email": "support@worklo.org",
-    "careers_email": "talents@worklo.org",
+    "email": "support@kontrora.com",
+    "careers_email": "talents@kontrora.com",
     "phone": "+1 (929) 612 9360",
     "address": "888 Broadway, Floor 4, New York, NY 10003, US",
     "response_time": "Typically within 1 business day"
   },
   "links": {
-    "website": "https://worklo.org",
-    "app": "https://app.worklo.org/",
-    "demo": "https://demo.worklo.org/",
-    "github": "https://github.com/Worklo-Group",
-    "linkedin": "https://www.linkedin.com/company/worklo-psa/",
+    "website": "https://kontrora.com",
+    "app": "https://app.kontrora.com/",
+    "demo": "https://demo.kontrora.com/",
+    "github": "https://github.com/Kontrora-Group",
+    "linkedin": "https://www.linkedin.com/company/kontrora/",
     "features": "/features",
     "pricing": "/pricing",
     "roadmap": "/roadmap",
@@ -60,7 +60,7 @@
     {
       "id": "capacity",
       "name": "Capacity Planning",
-      "keywords": ["capacity", "availability", "utilization", "workload", "bandwidth", "resource", "forecast", "leave", "holiday"],
+      "keywords": ["capacity", "availability", "utilization", "<<<<<<KONTRORAAD_U>>>>>>", "bandwidth", "resource", "forecast", "leave", "holiday"],
       "summary": "Real-time team availability before you commit to new work — by person, department, or org level.",
       "details": [
         "Proportional allocation across accounts",
@@ -167,7 +167,7 @@
         "name": "Managed",
         "price_annual": "$39/month, billed annually",
         "price_monthly": "$49/month",
-        "description": "We host and manage Worklo for you — updates, backups, and monitoring included.",
+        "description": "We host and manage Kontrora for you — updates, backups, and monitoring included.",
         "includes": [
           "Everything in Community",
           "Managed hosting and infrastructure",
@@ -285,19 +285,19 @@
   },
   "faq": [
     {
-      "question": "Is Worklo really free to self-host?",
+      "question": "Is Kontrora really free to self-host?",
       "keywords": ["free", "self-host", "self host", "community", "cost", "mit"],
-      "answer": "Yes. The <b>Community</b> plan is MIT licensed — you can self-host Worklo for free with no restrictions. You only pay for your own hosting (typically a <b>$5–20/month</b> VPS for small teams)."
+      "answer": "Yes. The <b>Community</b> plan is MIT licensed — you can self-host Kontrora for free with no restrictions. You only pay for your own hosting (typically a <b>$5–20/month</b> VPS for small teams)."
     },
     {
       "question": "How many users can I have?",
       "keywords": ["users", "seats", "team size", "limit", "per seat"],
-      "answer": "All plans support <b>unlimited users</b>. No per-seat charges. Worklo is built for teams of 5–50, but there's no hard limit."
+      "answer": "All plans support <b>unlimited users</b>. No per-seat charges. Kontrora is built for teams of 5–50, but there's no hard limit."
     },
     {
       "question": "What's included in the Managed plan?",
       "keywords": ["managed", "hosting", "cloud", "devops"],
-      "answer": "Managed includes hosting, automatic updates, daily backups, uptime monitoring, a custom domain, and priority email support — <b>Worklo without the DevOps</b>."
+      "answer": "Managed includes hosting, automatic updates, daily backups, uptime monitoring, a custom domain, and priority email support — <b>Kontrora without the DevOps</b>."
     },
     {
       "question": "Can I migrate from self-hosted to Managed?",
@@ -305,9 +305,9 @@
       "answer": "Yes. We provide migration assistance to move your data from a self-hosted instance to managed infrastructure with <b>zero downtime</b>."
     },
     {
-      "question": "What database does Worklo use?",
+      "question": "What database does Kontrora use?",
       "keywords": ["database", "postgres", "postgresql", "supabase", "db"],
-      "answer": "Worklo uses <b>Supabase (PostgreSQL)</b> with Row Level Security. Run it locally via Docker or connect to a hosted Supabase project."
+      "answer": "Kontrora uses <b>Supabase (PostgreSQL)</b> with Row Level Security. Run it locally via Docker or connect to a hosted Supabase project."
     },
     {
       "question": "Do you offer a trial for the Managed plan?",
@@ -317,16 +317,16 @@
   ],
   "qa": [
     {
-      "id": "what-is-worklo",
-      "keywords": ["what is worklo", "what is psa", "tell me about", "worklo psa", "platform", "product"],
-      "patterns": ["what is worklo", "what does worklo do", "tell me about worklo"],
-      "answer": "<b>Worklo PSA</b> is an open-source Professional Services Automation platform for agencies and consultancies. It unifies projects, time tracking, capacity planning, workflows, client portal, analytics, and RBAC in one system — so you stop juggling five tabs and a spreadsheet.<br><br>Explore <a href=\"/features\" style=\"color:#EDE8E0\">features</a> or try the <a href=\"https://demo.worklo.org/\" style=\"color:#EDE8E0\" target=\"_blank\">live demo</a>."
+      "id": "what-is-kontrora",
+      "keywords": ["what is kontrora", "what is psa", "tell me about", "kontrora psa", "platform", "product"],
+      "patterns": ["what is kontrora", "what does kontrora do", "tell me about kontrora"],
+      "answer": "<b>Kontrora PSA</b> is an open-source Professional Services Automation platform for agencies and consultancies. It unifies projects, time tracking, capacity planning, workflows, client portal, analytics, and RBAC in one system — so you stop juggling five tabs and a spreadsheet.<br><br>Explore <a href=\"/features\" style=\"color:#EDE8E0\">features</a> or try the <a href=\"https://demo.kontrora.com/\" style=\"color:#EDE8E0\" target=\"_blank\">live demo</a>."
     },
     {
       "id": "who-is-it-for",
       "keywords": ["who is", "for agencies", "consultancy", "target", "audience", "team size"],
-      "patterns": ["who is worklo for", "who should use"],
-      "answer": "Worklo is built for <b>agencies and consultancies</b>, especially teams of <b>5–50</b> who outgrew spreadsheets and multi-tool stacks like Monday.com, Notion, and Slack. There's no hard user limit on any plan."
+      "patterns": ["who is kontrora for", "who should use"],
+      "answer": "Kontrora is built for <b>agencies and consultancies</b>, especially teams of <b>5–50</b> who outgrew spreadsheets and multi-tool stacks like Monday.com, Notion, and Slack. There's no hard user limit on any plan."
     },
     {
       "id": "pricing-overview",
@@ -338,7 +338,7 @@
       "id": "free-self-host",
       "keywords": ["free", "open source", "opensource", "self host", "self-host", "community"],
       "patterns": ["is it free", "free to use"],
-      "answer": "Yes! Worklo is <b>open source (MIT license)</b> and <b>free to self-host</b> on your own infrastructure. The Community plan includes all core features and unlimited users. Typical VPS hosting costs <b>$5–20/month</b> for small teams."
+      "answer": "Yes! Kontrora is <b>open source (MIT license)</b> and <b>free to self-host</b> on your own infrastructure. The Community plan includes all core features and unlimited users. Typical VPS hosting costs <b>$5–20/month</b> for small teams."
     },
     {
       "id": "managed-pricing",
@@ -356,29 +356,29 @@
       "id": "unlimited-users",
       "keywords": ["unlimited", "per seat", "per-seat", "seats", "user limit"],
       "patterns": ["how many users", "per seat pricing"],
-      "answer": "All Worklo plans include <b>unlimited users</b> — no per-seat pricing. Worklo is optimized for teams of 5–50, but there's no hard cap."
+      "answer": "All Kontrora plans include <b>unlimited users</b> — no per-seat pricing. Kontrora is optimized for teams of 5–50, but there's no hard cap."
     },
     {
       "id": "get-started",
       "keywords": ["get started", "start", "sign up", "signup", "register", "download", "install"],
       "patterns": ["how do i start", "how to get started"],
-      "answer": "Three ways to get started:<br>1. <a href=\"https://app.worklo.org/\" style=\"color:#EDE8E0\">Start free trial</a> in the cloud app<br>2. Explore the <a href=\"https://demo.worklo.org/\" style=\"color:#EDE8E0\" target=\"_blank\">live demo</a><br>3. Self-host the open-source Community edition via <a href=\"https://github.com/Worklo-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>"
+      "answer": "Three ways to get started:<br>1. <a href=\"https://app.kontrora.com/\" style=\"color:#EDE8E0\">Start free trial</a> in the cloud app<br>2. Explore the <a href=\"https://demo.kontrora.com/\" style=\"color:#EDE8E0\" target=\"_blank\">live demo</a><br>3. Self-host the open-source Community edition via <a href=\"https://github.com/Kontrora-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>"
     },
     {
       "id": "demo",
       "keywords": ["demo", "live demo", "tour", "preview"],
       "patterns": ["see a demo", "request demo"],
-      "answer": "Explore the <a href=\"https://demo.worklo.org/\" style=\"color:#EDE8E0\" target=\"_blank\">live demo</a> anytime — no signup required. For a guided walkthrough, visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a> and select \"Request a demo\"."
+      "answer": "Explore the <a href=\"https://demo.kontrora.com/\" style=\"color:#EDE8E0\" target=\"_blank\">live demo</a> anytime — no signup required. For a guided walkthrough, visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a> and select \"Request a demo\"."
     },
     {
       "id": "trial",
       "keywords": ["trial", "try", "test"],
       "patterns": ["free trial"],
-      "answer": "Self-hosting is always free — no trial needed. For the <b>Managed</b> cloud plan, we offer a <b>14-day free trial</b>. Start a cloud trial at <a href=\"https://app.worklo.org/\" style=\"color:#EDE8E0\">app.worklo.org</a> or contact us at <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>."
+      "answer": "Self-hosting is always free — no trial needed. For the <b>Managed</b> cloud plan, we offer a <b>14-day free trial</b>. Start a cloud trial at <a href=\"https://app.kontrora.com/\" style=\"color:#EDE8E0\">app.kontrora.com</a> or contact us at <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>."
     },
     {
       "id": "capacity",
-      "keywords": ["capacity", "availability", "utilization", "workload", "bandwidth", "can we take"],
+      "keywords": ["capacity", "availability", "utilization", "<<<<<<KONTRORAAD_U>>>>>>", "bandwidth", "can we take"],
       "patterns": ["capacity planning", "do we have capacity"],
       "answer": "<b>Capacity Planning</b> gives real-time visibility into every team member's availability before you commit to new work — by person, department, or org level. Includes proportional allocation, forecasting, and a leave/holiday calendar. See <a href=\"/features\" style=\"color:#EDE8E0\">/features</a>."
     },
@@ -398,7 +398,7 @@
       "id": "kanban-gantt",
       "keywords": ["kanban", "gantt", "table view", "task", "board", "dependency"],
       "patterns": ["task management", "project views"],
-      "answer": "Worklo supports <b>Kanban boards</b> (drag-and-drop), <b>Gantt charts</b> (dependencies + critical path), <b>Table views</b> (bulk updates), and <b>Workflow views</b> — all switchable instantly on the same project."
+      "answer": "Kontrora supports <b>Kanban boards</b> (drag-and-drop), <b>Gantt charts</b> (dependencies + critical path), <b>Table views</b> (bulk updates), and <b>Workflow views</b> — all switchable instantly on the same project."
     },
     {
       "id": "client-portal",
@@ -415,38 +415,38 @@
     {
       "id": "tech-stack",
       "keywords": ["tech stack", "technology", "nextjs", "next.js", "typescript", "supabase", "docker", "stack"],
-      "patterns": ["built with", "what is worklo built"],
-      "answer": "Worklo is built on <b>Next.js 15</b>, <b>TypeScript</b>, <b>Express.js</b> (API on port 4000), <b>Supabase (PostgreSQL + RLS)</b>, Tailwind CSS 4, shadcn/ui, Zod, Recharts, and Docker. Requires Node.js 18+."
+      "patterns": ["built with", "what is kontrora built"],
+      "answer": "Kontrora is built on <b>Next.js 15</b>, <b>TypeScript</b>, <b>Express.js</b> (API on port 4000), <b>Supabase (PostgreSQL + RLS)</b>, Tailwind CSS 4, shadcn/ui, Zod, Recharts, and Docker. Requires Node.js 18+."
     },
     {
       "id": "database",
       "keywords": ["database", "postgres", "postgresql", "supabase", "db"],
       "patterns": ["what database"],
-      "answer": "Worklo uses <b>Supabase (PostgreSQL)</b> with Row Level Security enforced at the database level. You can run Supabase locally via Docker or connect to a hosted Supabase project."
+      "answer": "Kontrora uses <b>Supabase (PostgreSQL)</b> with Row Level Security enforced at the database level. You can run Supabase locally via Docker or connect to a hosted Supabase project."
     },
     {
       "id": "deploy",
       "keywords": ["deploy", "deployment", "docker", "self host", "self-host", "install", "setup", "host"],
       "patterns": ["how to deploy", "how to install", "how to self-host"],
-      "answer": "Deploy Worklo via <b>Docker Compose</b> on any Linux VPS, cloud provider (AWS, GCP, Azure, DigitalOcean, Hetzner), or on-premise hardware. Configure Supabase, run the Express API (port 4000) and Next.js frontend (port 3000), then complete onboarding. Source code: <a href=\"https://github.com/Worklo-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>."
+      "answer": "Deploy Kontrora via <b>Docker Compose</b> on any Linux VPS, cloud provider (AWS, GCP, Azure, DigitalOcean, Hetzner), or on-premise hardware. Configure Supabase, run the Express API (port 4000) and Next.js frontend (port 3000), then complete onboarding. Source code: <a href=\"https://github.com/Kontrora-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>."
     },
     {
       "id": "open-source",
       "keywords": ["open source", "opensource", "github", "source code", "fork", "mit"],
-      "patterns": ["is worklo open source"],
-      "answer": "Yes — Worklo is <b>fully open source</b> under the <b>MIT license</b>. View, fork, and modify the code on <a href=\"https://github.com/Worklo-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>. No vendor lock-in."
+      "patterns": ["is kontrora open source"],
+      "answer": "Yes — Kontrora is <b>fully open source</b> under the <b>MIT license</b>. View, fork, and modify the code on <a href=\"https://github.com/Kontrora-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>. No vendor lock-in."
     },
     {
       "id": "contact",
       "keywords": ["contact", "email", "phone", "address", "reach", "support", "help"],
       "patterns": ["how to contact", "get in touch"],
-      "answer": "Reach us at <b>support@worklo.org</b>, call <b>+1 (929) 612 9360</b>, or visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>. Office: <b>888 Broadway, Floor 4, New York, NY 10003</b>. We typically respond within 1 business day."
+      "answer": "Reach us at <b>support@kontrora.com</b>, call <b>+1 (929) 612 9360</b>, or visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>. Office: <b>888 Broadway, Floor 4, New York, NY 10003</b>. We typically respond within 1 business day."
     },
     {
       "id": "about",
       "keywords": ["about", "story", "mission", "team", "origin", "history", "who built"],
-      "patterns": ["tell me about the company", "who made worklo"],
-      "answer": "Worklo was built inside a student-run marketing agency managing 11 clients across 8 departments. The team was tired of juggling Basecamp, Monday.com, Notion, MS Planner, and Slack — so they built one platform to answer \"Do we have capacity for this?\" in seconds. Learn more at <a href=\"/about\" style=\"color:#EDE8E0\">/about</a>."
+      "patterns": ["tell me about the company", "who made kontrora"],
+      "answer": "Kontrora was built inside a student-run marketing agency managing 11 clients across 8 departments. The team was tired of juggling Basecamp, Monday.com, Notion, MS Planner, and Slack — so they built one platform to answer \"Do we have capacity for this?\" in seconds. Learn more at <a href=\"/about\" style=\"color:#EDE8E0\">/about</a>."
     },
     {
       "id": "roadmap",
@@ -464,7 +464,7 @@
       "id": "bug-report",
       "keywords": ["bug", "issue", "report", "broken", "error"],
       "patterns": ["report a bug", "found a bug"],
-      "answer": "Report bugs by emailing <b>support@worklo.org</b> or opening an issue on <a href=\"https://github.com/Worklo-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>."
+      "answer": "Report bugs by emailing <b>support@kontrora.com</b> or opening an issue on <a href=\"https://github.com/Kontrora-Group\" style=\"color:#EDE8E0\" target=\"_blank\">GitHub</a>."
     },
     {
       "id": "migrate",
@@ -476,8 +476,8 @@
       "id": "features-list",
       "keywords": ["features", "what can", "capabilities", "functionality"],
       "patterns": ["what features", "list features"],
-      "answer": "Worklo includes:<br>• <b>Capacity Planning</b> — real-time availability<br>• <b>Time Tracking</b> — clock in/out + analytics<br>• <b>Workflow Automation</b> — visual SOPs with audit trail<br>• <b>Task Management</b> — Kanban, Gantt, Table, Workflow views<br>• <b>Client Portal</b> — branded client visibility<br>• <b>RBAC + RLS</b> — ~40 permissions, database-enforced security<br><br>See <a href=\"/features\" style=\"color:#EDE8E0\">/features</a> for details."
+      "answer": "Kontrora includes:<br>• <b>Capacity Planning</b> — real-time availability<br>• <b>Time Tracking</b> — clock in/out + analytics<br>• <b>Workflow Automation</b> — visual SOPs with audit trail<br>• <b>Task Management</b> — Kanban, Gantt, Table, Workflow views<br>• <b>Client Portal</b> — branded client visibility<br>• <b>RBAC + RLS</b> — ~40 permissions, database-enforced security<br><br>See <a href=\"/features\" style=\"color:#EDE8E0\">/features</a> for details."
     }
   ],
-  "fallback": "I'm not sure about that specific question. Try asking about <b>features</b>, <b>pricing</b>, <b>getting started</b>, or <b>contact</b>. For detailed help, email <b>support@worklo.org</b> or visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>."
+  "fallback": "I'm not sure about that specific question. Try asking about <b>features</b>, <b>pricing</b>, <b>getting started</b>, or <b>contact</b>. For detailed help, email <b>support@kontrora.com</b> or visit <a href=\"/contact\" style=\"color:#EDE8E0\">/contact</a>."
 }

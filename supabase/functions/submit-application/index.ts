@@ -51,8 +51,8 @@ Deno.serve(async (req) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Worklo Careers <noreply@worklo.org>',
-          to: ['talents@worklo.org'],
+          from: 'Kontrora Careers <noreply@kontrora.com>',
+          to: ['talents@kontrora.com'],
           subject: `New Application: ${job_title} — ${first_name} ${last_name}`,
           html: `
             <h2 style="font-family:sans-serif;">New Job Application</h2>

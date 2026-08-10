@@ -54,7 +54,7 @@ document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
 
 // ── Live Demo nav link (inject if missing) ──
 (function () {
-  var DEMO_URL = 'https://demo.worklo.org/';
+  var DEMO_URL = 'https://demo.kontrora.com/';
 
   // Desktop nav
   var navLinks = document.querySelector('.nav-links');
@@ -162,7 +162,7 @@ document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe
 
 // ── All Download Dropdowns ──
 (function () {
-  var START_TRIAL_URL = 'https://app.worklo.org/';
+  var START_TRIAL_URL = 'https://app.kontrora.com/';
 
   // If any legacy "download" CTA exists, clicking should go to Start Free Trial.
   function wireStartTrialClick(selector) {

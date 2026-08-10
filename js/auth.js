@@ -1,14 +1,14 @@
-// ── Worklo Auth – runs on every page ──
+// ── Kontrora Auth – runs on every page ──
 (function () {
   const SUPABASE_URL = 'https://swvpmoffserpatwxuxsl.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnBtb2Zmc2VycGF0d3h1eHNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDAwMDgsImV4cCI6MjA5MTc3NjAwOH0.rAiHFcYbRY_ZjCVHN67YXyOY9Zs7_B1bUkRrOSoVfIY';
-  const APP_URL = 'https://app.worklo.org/';
+  const APP_URL = 'https://app.kontrora.com/';
   const START_TRIAL_URL = APP_URL;
 
-  if (!window._workloSb) {
-    window._workloSb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  if (!window._kontroraSb) {
+    window._kontroraSb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   }
-  const sb = window._workloSb;
+  const sb = window._kontroraSb;
   const currentPath = window.location.pathname;
 
   sb.auth.getSession().then(({ data: { session } }) => { renderNav(session); });
@@ -115,7 +115,7 @@
   ];
 
   function getCurrentLang() {
-    return localStorage.getItem('worklo_lang') || 'en';
+    return localStorage.getItem('kontrora_lang') || 'en';
   }
 
   // ── Country → language map ──
@@ -140,7 +140,7 @@
   // ── Auto-detect language from IP on first visit ──
   function autoDetectLang() {
     // Only run if user hasn't manually chosen a language
-    if (localStorage.getItem('worklo_lang')) return Promise.resolve();
+    if (localStorage.getItem('kontrora_lang')) return Promise.resolve();
 
     return fetch('https://ipapi.co/json/', { cache: 'force-cache' })
       .then(r => r.json())
@@ -148,7 +148,7 @@
         const country = (data && data.country_code) ? data.country_code.toUpperCase() : '';
         const detectedLang = COUNTRY_LANG_MAP[country] || 'en';
         if (detectedLang !== 'en') {
-          localStorage.setItem('worklo_lang', detectedLang);
+          localStorage.setItem('kontrora_lang', detectedLang);
         }
       })
       .catch(() => { /* silently fail — default to English */ });
@@ -224,7 +224,7 @@
     langDropdown.querySelectorAll('.nav-lang-option').forEach(btn => {
       btn.addEventListener('click', () => {
         const code = btn.dataset.lang;
-        localStorage.setItem('worklo_lang', code);
+        localStorage.setItem('kontrora_lang', code);
         const selected = LANGS.find(l => l.code === code);
         document.getElementById('nav-lang-btn').innerHTML = `
           <span class="nav-lang-flag">${selected.flag}</span>
@@ -362,7 +362,7 @@
       <div class="search-box">
         <div class="search-input-wrap">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="search-input" id="search-input" placeholder="Search Worklo..." autocomplete="off" spellcheck="false" />
+          <input class="search-input" id="search-input" placeholder="Search Kontrora..." autocomplete="off" spellcheck="false" />
           <button class="search-close" id="search-close">ESC</button>
         </div>
         <div class="search-results" id="search-results">
@@ -408,7 +408,7 @@
       return;
     }
 
-    const index = window.WORKLO_SEARCH_INDEX || [];
+    const index = window.KONTRORA_SEARCH_INDEX || [];
     const matches = index.filter(item =>
       item.title.toLowerCase().includes(q) ||
       item.snippet.toLowerCase().includes(q) ||
