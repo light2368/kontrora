@@ -874,18 +874,6 @@
       </div>
       <div class="job-card fade-up">
         <div>
-          <div class="job-title">Web3 Engineer</div>
-          <div class="job-meta">
-            <span class="job-tag remote">Remote</span>
-            <span class="job-tag">Full-time</span>
-            <span class="job-tag">Ethers.js · WalletConnect · Polygon</span>
-          </div>
-          <div class="job-budget">$80,000 &ndash; $100,000</div>
-        </div>
-        <button class="btn btn-outline" style="flex-shrink:0;" onclick="goToJob('web3')">Apply</button>
-      </div>
-      <div class="job-card fade-up">
-        <div>
           <div class="job-title">Smart Contract Developer</div>
           <div class="job-meta">
             <span class="job-tag remote">Remote</span>
@@ -1308,38 +1296,6 @@ var jobs={
       'Experience building real-time dashboards with websocket or SSE-based data streams',
       'Background in agency operations or professional services metrics',
       'Experience with BI tools (Metabase, Redash, Grafana)'
-    ]
-  },
-  web3:{
-    title:'Web3 Engineer',
-    type:'Full-time · Remote',
-    salary:'$80,000 – $100,000',
-    dept:'Engineering',
-    about:'Kontrora is building the integration layer between its PSA platform and the blockchain network — wallet connectivity, on-chain transaction verification, user-facing payment dashboards, and the frontend experience for the crypto salary distribution system. You will own the client-side Web3 stack: wallet connection with MetaMask and WalletConnect, reading on-chain data via ethers.js or viem, and building the React components that make blockchain interactions feel as smooth as any other part of the product. You will also work on the backend integration layer that bridges Kontrora\'s Supabase database with the blockchain network — syncing on-chain events, tracking payout statuses, and exposing clean API endpoints.',
-    responsibilities:[
-      'Implement wallet connection flows in React using ethers.js or viem — MetaMask, WalletConnect, Coinbase Wallet — with graceful fallbacks and clear user messaging for unsupported states',
-      'Build the user-facing wallet registry: allowing team members to link their wallet address to their Kontrora profile, verify ownership via message signing, and manage multiple wallets',
-      'Implement the payment history dashboard: querying on-chain transaction records, displaying payout amounts, dates, transaction hashes, and verification links to block explorers',
-      'Build backend API endpoints in Express.js that sync on-chain events back into Supabase — keeping the database in sync with blockchain state',
-      'Implement blockchain event listeners using ethers.js provider subscriptions or webhook-based services (Alchemy, QuickNode) to detect completed payouts',
-      'Handle ERC-20 token operations: reading balances, decoding Transfer events, formatting stablecoin amounts (USDC, USDT) with correct decimal handling',
-      'Build robust error handling for Web3 interactions — transaction failures, gas estimation errors, wallet rejections, network switches',
-      'Implement network detection and chain switching: ensuring users are on the correct network (Polygon) before initiating transactions'
-    ],
-    requirements:[
-      '3+ years of web development experience with at least 2 years of hands-on Web3/dApp development',
-      'Strong ethers.js v6 or viem skills — you can read contracts, decode events, and estimate gas',
-      'Experience integrating MetaMask, WalletConnect, and/or RainbowKit into production React applications',
-      'Solid TypeScript and React skills — you can build complex state machines for multi-step Web3 flows',
-      'Understanding of EVM concepts: accounts, transactions, gas, events, ABIs, and contract interfaces',
-      'Experience working with ERC-20 tokens and stablecoins in production'
-    ],
-    nice:[
-      'Experience with wagmi or RainbowKit for wallet management',
-      'Familiarity with Polygon network specifics — gas tokens, bridge operations, block times',
-      'Experience with Alchemy, QuickNode, or Infura for reliable RPC access and event webhooks',
-      'Understanding of The Graph or Moralis for efficient on-chain data indexing',
-      'Experience building payment or payroll-related Web3 applications'
     ]
   },
   smartcontract:{
