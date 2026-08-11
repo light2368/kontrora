@@ -30,7 +30,7 @@ Deno.serve(async (req) => {
         },
         body: JSON.stringify({
           from: 'Kontrora Contact <noreply@kontrora.com>',
-          to: ['emir@kontrora.com'],
+          to: ['support@kontrora.com'],
           reply_to: email,
           subject: `Contact Form: ${subject} — ${first_name} ${last_name}`,
           html: `
