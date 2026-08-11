@@ -1108,8 +1108,8 @@
 </div>
 
 <script>
-var SUPABASE_URL = 'https://swvpmoffserpatwxuxsl.supabase.co';
-var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3dnBtb2Zmc2VycGF0d3h1eHNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDAwMDgsImV4cCI6MjA5MTc3NjAwOH0.rAiHFcYbRY_ZjCVHN67YXyOY9Zs7_B1bUkRrOSoVfIY';
+var SUPABASE_URL = 'https://smmwvvimcbfqrtgwcyzw.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtbXd2dmltY2JmcXJ0Z3djeXp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY0MjUzOTYsImV4cCI6MjEwMjAwMTM5Nn0.HsTFzGMINEnsBjl8kIra1USjikguxbAJfdVcLKyo7G4';
 
 var jobs={
   fullstack:{
@@ -1459,7 +1459,7 @@ function closeJobPage() {
 
 function openApplyPage() {
   var j = jobs[currentJobId];
-  var isBlockchain = currentJobId === 'blockchain';
+  var isBlockchain = currentJobId === 'smartcontract' || currentJobId === 'nextrust';
 
   // Blockchain-only extra fields
   var blockchainFields = isBlockchain ? (
