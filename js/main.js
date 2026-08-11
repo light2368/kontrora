@@ -452,3 +452,113 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   document.getElementById('cookie-decline').addEventListener('click', () => dismiss('declined'));
   document.getElementById('cookie-manage').addEventListener('click', () => dismiss('managed'));
 })();
+
+// ── Contact forms (footer + /contact page) → send-contact edge function ──
+(function () {
+  var SUPABASE_URL = 'https://smmwvvimcbfqrtgwcyzw.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtbXd2dmltY2JmcXJ0Z3djeXp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY0MjUzOTYsImV4cCI6MjEwMjAwMTM5Nn0.HsTFzGMINEnsBjl8kIra1USjikguxbAJfdVcLKyo7G4';
+  var ENDPOINT = SUPABASE_URL + '/functions/v1/send-contact';
+
+  function sendContact(payload, btn) {
+    var original = btn ? btn.textContent : '';
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+    }
+    return fetch(ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY
+      },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      return r.text().then(function (text) {
+        var data = {};
+        if (text) {
+          try { data = JSON.parse(text); } catch (e) {
+            if (!r.ok) throw new Error(text.slice(0, 200) || (r.status + ' ' + r.statusText));
+            throw new Error('Unexpected response from server.');
+          }
+        }
+        if (!r.ok) throw new Error((data && (data.error || data.message)) || ('Request failed (' + r.status + ')'));
+        return data;
+      });
+    }).finally(function () {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    });
+  }
+
+  // Contact page form (#contact-form)
+  var contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (typeof contactForm.checkValidity === 'function' && !contactForm.checkValidity()) {
+        if (typeof contactForm.reportValidity === 'function') contactForm.reportValidity();
+        return;
+      }
+      var btn = contactForm.querySelector('[type="submit"]');
+      var first = (document.getElementById('first-name') || {}).value || '';
+      var last = (document.getElementById('last-name') || {}).value || '';
+      var email = (document.getElementById('email') || {}).value || '';
+      var company = (document.getElementById('company') || {}).value || '';
+      var subject = (document.getElementById('subject') || {}).value || '';
+      var message = (document.getElementById('message') || {}).value || '';
+
+      sendContact({
+        first_name: first.trim(),
+        last_name: last.trim(),
+        email: email.trim(),
+        company: company.trim(),
+        subject: subject,
+        message: message.trim()
+      }, btn).then(function () {
+        var success = document.getElementById('success-msg');
+        if (success) success.classList.add('show');
+        contactForm.reset();
+      }).catch(function (err) {
+        alert('Could not send message: ' + (err && err.message ? err.message : 'Unknown error') +
+          '\n\nPlease email contact@kontrora.com directly.');
+      });
+    });
+  }
+
+  // Footer forms (#fn-contact-form) — may appear on multiple pages
+  document.querySelectorAll('#fn-contact-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+        if (typeof form.reportValidity === 'function') form.reportValidity();
+        return;
+      }
+      var btn = form.querySelector('[type="submit"]');
+      var name = (form.querySelector('[name="name"]') || {}).value || '';
+      var email = (form.querySelector('[name="email"]') || {}).value || '';
+      var subject = (form.querySelector('[name="subject"]') || {}).value || '';
+      var message = (form.querySelector('[name="message"]') || {}).value || '';
+      var parts = name.trim().split(/\s+/);
+      var first = parts[0] || name.trim() || 'Visitor';
+      var last = parts.slice(1).join(' ') || '';
+
+      sendContact({
+        first_name: first,
+        last_name: last,
+        email: email.trim(),
+        company: '',
+        subject: subject || 'other',
+        message: message.trim()
+      }, btn).then(function () {
+        form.reset();
+        alert('Message sent! We\'ll get back to you within one business day.');
+      }).catch(function (err) {
+        alert('Could not send message: ' + (err && err.message ? err.message : 'Unknown error') +
+          '\n\nPlease email contact@kontrora.com directly.');
+      });
+    });
+  });
+})();

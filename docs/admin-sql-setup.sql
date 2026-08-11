@@ -86,3 +86,20 @@ CREATE TABLE IF NOT EXISTS public.contact_messages (
 
 ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Service role contact access" ON public.contact_messages USING (true) WITH CHECK (true);
+
+-- Resumes storage bucket (careers page uploads)
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('resumes', 'resumes', true)
+ON CONFLICT (id) DO UPDATE SET public = true;
+
+-- Allow anonymous uploads from the careers page (anon key)
+CREATE POLICY "Allow anon upload resumes"
+ON storage.objects FOR INSERT
+TO anon
+WITH CHECK (bucket_id = 'resumes');
+
+-- Allow public read (resume links in notification emails)
+CREATE POLICY "Allow public read resumes"
+ON storage.objects FOR SELECT
+TO public
+USING (bucket_id = 'resumes');
