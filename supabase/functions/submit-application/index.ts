@@ -83,7 +83,7 @@ Deno.serve(async (req) => {
               ${row('Compensation Expectation', compensation)}
             </table>
           `
-        })
+        }) 
       })
     }
 
